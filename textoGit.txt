@@ -1,2 +1,3 @@
 hola esto es texto para dentro de txt balalalalalalal
 esto es otra linea 
+un p sigue siendo un p 
