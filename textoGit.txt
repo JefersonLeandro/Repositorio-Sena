@@ -1,4 +1,5 @@
 hola esto es texto para dentro de txt balalalalalalal
 esto es otra linea 
-un p sigue siendo un p 
-un h1 sigue siendo un h1
+Frases nuevas
+1. la vida es frustante pero gozante
+2. la cortina fue hecha para tapar las ventanas
