@@ -31,7 +31,7 @@ p{
 body{
 
     height: 90vh;
-    font-family: fantasy;
+    font-family: monospace;
     text-align: center;
     display: flex;
     align-items: center;
