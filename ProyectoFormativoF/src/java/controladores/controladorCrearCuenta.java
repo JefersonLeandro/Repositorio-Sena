@@ -73,69 +73,6 @@ public class controladorCrearCuenta extends HttpServlet {
 //    Correo{
        
             try {
-                
-                //nota los names de los input y al momentos de enviar los datos en ajax deben ser iguales 
-                //verificar si el correo ya esta registrado en la base de datos 
-                // el varificacion del correo si o si debe entrar o enviar el correo sin importar si esta o no esta para poder dar la respuesta 
-                
-               
-                
-                
-          
-                
-            String elCorreo = request.getParameter("fCorreoPersona");
-            
-            
-            System.out.println(elCorreo+" este el correo de primeras");
-
-            System.out.println("el correoooooooooooooooooooooooooo es : " + elCorreo );
-            String consulta = " SELECT COUNT(*) as miAliasCount From Persona WHERE correoPersona = ? ;"; // el as count se utiliza para que a la hora de aceder al resultado sea mas legible o para poderlo manipular como un identificador un alias en en si 
-
-            PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
-            sql.setString(1, elCorreo);
-
-
-            ResultSet elResultado =  sql.executeQuery();
-            
-//                System.out.println("el resultado bd "+elResultado);
-           
-            if (elResultado.next()) {
-                
-                
-                int count = elResultado.getInt("miAliasCount");// accedemos y guardamos el valor en una variable 
-                
-                
-                System.out.println(count+" -- resultado bd de count  ");
-                if (count > 0) {
-                    // El correo ya está registrado
-                 
-                    String mensaje = "true";
-                 // Establece el tipo de contenido de la respuesta
-                    response.setContentType("text/plain");
-
-                 // Escribe el mensaje en la respuesta
-                     response.getWriter().write(mensaje);
-                     
-                               System.out.println(mensaje+"en texto plano");
-
-                    
-                } else {
-                    
-
-                    
-                    // El correo no esta registrado 
-                    String mensaje = "false";
-                    
-                    // Establece el tipo de contenido de la respuesta
-                    response.setContentType("text/plain");
-
-                    // Escribe el mensaje en la respuesta
-                    response.getWriter().write(mensaje);
-                    
-                  
-                    
-                    System.out.println(mensaje+"en texto plano");
-                
     
                     //Capturar los datos 
                     
@@ -159,19 +96,12 @@ public class controladorCrearCuenta extends HttpServlet {
                     
                     
                     // se envian los datos a otra vista teniendo en cuenta que se le pasa los objetos  request y reponse para trabajar al mismo nivel de aqui y alla 
-                    insertarDatos(request,response, nombrePersona, apellidoPersona, identificacionPersona, elCorreo, telefonoPersona, contrasenaPersona);
+                    insertarDatos(request,response, nombrePersona, apellidoPersona, identificacionPersona, correoPersona, telefonoPersona, contrasenaPersona);
 //                    response.sendRedirect(request.getContextPath() + "/WEB-INF/Registro.jsp");
-                      request.getRequestDispatcher("WEB-INF/Registro.jsp").forward(request, response);
+                    request.getRequestDispatcher("WEB-INF/Registro.jsp").forward(request, response);
 
 //                    System.out.println("llegue direccionamiento");
-                }
-                
-                
-            }else {
-              // no se encontraron resultados
-                System.out.println("No se encontraron resultados al verificar el correo");
-         
-            }
+          
             
         } catch (Exception error) {
             
@@ -188,14 +118,9 @@ public class controladorCrearCuenta extends HttpServlet {
     
     
     protected void insertarDatos(HttpServletRequest request, HttpServletResponse response, String nombreP , String apellidoP, String identificacionP, String correoP,  String telefonoP, String contrasenaP) throws ServletException, IOException{
-                
+               
         
-//      request.getRequestDispatcher("WEB-INF/Registro.jsp").forward(request, response);
-                
-                
-                
-                
-                System.out.println("DATOS EN LA NUEVA FUNCION");
+        System.out.println("DATOS EN LA NUEVA FUNCION");
                 System.out.println(nombreP);
                 System.out.println(apellidoP);
                 System.out.println(identificacionP);
@@ -219,7 +144,9 @@ public class controladorCrearCuenta extends HttpServlet {
 //            
             
              // nose hace CASTIM YA QUE LA MAYORIA SON String y lo que son int se pasa directamente  ----
-                Persona unaPersona = null;
+                
+             
+             Persona unaPersona = null;
                 
                 try {
                   
@@ -235,25 +162,6 @@ public class controladorCrearCuenta extends HttpServlet {
                     unaPersona.setIdTipoPersona(1);
 
                     unaPersona.insertar();//se hace asi ya que solamente es una opcion que seria insertar 
-                    
-              
-                    
-//                    response.sendRedirect("Registro.jsp");
-//                    request.getRequestDispatcher("WEB-INF/Registro.jsp").forward(request, response);//redireccionamiento al registro despues de enviar los datos tambien se le puede mandar una variale con un mensaje
-//                    response.sendRedirect(request.getContextPath() + "/WEB-INF/Registro.jsp");
-                
-                    try {
-                        
-                        System.out.println("llegue al direccionamiento dentro de la otra funcion ");
-//                        ("WEB-INF/Registro.jsp").forward(request, response);//redireccionamiento al registro despues de enviar los datos tambien se le puede mandar una variale con un mensaje
-
-                        
-                    } catch (Exception error) {
-                        
-                        System.err.println(" error al hacer el direccionamiento "+error);
-                    }
-                    
-
 
                 } catch (Exception error) {
 

@@ -205,7 +205,7 @@ public class Persona {
         
         try {
             
-            System.out.println("####Datos en la funcion Insertar##");
+            System.out.println("--DATOS EN FUNCION INSERTAR--");
             
             System.out.println(this.getNombrePersona());
             System.out.println(this.getApellidoPersona());
@@ -215,12 +215,11 @@ public class Persona {
             System.out.println(this.getContrasenaPersona());
             
             
-            // este insert es para la vista de crear cuenta , agregar la logica para las dos vistas
+            // este insert es para la vista de crear cuenta, agregar la logica para las dos vistas
             String consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?,?,?,?,1)";
             PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
             
             //cambio
-            
              sql.setString(1, this.getNombrePersona());
              sql.setString(2, this.getApellidoPersona());
              sql.setString(3, this.getIdentificacionPersona());
