@@ -77,24 +77,6 @@
 
     </main>
     
-    <form action="NewServlet" method="post">
-            
-            <label>nombre</label>
-            <input type="type" name="name">
-            
-            <label>apellido</label>
-            <input type="type" name="name">
-            
-            <button>
-                    
-                enviar
-                
-            </button>
-            
-        </form>
-        
-   
-    
 </body>
 
     <script>

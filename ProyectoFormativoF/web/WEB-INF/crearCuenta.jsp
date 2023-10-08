@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="Public/Estilos/style.css">
     <link rel="icon" href="data:;base64,iVBORw0KGgo="> 
     <script src="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
-    <script src="Public/Jquery/jquery-3.7.1.min.js"></script>
+<!--    <script src="Public/Jquery/jquery-3.7.1.min.js"></script>-->
 </head>
 
 
@@ -21,7 +21,7 @@
         <div id="divContainer2">
             <div id="divFormulario2">
 
-                <form class="formulario" action="controladorCrearCuenta" method="post" id="miFormulario">
+                <form class="formulario" action="controladorCrearCuenta" method="post" id="miFormulario" onclick="cambiarColor();">
                     <div id="tituloForm">
                         <div id="iconoForm">
                             <!--el mismo error de la imagen-->
@@ -55,7 +55,7 @@
                                         <label for="cajaInps">Nombre</label>
                                     </div>
                                     <!--<input type="hidden" name="fIdPersona" value="0"> es inesesario enviar este dato al controlador ya que va en auto Incremento--> 
-                                    <input type="text" name="fNombrePersona" placeholder="Sus nombres" class="divAB nombreC" id="nombreP" onclick="cambiarColor();"  required>
+                                    <input type="text" name="fNombrePersona" placeholder="Sus nombres" class="divAB nombreC" id="nombreP"   required>
                                 </div>
 
                                 <div class="cajaInps">
@@ -63,7 +63,7 @@
                                         <label for="cajaInps">Apellido</label>
 
                                     </div>
-                                    <input type="text" name="fApellidoPersona" placeholder="Sus apellidos" class="divAB" id="apellidoP" required>
+                                    <input type="text" name="fApellidoPersona" placeholder="Sus apellidos" class="divAB apellidoC" id="apellidoP" required>
                                 </div>
 
                             </div>
@@ -75,7 +75,7 @@
 
                                     </div>
                                     <div class="cajasId">
-                                        <input type="number" class="inputId cambiarC" name="fIdentificacionPersona"
+                                        <input type="number" class="inputId documentoC" name="fIdentificacionPersona"
                                             placeholder="Su identificacion" id="documentoP" required>
 
                                     </div>
@@ -91,7 +91,7 @@
 
                                     </div>
                                     <div class="cajasId">
-                                        <input type="email" class="inputId cambiarC" name="fCorreoPersona"
+                                        <input type="email" class="inputId emailC" name="fCorreoPersona"
                                                placeholder="Su correo"  id="inputCorreo"   required>
 
                                     </div>
@@ -107,7 +107,7 @@
 
                                     </div>
                                     <div class="cajasId">
-                                        <input type="number" class="inputId cambiarC" name="fTelefonoPersona"
+                                        <input type="number" class="inputId telefonoC" name="fTelefonoPersona"
                                             placeholder="Su Telefono" id="telefonoP" required>
 
                                     </div>
@@ -123,7 +123,7 @@
                                     <label for="cajaInps" >Contraseña</label>
                                 </div>
 
-                                <input type="password" placeholder="Su Contraseña" name="fContrasenaPersona" class="divAB cambiarC" id="inputContrasena" required autocomplete="new-password">
+                                <input type="password" placeholder="Su Contraseña" name="fContrasenaPersona" class="divAB contraC" id="inputContrasena" required autocomplete="new-password">
 
                             </div>
 
@@ -132,7 +132,7 @@
                                     <label for="cajaInps">Confirmar contraseña</label>
 
                                 </div>
-                                <input type="password" placeholder="Confirmar" class="divAB cambiarC" id="inputConfirmarContrasena" required >
+                                <input type="password" placeholder="Confirmar" class="divAB contraCC" id="inputConfirmarContrasena" required >
                             </div>
 
                         </div>
@@ -140,7 +140,7 @@
                         <div id="divTerminos">
                             <!--el checkbox cuando no esta marcado el java script le agrega una clase-->                                                                                                                                                        
                             
-                            <input type="checkbox" id="aceptarTerminos" class="cambiarC" onchange="manipularCheckbox();" required >   
+                            <input type="checkbox" id="aceptarTerminos" onchange="manipularCheckbox();" required >   
                           
                             <a href="#"  id="aTerminos" > Aceptar los términos y condiciones </a>
  
@@ -237,39 +237,117 @@
                             
                             
                             function cambiarColor(){
+
+                                //nombre
                                 
-                            // Selecciona el input
+                                    const colorOriginal = "rgb(118, 118, 118)";
                                     const inputs = document.querySelector(".nombreC");
-                                    const originalColor = inputs.style.borderBottomColor;
                                     
-                                  //nombre
+
                                   inputs.addEventListener("input", function(event) {
-//                                      event.preventDefault(); // Evita que el navegador establezca el foco en el input
-//                //                        el evento input pasa cuando uno empieza a cambiar algo dentro de el como escribir 
-                                       inputs.style.borderBottomColor = "black";
+                                       inputs.style.borderBottomColor = "Black";
                                     });
 
 //                                     Agrega un evento de blur al input
                                     inputs.addEventListener("blur", function() {
 //                                       Cambia el color del input al original  
-                                        inputs.style.borderBottomColor = originalColor;  
+                                        inputs.style.borderBottomColor = colorOriginal;  
 //                                                                         
                                    });
-
+                                   
+ 
+                                  //apellido
+//                                  
+                                    let inputApellido = document.querySelector(".apellidoC");
+                     
                                   
+                                     inputApellido.addEventListener("input", function(event) {
+//                                     
+                                       inputApellido.style.borderBottomColor = "Black";
 
-//                                    inputs.forEach(function(input) {
-//                                        input.addEventListener("input", function() {
-//                                                  inputs.style.borderBottomColor = "red";
-//                                        });
-//                                        
-//                                        input.addEventListener("blur", function() {
-//                                      // Cambia el color del input al original
-//                                        inputs.style.borderBottomColor = originalColor;
-//                                        });
-//                                        
-//                                        
-//                                    });
+                                    });
+                                    
+                                    
+                                    inputApellido.addEventListener("blur", function() {
+                                        inputApellido.style.borderBottomColor = colorOriginal;  
+                                  
+                                   });
+                                   
+                                  //identificacion
+                                  
+                                  let inputDocumento = document.querySelector(".documentoC");
+                             
+                                  inputDocumento.addEventListener("input", function(event) {
+                                       inputDocumento.style.borderBottomColor = "Black";
+
+                                    });
+
+//                                
+                                    inputDocumento.addEventListener("blur", function() { 
+                                        inputDocumento.style.borderBottomColor = colorOriginal;  
+                                   });
+                                   
+                                   
+                                   //correo
+                                   
+                                  let inputEmail = document.querySelector(".emailC");
+                             
+                                    inputEmail.addEventListener("input", function(event) {
+                                       inputEmail.style.borderBottomColor = "Black";
+
+                                    });
+
+                                    inputEmail.addEventListener("blur", function() { 
+                                        inputEmail.style.borderBottomColor = colorOriginal;  
+                                   });
+                                   
+                                   
+                                   //Telefono
+                                   
+                                  let inputTelefono = document.querySelector(".telefonoC");
+                             
+                                  
+                                  
+                                    inputTelefono.addEventListener("input", function(event) {
+                                       inputTelefono.style.borderBottomColor = "Black";
+
+                                    });
+
+                                    inputTelefono.addEventListener("blur", function() { 
+                                        inputTelefono.style.borderBottomColor = colorOriginal;  
+                                   });
+                                   
+                                   
+                                   //Contrasena
+                                   
+                                   
+                                  let inputContrasena = document.querySelector(".contraC");
+                             
+                                    inputContrasena.addEventListener("input", function(event) {
+                                       inputContrasena.style.borderBottomColor = "Black";
+
+                                    });
+
+                                    inputContrasena.addEventListener("blur", function() { 
+                                        inputContrasena.style.borderBottomColor = colorOriginal;  
+                                   });
+                                   
+                                   
+                                   //confirmar Contrasena
+                                   
+                                   
+                                  let inputConfirmarC = document.querySelector(".contraCC");
+                                  
+                                    inputConfirmarC.addEventListener("input", function(event) {
+                                       inputConfirmarC.style.borderBottomColor = "Black";
+
+                                    });
+
+                                    inputConfirmarC.addEventListener("blur", function() { 
+                                        inputConfirmarC.style.borderBottomColor = colorOriginal;  
+                                   });
+                                  
+                                  
 
                                 
                             }
