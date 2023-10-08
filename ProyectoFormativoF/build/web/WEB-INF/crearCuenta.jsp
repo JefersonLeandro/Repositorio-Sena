@@ -55,7 +55,7 @@
                                         <label for="cajaInps">Nombre</label>
                                     </div>
                                     <!--<input type="hidden" name="fIdPersona" value="0"> es inesesario enviar este dato al controlador ya que va en auto Incremento--> 
-                                    <input type="text" name="fNombrePersona" placeholder="Sus nombres" class="divAB" id="nombreP" required>
+                                    <input type="text" name="fNombrePersona" placeholder="Sus nombres" class="divAB nombreC" id="nombreP" onclick="cambiarColor();"  required>
                                 </div>
 
                                 <div class="cajaInps">
@@ -75,7 +75,7 @@
 
                                     </div>
                                     <div class="cajasId">
-                                        <input type="number" class="inputId" name="fIdentificacionPersona"
+                                        <input type="number" class="inputId cambiarC" name="fIdentificacionPersona"
                                             placeholder="Su identificacion" id="documentoP" required>
 
                                     </div>
@@ -91,7 +91,7 @@
 
                                     </div>
                                     <div class="cajasId">
-                                        <input type="email" class="inputId" name="fCorreoPersona"
+                                        <input type="email" class="inputId cambiarC" name="fCorreoPersona"
                                                placeholder="Su correo"  id="inputCorreo"   required>
 
                                     </div>
@@ -107,7 +107,7 @@
 
                                     </div>
                                     <div class="cajasId">
-                                        <input type="number" class="inputId" name="fTelefonoPersona"
+                                        <input type="number" class="inputId cambiarC" name="fTelefonoPersona"
                                             placeholder="Su Telefono" id="telefonoP" required>
 
                                     </div>
@@ -123,7 +123,7 @@
                                     <label for="cajaInps" >Contraseña</label>
                                 </div>
 
-                                <input type="password" placeholder="Su Contraseña" name="fContrasenaPersona" class="divAB" id="inputContrasena" required autocomplete="new-password">
+                                <input type="password" placeholder="Su Contraseña" name="fContrasenaPersona" class="divAB cambiarC" id="inputContrasena" required autocomplete="new-password">
 
                             </div>
 
@@ -132,7 +132,7 @@
                                     <label for="cajaInps">Confirmar contraseña</label>
 
                                 </div>
-                                <input type="password" placeholder="Confirmar" class="divAB" id="inputConfirmarContrasena" required >
+                                <input type="password" placeholder="Confirmar" class="divAB cambiarC" id="inputConfirmarContrasena" required >
                             </div>
 
                         </div>
@@ -140,7 +140,7 @@
                         <div id="divTerminos">
                             <!--el checkbox cuando no esta marcado el java script le agrega una clase-->                                                                                                                                                        
                             
-                            <input type="checkbox" id="aceptarTerminos"  onchange="manipularCheckbox();" required >   
+                            <input type="checkbox" id="aceptarTerminos" class="cambiarC" onchange="manipularCheckbox();" required >   
                           
                             <a href="#"  id="aTerminos" > Aceptar los términos y condiciones </a>
  
@@ -167,6 +167,10 @@
   <script>
                                
                              function verificarCampos(){
+                                 
+                                 
+                              !(function(window, document) {//Esta es una función IIFE que toma window y document como argumentos, que son objetos globales. y se utliza para encapsular las variables
+
                                  
                                 let nombre = document.getElementById("nombreP").value;
                                 let apellido = document.getElementById("apellidoP").value;
@@ -195,8 +199,11 @@
 
                                  return true;// Permite que el formulario se envíe si todo está bien
                                  
+                                 
+                                })(window, document);
+                                 
                              }
-    
+                            
     
     
                               function manipularCheckbox(){
@@ -226,6 +233,47 @@
 //                                 });
 
                             }
+                            
+                            
+                            
+                            function cambiarColor(){
+                                
+                            // Selecciona el input
+                                    const inputs = document.querySelector(".nombreC");
+                                    const originalColor = inputs.style.borderBottomColor;
+                                    
+                                  //nombre
+                                  inputs.addEventListener("input", function(event) {
+//                                      event.preventDefault(); // Evita que el navegador establezca el foco en el input
+//                //                        el evento input pasa cuando uno empieza a cambiar algo dentro de el como escribir 
+                                       inputs.style.borderBottomColor = "black";
+                                    });
+
+//                                     Agrega un evento de blur al input
+                                    inputs.addEventListener("blur", function() {
+//                                       Cambia el color del input al original  
+                                        inputs.style.borderBottomColor = originalColor;  
+//                                                                         
+                                   });
+
+                                  
+
+//                                    inputs.forEach(function(input) {
+//                                        input.addEventListener("input", function() {
+//                                                  inputs.style.borderBottomColor = "red";
+//                                        });
+//                                        
+//                                        input.addEventListener("blur", function() {
+//                                      // Cambia el color del input al original
+//                                        inputs.style.borderBottomColor = originalColor;
+//                                        });
+//                                        
+//                                        
+//                                    });
+
+                                
+                            }
+                            
                             
                             
                             
