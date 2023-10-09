@@ -46,17 +46,10 @@
                         %>
                             <h5 style="font-size: 18px; color: red;" id="datosInvalidos"  role="alert"></h5>
                             <script>
-                                let elMensaje = "<%= mensaje %>";
+                                var elMensaje = "<%= mensaje %>";
                                 document.getElementById("datosInvalidos").innerHTML= elMensaje;
                                 console.log(" msj P : "+elMensaje);
-                                function RemplazarValor() {
-//                 
-                    
-                            if (msj != undefined) {
-                                document.getElementById("datosInvalidos").innerHTML = "";
-                                console.log("Dentro de la función RemplazarValor");
-                            }
-                        }
+                             
                                 
                                 
                                 
@@ -194,9 +187,9 @@
               
 //    ++++++++++++++++++++++++++++
               
-              if (elMensaje != undefined) {
+              if (elMensaje !== undefined) {
                   
-                    var msj =elMensaje; // Declarar la variable en un ámbito global
+                    var msj = elMensaje; // Declarar la variable en un ámbito global
 //                    este mensaje lo uso abajo 
 
     
