@@ -98,8 +98,7 @@ public class controladorCrearCuenta extends HttpServlet {
                     // se envian los datos a otra vista teniendo en cuenta que se le pasa los objetos  request y reponse para trabajar al mismo nivel de aqui y alla 
                     insertarDatos(request,response, nombrePersona, apellidoPersona, identificacionPersona, correoPersona, telefonoPersona, contrasenaPersona);
 //                    response.sendRedirect(request.getContextPath() + "/WEB-INF/Registro.jsp");
-                    String mensaje = " Registro exitoso, ya puedes iniciar sesion ";
-                    request.getRequestDispatcher("WEB-INF/Registro.jsp?mensaje="+mensaje).forward(request, response);
+                   
           
             
         } catch (Exception error) {
@@ -161,6 +160,9 @@ public class controladorCrearCuenta extends HttpServlet {
                     unaPersona.setIdTipoPersona(1);
 
                     unaPersona.insertar();//se hace asi ya que solamente es una opcion que seria insertar 
+                    
+                    String mensaje = " Registro exitoso, ya puedes iniciar sesion ";
+                    request.getRequestDispatcher("WEB-INF/Registro.jsp?mensaje="+mensaje).forward(request, response);
 
                 } catch (Exception error) {
 

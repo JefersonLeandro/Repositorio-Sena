@@ -44,7 +44,7 @@
                         if (request.getParameter("msj") != null) {
                             String mensaje = request.getParameter("msj");
                         %>
-                            <h5 style="font-size: 18px; color: red;" id="datosInvalidos"  role="alert"></h5>
+                            <h5 style="font-size: 18px; color: red;" id="datosInvalidos"  role="alert">el mensaje con innerHtml esta en proceso </h5>
                             
                         <%
                         }
@@ -96,8 +96,29 @@
                 String mensajeC = request.getParameter("mensaje");
             %>
             <script>
-                window.alert("<%= mensajeC %>");
-                
+               // Declaración de contar en un alcance más amplio, fuera de cualquier función
+                                let contar = true;
+
+                    function mostrarAlertaUnaVez() {
+                        if (contar) {
+                            window.alert("<%= mensajeC %>");
+                            contar = false;
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    // Llamar a la función mostrarAlertaUnaVez en algún lugar de tu código cuando sea apropiado
+                    if (mostrarAlertaUnaVez()) {
+                        // La alerta se mostrará la primera vez que se ejecute esta condición
+                    }
+              
+
+
+                    
+                    
+                   
+               
             </script>
 
             <%
@@ -174,7 +195,7 @@
                 let hMensaje = document.getElementById("datosInvalidos");
                 let inputCorreo = document.getElementById("DocumentoCorreo");
                 
-                 
+                  
                                 
                  
                  

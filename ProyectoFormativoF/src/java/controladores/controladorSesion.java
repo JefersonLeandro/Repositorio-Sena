@@ -184,7 +184,7 @@ public class controladorSesion extends HttpServlet {
                 
                     System.out.println("no hay resultado en la base de datos por medio del correo y el documento ");
                     mensaje = "Datos invalidos";
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    request.getRequestDispatcher("WEB-INF/Registro.jsp?msj="+mensaje).forward(request, response);
                     
                 }
 
