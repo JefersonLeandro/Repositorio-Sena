@@ -100,19 +100,16 @@
           <%
             if (request.getParameter("mensaje") != null) {
                 String mensajeC = request.getParameter("mensaje");
+            
             %>
             <script>
                // Declaración de contar en un alcance más amplio, fuera de cualquier función arreglar esto o dejarlo asi 
-                    let contar = true;
-
-                    function mostrarAlertaUnaVez() {
-                        if (contar) {
-                            window.alert("<%= mensajeC %>");
-                            contar = false;
-                            return true;
-                        }
-                        return false;
-                    }
+                
+//            
+                window.alert("<%= mensajeC %>");
+                            
+                        
+                    
             </script>
 
             <%
