@@ -12,7 +12,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel="stylesheet" href="Public/Estilos/style.css"> 
+    <link rel="stylesheet" href="Public/Estilos/style.css">
+
+
 </head>
 <!--cambiar la clase del button registrar ya que al cambiarle las propiedades cambio todo copiar el de visual y crear una nueva .-->
 <body>
@@ -21,7 +23,7 @@
             <div id="divFormulario">
 
             <!--  action="../controlador/controladorInicioSession.php"   PONER LA VISTA DE REGISTRO EXIOSO YA PUEDE INICIAR SESION  -->
-                <form  class="formulario" method="post" action="controladorSesion">
+            <form  class = "formulario" action="controladorSesion"  method="post" onclick="cambiarColor();">
 
                     <div id="tituloForm">
                         <div id="iconoForm">
@@ -38,13 +40,25 @@
                         <div id="plbIngresar">
                             <h2>Ingresa a tu cuenta</h2>
                         </div>
-                        
+                        <%
+                        if (request.getParameter("msj") != null) {
+                            String mensaje = request.getParameter("msj");
+                        %>
+                            <h5 style="font-size: 18px; color: red;" id="datosInvalidos"  role="alert"></h5>
+                            
+                        <%
+                        }
+                        %>
+
+
+
+
                       
-                        <h5 style="font-size: 18px; color: red ;"  id="datosInvalidos"></h5>
-                                
+                       
+
 
                         <div class="areaInputForm">
-                            <input type="text" placeholder="Email o Numero de identificacion"  class="inputsForm" name="emailDocumento" id="DocumentoCorreo" required>
+                            <input type="text" placeholder="Email o Numero de identificacion"  class="inputsForm" name="emailDocumento" id="DocumentoCorreo" onchange="RemplazarValor();" required>
                         </div>
                         <div class="areaInputForm">
                             <input type="password" placeholder="Contraseña" class="inputsForm" name="contrasena" id="contrasena" required>
@@ -54,7 +68,7 @@
                         </div>
                         <!--en este div cambie la clase--> 
                         <div class="divButtonIngresar">
-                            <button class="buttonIngresarF" style="font-family: inherit; font-size: 18px;" type="submit"  name="btnIngresar" value="iniciarSession" onclick=" return verificarCredenciales();"  > 
+                            <button class="buttonIngresarF" style="font-family: inherit; font-size: 18px;" type="submit"  name="btnIngresar" value="iniciarSession" onclick=" return verificarCampos() && mostrarMensaje();"  > 
                             <!--onclick="/*location.href='index.php*/'"-->
                             <h3>Ingresar</h3>
                             </button>
@@ -76,24 +90,125 @@
         </div>
 
     </main>
+                        
+          <%
+            if (request.getParameter("mensaje") != null) {
+                String mensajeC = request.getParameter("mensaje");
+            %>
+            <script>
+                window.alert("<%= mensajeC %>");
+                
+            </script>
+
+            <%
+            }
+            %>
     
 </body>
 
     <script>
         
-            function verificarCredenciales() {
-                // Obtener los valores de correo y contraseña
-                let correo = document.getElementById("DocumentoCorreo").value;
-                let contrasena = document.getElementById("contrasena").value;
+        
+        
+        
+        
+        
+        
+        
+            function verificarCampos(){
+                
+                !(function(window, document) {//Esta es una función IIFE que toma window y document como argumentos, que son objetos globales. y se utliza para encapsular las variables
 
-                // Verificar si los campos están vacíos
-                if (correo.trim() === "" || contrasena.trim() === "") {
-                    // Mostrar un mensaje de alerta
-                    window.alert("Rellene todos los campos");
-                    return false; // Detiene el envío del formulario
-                }
+                    // Obtener los valores de correo y contraseña
+                    let correo = document.getElementById("DocumentoCorreo").value;
+                    let contrasena = document.getElementById("contrasena").value;
 
-                // Crear una instancia de XMLHttpRequest para realizar la solicitud AJAX
+                    // Verificar si los campos están vacíos
+                    if (correo.trim() === "" || contrasena.trim() === "") {
+                        // Mostrar un mensaje de alerta
+                        window.alert("Rellene todos los campos");
+                      return false; // Detiene el envío del formulario/
+                    }
+                
+                })(window, document);
+             }
+             
+             
+             function cambiarColor(){
+
+                //nombre
+
+                    const colorOriginal = "rgb(118, 118, 118)";
+                    let inputCorreo = document.querySelector("#DocumentoCorreo");
+
+
+                    inputCorreo.addEventListener("input", function(event) {
+                       inputCorreo.style.borderBottomColor = "black";
+                    });
+
+//                    Agrega un evento de blur al input
+                    inputCorreo.addEventListener("blur", function() {
+//                    Cambia el color del input al original  
+                      inputCorreo.style.borderBottomColor = colorOriginal;  
+                                                                        
+                   });
+                   
+
+                    let inputContrasena = document.querySelector("#contrasena");
+
+                    inputContrasena.addEventListener("input", function(event) {
+                       inputContrasena.style.borderBottomColor = "black";
+                    });
+
+//                    Agrega un evento de blur al input
+                    inputContrasena.addEventListener("blur", function() {
+//                     Cambia el color del input al original  
+                      inputContrasena.style.borderBottomColor = colorOriginal;                                               
+                   });
+ 
+              }
+             
+             function RemplazarValor(){
+                   
+           // escuchar el evento del input de correo o nombre y quitarle y remplazar al momento que cambie el valor al h5
+                let hMensaje = document.getElementById("datosInvalidos");
+                let inputCorreo = document.getElementById("DocumentoCorreo");
+                
+                 
+                                
+                 
+                 
+             }
+             
+//             function cambiarColorMensaje(){
+//                 
+//                 let hMensaje = document.getElementById("datosInvalidos");
+//                
+//            }
+//            
+//             function mostrarMensaje(){
+//                 
+//                setTimeout(function() {
+//                    window.location.href = "otra_pagina.html";
+//                }, 3000); // 3000 milisegundos (3 segundos)
+//
+//
+//                 
+//                 
+//                 
+//             }
+
+   
+
+             
+             
+             
+             
+    
+    
+    
+    function verificarCredenciales(){// function en desuso porque hay un eror de direcconamiento , nose porque no me direcciona 
+          // Crear una instancia de XMLHttpRequest para realizar la solicitud AJAX
                 let xhr = new XMLHttpRequest();
 
                 // Configurar el manejo de la respuesta
@@ -108,13 +223,13 @@
 
                         if (respuesta === "true") {
                             document.getElementById("datosInvalidos").innerHTML = "";
-                            // Permitir el envío del formulario
+                            return true;// Permitir el envío del formulario
                         } else if (respuesta === "false") {
                             document.getElementById("datosInvalidos").innerHTML = "Datos Invalidos";
                             return false; // Detiene el envío del formulario
                         } else {
                             document.getElementById("datosInvalidos").innerHTML = "Error en la consulta.";
-                            return false; // Detiene el envío del formulario
+//                            return false; // Detiene el envío del formulario
                         }
                     }
                 };
@@ -131,11 +246,11 @@
                 console.log("Correo: " + correo);
                 console.log("Contraseña: " + contrasena);
 
-//                 Detener el envío del formulario de forma predeterminada
-             return false;
+//              Detener el envío del formulario de forma predeterminada
+//              return false;
+        
+         
     }
-
-
         
 
         

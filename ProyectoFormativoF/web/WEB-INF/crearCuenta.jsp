@@ -21,7 +21,7 @@
         <div id="divContainer2">
             <div id="divFormulario2">
 
-                <form class="formulario" action="controladorCrearCuenta" method="post" id="miFormulario" onclick="cambiarColor();">
+                <form class="formulario" action="controladorCrearCuenta" id="miFormulario" onclick="cambiarColor();"  method="post" >
                     <div id="tituloForm">
                         <div id="iconoForm">
                             <!--el mismo error de la imagen-->
@@ -150,7 +150,7 @@
                     </div>
                     <div class="divButtonIn">
                         
-                        <button class="buttonIngresarF" type="submit"  name="fAccion" style="font-family: inherit; font-size: 18px;" onclick="return verificarCampos() && manipularCheckbox(); " id="mibtnC">
+                        <button class="buttonIngresarF" type="submit"  name="fAccion" style="font-family: inherit; font-size: 18px;" onclick="return verificarCampos() && manipularCheckbox() && mostrarAlerta();" id="mibtnC">
                                 <h3>Registrar</h3> 
                         </button>
                     </div>
@@ -231,8 +231,21 @@
                                       return true; // mirar la logica 
                                     }
 //                                 });
+ 
 
                             }
+                            
+                            function mostrarAlerta(){
+                                
+                                if (verificarCampos() && manipularCheckbox()) {
+                                        
+                                       window.alert("REGISTRO EXITOSO");
+                                       return true;
+                               }
+                                
+                               return false;
+                            }
+                            
                             
                             
                             
@@ -353,12 +366,26 @@
                             }
                             
                             
+//                            function alertaFinal(){
+//                                
+//                                
+//                            if (verificarCampos()==false) {
+//    
+//                                    window.alert("REGISTRO EXISTOSO");
+//                                
+//                                }
+//                                
+//                                
+//                                
+//                            }
+    
+
                             
                             
-//                            
-//                            
+                            
+                            
                          function validarCorreo() {// esta funcion no esta en uso porque al final no sirvio
-                             
+                             // tengo una idea para hacer lo mismo de la funcion ajax pero tendrian  los datos irse a la funcion ajax 
                                 
                             console.log(" Dentre a la funcion validarCorreo");
                                 

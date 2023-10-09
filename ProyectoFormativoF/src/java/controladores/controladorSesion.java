@@ -77,18 +77,9 @@ public class controladorSesion extends HttpServlet {
         
      // tener en cuenta que los names de los inputs deben ser iguales a lo nombre de variables que esta en ajax o si no sirve en los dos lados 
         
-
-         System.out.println("1111"); 
-     
-         System.out.println("====");
-           
-     
-             System.out.println("222");
-        
+      String mensaje = "";
         
        if ( (request.getParameter("emailDocumento") != null) && (request.getParameter("contrasena") != null)) {// si no son nulos prosiga
-           
-             System.out.println("No soy null"); 
            
    
             String elCorreoIdentificacion = request.getParameter("emailDocumento");
@@ -98,8 +89,6 @@ public class controladorSesion extends HttpServlet {
             
             
               try {
-                
-                System.out.println("000");
                 // en todo correo la @ es obligatoria se trabajara con ella 
 
                 String cara = "";
@@ -110,17 +99,14 @@ public class controladorSesion extends HttpServlet {
                     
                     char caracter = elCorreoIdentificacion.charAt(i);
                         System.out.print(caracter + " ");
-//                
                      //parseo 
                      String cadenaDeCaracteres = Character.toString(caracter);
                      System.out.println(cadenaDeCaracteres); // Imprime "Letra = a "
-                  
 
                     if ("@".equals(cadenaDeCaracteres)) {//se comprueba toda la cadena si tiene una arroba entonces obviamente es un correo si no tiene arroba es un documento
                         System.out.println(" es igual a la arroba"+cadenaDeCaracteres);
                         cara = "correoPersona";
                         bandera =true;
-                        
                         
                     }else{
                         System.out.println("no igual a la arroba "+cadenaDeCaracteres);
@@ -142,14 +128,10 @@ public class controladorSesion extends HttpServlet {
 
                 PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
                 sql.setString(1, elCorreoIdentificacion);
-           
                 
-                System.out.println("111");
                 ResultSet resultado = sql.executeQuery();
                 
                 if (resultado.next()) {
-                    
-                    System.out.println("333");
                   
                     // se extre la contrasena para hacer la comprobacion por medio del hashed 
                     String hashedBd = resultado.getString("contrasenaPersona");
@@ -169,8 +151,10 @@ public class controladorSesion extends HttpServlet {
                         String nombrePersona = resultado.getString("nombrePersona");
                         String apellidoPersona = resultado.getString("apellidoPersona");
                         int idTipoPersona = resultado.getInt("idTipoPersona");
+                        mensaje = " Datos validos";
                         
-                        
+                        request.getRequestDispatcher("index.jsp?msj="+mensaje).forward(request, response);
+//                    
 
                       // Guardar información del usuario en la sesión
                         session.setAttribute("idPersona", idPersona );
@@ -185,31 +169,23 @@ public class controladorSesion extends HttpServlet {
                         System.out.println(apellidoPersona);
                         System.out.println(idTipoPersona);
                            
-                        String mensaje = "true";
-                        // Establece el tipo de contenido de la respuesta
-                        response.setContentType("text/plain");
-
-                        // Escribe el mensaje en la respuesta
-                        response.getWriter().write(mensaje);
+                      
                         
                         
                         
                     }else{
                         
                         System.out.println("la contrasena no coincide con el hashed de la base de datos");
-                        //direccionamiento
-                        
-//                        En resumen, la razón principal para pasar (response) como parámetro es garantizar que la función enviarRespuesta tenga acceso
-//                        al objeto response correcto y pueda interactuar con él de manera efectiva para enviar la respuesta al cliente.
-                        enviarRespuesta(response);
+                        mensaje = "Datos invalidos";
+                        request.getRequestDispatcher("WEB-INF/Registro.jsp?msj="+mensaje).forward(request, response);
                     }
                     
                 }else {
                 
                     System.out.println("no hay resultado en la base de datos por medio del correo y el documento ");
-                    //direccionamiento
+                    mensaje = "Datos invalidos";
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
                     
-                    enviarRespuesta(response);// se llama a otra funcion para enviar los datos y asi poder reutilizar codigo siendo false
                 }
 
             } catch (Exception error) {
@@ -222,7 +198,9 @@ public class controladorSesion extends HttpServlet {
        }else{
        
        
-           System.out.println(" los datos estan nulos ");  
+           System.out.println(" los datos estan nulos "); 
+           mensaje = "los datos estan nulos ";
+           request.getRequestDispatcher("WEB-INF/Registro.jsp?msj="+mensaje).forward(request, response);
        }
         
         
@@ -230,20 +208,7 @@ public class controladorSesion extends HttpServlet {
     }
     
     
-   private void enviarRespuesta(HttpServletResponse response) {
-        try {
-            String mensaje = "false";
-
-            // Establece el tipo de contenido de la respuesta
-            response.setContentType("text/plain");
-
-            // Escribe el mensaje en la respuesta
-            response.getWriter().write(mensaje);
-
-        } catch (Exception error) {
-            System.out.println("Error al enviar la respuesta de vuelta");
-        }
-    }
+  
 
     /**
      * Returns a short description of the servlet.

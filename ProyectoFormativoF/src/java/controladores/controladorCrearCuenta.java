@@ -98,9 +98,8 @@ public class controladorCrearCuenta extends HttpServlet {
                     // se envian los datos a otra vista teniendo en cuenta que se le pasa los objetos  request y reponse para trabajar al mismo nivel de aqui y alla 
                     insertarDatos(request,response, nombrePersona, apellidoPersona, identificacionPersona, correoPersona, telefonoPersona, contrasenaPersona);
 //                    response.sendRedirect(request.getContextPath() + "/WEB-INF/Registro.jsp");
-                    request.getRequestDispatcher("WEB-INF/Registro.jsp").forward(request, response);
-
-//                    System.out.println("llegue direccionamiento");
+                    String mensaje = " Registro exitoso, ya puedes iniciar sesion ";
+                    request.getRequestDispatcher("WEB-INF/Registro.jsp?mensaje="+mensaje).forward(request, response);
           
             
         } catch (Exception error) {
