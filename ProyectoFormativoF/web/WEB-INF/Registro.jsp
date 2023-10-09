@@ -50,10 +50,6 @@
                                 document.getElementById("datosInvalidos").innerHTML= elMensaje;
                                 console.log(" msj P : "+elMensaje);
                              
-                                
-                                
-                                
-                                
                             </script>
                             
                         <%
@@ -184,20 +180,14 @@
  
               }
              
-              
-//    ++++++++++++++++++++++++++++
-              
-              if (elMensaje !== undefined) {
-                  
-                    var msj = elMensaje; // Declarar la variable en un ámbito global
-//                    este mensaje lo uso abajo 
-
-    
+              if (typeof elMensaje !== 'undefined') {
+                    var msj = elMensaje; // Declarar la variable en un ámbito global para poder acceder abajo en la funcion 
                 }
+                
                function RemplazarValor() {
                 
                     
-                    if (msj != undefined) {
+                    if (msj != undefined) {// tambien sirve ese undefined pero es mas preciso el typeof
                         document.getElementById("datosInvalidos").innerHTML = "";
                         console.log("Dentro de la función RemplazarValor");
                     }
