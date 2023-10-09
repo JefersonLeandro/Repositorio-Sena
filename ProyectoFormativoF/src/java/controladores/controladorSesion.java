@@ -73,7 +73,8 @@ public class controladorSesion extends HttpServlet {
             throws ServletException, IOException {
         
         
-
+// 
+//#para la siguiente pagina cierta parte de la logica en el modelo y aca el control de erorres 
         
      // tener en cuenta que los names de los inputs deben ser iguales a lo nombre de variables que esta en ajax o si no sirve en los dos lados 
         

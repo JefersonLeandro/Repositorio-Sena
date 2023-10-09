@@ -44,7 +44,24 @@
                         if (request.getParameter("msj") != null) {
                             String mensaje = request.getParameter("msj");
                         %>
-                            <h5 style="font-size: 18px; color: red;" id="datosInvalidos"  role="alert">el mensaje con innerHtml esta en proceso </h5>
+                            <h5 style="font-size: 18px; color: red;" id="datosInvalidos"  role="alert"></h5>
+                            <script>
+                                let elMensaje = "<%= mensaje %>";
+                                document.getElementById("datosInvalidos").innerHTML= elMensaje;
+                                console.log(" msj P : "+elMensaje);
+                                function RemplazarValor() {
+//                 
+                    
+                            if (msj != undefined) {
+                                document.getElementById("datosInvalidos").innerHTML = "";
+                                console.log("Dentro de la función RemplazarValor");
+                            }
+                        }
+                                
+                                
+                                
+                                
+                            </script>
                             
                         <%
                         }
@@ -58,10 +75,10 @@
 
 
                         <div class="areaInputForm">
-                            <input type="text" placeholder="Email o Numero de identificacion"  class="inputsForm" name="emailDocumento" id="DocumentoCorreo" onchange="RemplazarValor();" required>
+                            <input type="text" placeholder="Email o Numero de identificacion"  class="inputsForm" name="emailDocumento" id="DocumentoCorreo" onclick="RemplazarValor();" required>
                         </div>
                         <div class="areaInputForm">
-                            <input type="password" placeholder="Contraseña" class="inputsForm" name="contrasena" id="contrasena" required>
+                            <input type="password" placeholder="Contraseña" class="inputsForm" name="contrasena" id="contrasena" onclick="RemplazarValor();"  required>
                         </div>
                         <div class="olvidarContrasena">
                             <h3><a href="">¿Olvido la contraseña?</a></h3>
@@ -96,8 +113,8 @@
                 String mensajeC = request.getParameter("mensaje");
             %>
             <script>
-               // Declaración de contar en un alcance más amplio, fuera de cualquier función
-                                let contar = true;
+               // Declaración de contar en un alcance más amplio, fuera de cualquier función arreglar esto o dejarlo asi 
+                    let contar = true;
 
                     function mostrarAlertaUnaVez() {
                         if (contar) {
@@ -108,17 +125,8 @@
                         return false;
                     }
 
-                    // Llamar a la función mostrarAlertaUnaVez en algún lugar de tu código cuando sea apropiado
-                    if (mostrarAlertaUnaVez()) {
-                        // La alerta se mostrará la primera vez que se ejecute esta condición
-                    }
+                 
               
-
-
-                    
-                    
-                   
-               
             </script>
 
             <%
@@ -128,12 +136,6 @@
 </body>
 
     <script>
-        
-        
-        
-        
-        
-        
         
         
             function verificarCampos(){
@@ -189,45 +191,26 @@
  
               }
              
-             function RemplazarValor(){
-                   
-           // escuchar el evento del input de correo o nombre y quitarle y remplazar al momento que cambie el valor al h5
-                let hMensaje = document.getElementById("datosInvalidos");
-                let inputCorreo = document.getElementById("DocumentoCorreo");
-                
+              
+//    ++++++++++++++++++++++++++++
+              
+              if (elMensaje != undefined) {
                   
-                                
-                 
-                 
-             }
-             
-//             function cambiarColorMensaje(){
-//                 
-//                 let hMensaje = document.getElementById("datosInvalidos");
-//                
-//            }
-//            
-//             function mostrarMensaje(){
-//                 
-//                setTimeout(function() {
-//                    window.location.href = "otra_pagina.html";
-//                }, 3000); // 3000 milisegundos (3 segundos)
-//
-//
-//                 
-//                 
-//                 
-//             }
+                    var msj =elMensaje; // Declarar la variable en un ámbito global
+//                    este mensaje lo uso abajo 
 
-   
+    
+                }
+               function RemplazarValor() {
+                
+                    
+                    if (msj != undefined) {
+                        document.getElementById("datosInvalidos").innerHTML = "";
+                        console.log("Dentro de la función RemplazarValor");
+                    }
+                }
 
-             
-             
-             
-             
-    
-    
-    
+
     function verificarCredenciales(){// function en desuso porque hay un eror de direcconamiento , nose porque no me direcciona 
           // Crear una instancia de XMLHttpRequest para realizar la solicitud AJAX
                 let xhr = new XMLHttpRequest();
