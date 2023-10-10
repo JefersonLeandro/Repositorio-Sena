@@ -175,7 +175,7 @@
                     
                     if (typeof elMensaje !== 'undefined') {// tambien sirve ese undefined pero es mas preciso el typeof
                         document.getElementById("datosInvalidos").innerHTML = "";
-                        console.log("Dentro de la función RemplazarValor");
+                
                     }
                 }
 
