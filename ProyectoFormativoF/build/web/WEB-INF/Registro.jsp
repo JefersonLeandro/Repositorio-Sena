@@ -103,13 +103,8 @@
             
             %>
             <script>
-               // Declaración de contar en un alcance más amplio, fuera de cualquier función arreglar esto o dejarlo asi 
-                
-//            
-                window.alert("<%= mensajeC %>");
-                            
-                        
-                    
+               // Declaración de contar en un alcance más amplio, fuera de cualquier función arreglar esto o dejarlo asi             
+                window.alert("<%= mensajeC %>");                    
             </script>
 
             <%
