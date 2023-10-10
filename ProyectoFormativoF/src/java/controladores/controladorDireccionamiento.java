@@ -36,14 +36,14 @@ public class controladorDireccionamiento extends HttpServlet {
         switch (opcion) {
             case "Registro":
             case "crearCuenta":
-            case "Cliente":
+            case "cerrarSesion":
             case "Alquiler":
       
                 request.getRequestDispatcher("WEB-INF/"+opcion+".jsp").forward(request, response);
                 break;
                 
             default:
-                request.getRequestDispatcher("/index.html").forward(request, response);
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
                 
                 break;
         }

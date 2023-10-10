@@ -70,6 +70,54 @@
                         </svg>  
                     </a>
                     <div id="plbRegistro">
+                        
+                        <%
+                            
+                            if((session.getId() != null) && (session.getAttribute("idPersona") != null) && (session.getAttribute("nombrePersona") != null)){
+                            
+                                String nombre = (String)session.getAttribute("nombrePersona");
+                                String id = (String) session.getId(); // identificador de la sesion
+                                
+                        %>
+                               
+                                    <div class='btn-group'>
+                                        <button type='button' class='btn btn-tranparent dropdown-toggle' style='padding: 0; border: none; display: flex; align-items: center; gap: 5px;' data-bs-toggle='dropdown' aria-expanded='false' id='btnTogglee'>
+                                         
+                                        <a href="controladorDireccionamiento?opcion=Registro">
+                                            <strong id='strongT'><%= nombre %></strong>
+                                        </as>  
+                                        </button>
+                        
+                                          <ul class='dropdown-menu' style='padding-left:10px; '>
+                                            <li><a class='dropdown-items' href=''>action</a></li>
+                                            <li><a class='dropdown-items' href=''> otra action</a></li>
+                                            <li><a class='dropdown-items' href=''> otra action</a></li>
+                                            <li><hr class='dropdown-divider'></li>
+                                            <li><a class='dropdown-item' href='controladorCerrarSesion'>Cerrar session</a></li>
+                                          </ul>
+                                     </div>
+                        
+                        
+                        
+                        
+                               
+
+                        <%
+
+                            }else{
+                        %>
+                        <a href="controladorDireccionamiento?opcion=Registro">
+                            <strong class='aSvg'>Registro</strong>
+                        </a>
+                        <%
+                            }
+                            
+                        
+                        %>
+                        
+           
+                        
+                        
 
                         <!--           <?php 
                         
@@ -101,8 +149,7 @@
                                     }
                                     1-linea
                                     ?>-->
-                        <strong class='aSvg'>Registro</strong>
-
+                                       
                     </div>
                 </div>
 
