@@ -221,25 +221,7 @@
                                                             1-linea
                                                           ?>-->
                                         
-                                        <%
-                                            
-                                            if ((session.getId() != null) && (session.getAttribute("idTipoPersona") != null) && (session.getAttribute("idPersona") != null)){
-                                                
-                                                int idTP = (int) session.getAttribute("idTipoPersona");
-                                                
-                                                if (idTP == 3){// ES ADMINISTRADOR de lo contrario tendara otro rol 
-                                                    
-                                        %>
-                                                    <a class='nav-link' href='controladorDireccionamiento?opcion=areaAdministracion'>Area de Administracion</a>
-                                        <%
-
-
-                                                }
-                                            
-                                            }
-                                        
-                                        
-                                        %>
+                                       
                                         
                                         
                                         
