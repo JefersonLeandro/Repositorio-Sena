@@ -79,26 +79,30 @@
                                 String id = (String) session.getId(); // identificador de la sesion
                                 
                         %>
-                               
                                     <div class='btn-group'>
                                         <button type='button' class='btn btn-tranparent dropdown-toggle' style='padding: 0; border: none; display: flex; align-items: center; gap: 5px;' data-bs-toggle='dropdown' aria-expanded='false' id='btnTogglee'>
                                             <strong><%= nombre %></strong>
                                         </button>
                         
                                           <ul class='dropdown-menu' style='padding-left:10px; '>
-                                            <li><a class='dropdown-items' href=''>action</a></li>
-                                            <li><a class='dropdown-items' href=''> otra action</a></li>
-                                            <li><a class='dropdown-items' href=''> otra action</a></li>
+                                            <li><a class='dropdown-items' href='#'>Perfil</a></li>
+                                            <li><a class='dropdown-items' href='#'> otra action</a></li>
+                                           
+                        <%
+                                int idTP = (int) session.getAttribute("idTipoPersona");
+
+                                if (idTP == 3){// ES ADMINISTRADOR de lo contrario tendra otro rol
+                        %>
+                                 <li><a class='dropdown-items' href='controladorDireccionamiento?opcion=areaAdministracion'>Administrar</a></li>          
+                        <%
+                                }
+                                    
+                        %>
+                                            
                                             <li><hr class='dropdown-divider'></li>
                                             <li><a class='dropdown-item' href='controladorCerrarSesion'>Cerrar session</a></li>
                                           </ul>
                                      </div>
-                        
-                        
-                        
-                        
-                               
-
                         <%
 
                             }else{
@@ -146,6 +150,8 @@
                                     }
                                     1-linea
                                     ?>-->
+                        
+                             
                                        
                     </div>
                 </div>
@@ -219,10 +225,35 @@
                                                           ?>-->
                                         
                                        
+                                                    <%
+
+                                                        if ((session.getId() != null) && (session.getAttribute("idTipoPersona") != null) && (session.getAttribute("idPersona") != null)){
+
+                                                            int idTP = (int) session.getAttribute("idTipoPersona");
+
+                                                            if (idTP == 3){// ES ADMINISTRADOR de lo contrario tendra otro rol 
+
+                                                    %>
+                                                                <a class='nav-link' href='controladorDireccionamiento?opcion=areaAdministracion'>Area de Administracion</a>
+                                                    <%
+                                                            }
+
+                                                        }
+
+                                                        if(session.getId() != null && session.getAttribute("idPersona") != null){
+
+                                                    %>
+                                                        <li><a class='dropdown-item' href='controladorCerrarSesion'>Cerrar session</a></li>
+                                                    <%
+                                                        }else{
+                                                    %>
+                                                        <li><a class='nav-link' href=href="controladorDireccionamiento?opcion=Registro">Iniciar Sesion</a></li>
+                                                    <%
+                                                        }
+                                                    %>
                                         
                                         
                                         
-                                        <a class='nav-link' href='Registro.php'>Iniciar Sesion</a>
                                     </li>
                                 </ul>
                                 <form class="d-flex mt-3" role="search">
