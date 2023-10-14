@@ -62,7 +62,7 @@ public class controladorCerrarSesion extends HttpServlet {
 
             
         } catch (Exception error) {
-            System.out.println("Error al cerrar la session");
+            System.out.println("Error al cerrar la session"+error.getMessage());
             
         } 
         

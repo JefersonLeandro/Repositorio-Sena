@@ -38,6 +38,7 @@ public class controladorDireccionamiento extends HttpServlet {
             case "crearCuenta":
             case "cerrarSesion":
             case "Alquiler":
+            case "areaAdministracion":
       
                 request.getRequestDispatcher("WEB-INF/"+opcion+".jsp").forward(request, response);
                 break;
