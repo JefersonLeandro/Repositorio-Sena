@@ -82,10 +82,7 @@
                                
                                     <div class='btn-group'>
                                         <button type='button' class='btn btn-tranparent dropdown-toggle' style='padding: 0; border: none; display: flex; align-items: center; gap: 5px;' data-bs-toggle='dropdown' aria-expanded='false' id='btnTogglee'>
-                                         
-                                        <a href="controladorDireccionamiento?opcion=Registro">
-                                            <strong id='strongT'><%= nombre %></strong>
-                                        </as>  
+                                            <strong><%= nombre %></strong>
                                         </button>
                         
                                           <ul class='dropdown-menu' style='padding-left:10px; '>

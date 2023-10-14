@@ -55,18 +55,14 @@ public class controladorCerrarSesion extends HttpServlet {
             
             HttpSession session = request.getSession();
             session.invalidate();
-//          session.getAttribute("nombrePersona");
-//            System.out.println("el nombre es : "+session.getAttribute("nombrePersona"));
-            System.out.println("debio eliminar los datos de la sesion");
+            System.out.println("debio eliminar los datos de la sesion y dejar los valores en nulls");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
 
             
         } catch (Exception error) {
             System.out.println("Error al cerrar la session"+error.getMessage());
             
-        } 
-        
-        
+        }
         
         processRequest(request, response);
     }
