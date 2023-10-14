@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="buttonAb">
                                     <div class="buttonAF">
-                                        <a href="vistaDatosFarmacia.php">
+                                        <a href="controladorDireccionamiento?opcion=datosFarmacia">
                                             <h3>Farmacias</h3>
                                         </a>
                                     </div>

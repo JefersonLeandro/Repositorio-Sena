@@ -15,9 +15,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datos Farmacias</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../Fuentes/PT_Sans_Narrow/PTSansNarrow-Regular.ttf">
-    <link rel="stylesheet" href="../bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="Public/Estilos/style.css">
+    <link rel="stylesheet" href="Public/Fuentes/PT_Sans_Narrow/PTSansNarrow-Regular.ttf">
+    <link rel="stylesheet" href="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 </head>
 
 <body>
@@ -53,8 +53,10 @@
             <div class="lineaA"></div>
             <div id="seccionGV">
                 <div class="seccionCV">                                    
-                    <table border="1"  class="table  table-striped">
-                            <tBody>
+                    <table border="1"  class="table table-striped">
+                            
+                        <!--cambiar el color a gris el encabezado y mirara si esta cogiendo la clase STRIPE-->
+                        <thead class="Secondary">
                                 <tr> 
                                     <th scope="col">nitFarmacia</th>
                                     <th scope="col">nombreFarmacia</th>
@@ -64,6 +66,10 @@
                                     <th scope="col"></th>
                 
                                 </tr>
+                        </thead>
+                                
+                                
+                        <tBody>  
 <!--                        <?php
 
                         
