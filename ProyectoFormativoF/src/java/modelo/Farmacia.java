@@ -234,7 +234,7 @@ public class Farmacia {
         public void modificar(){
             
             String consulta = " UPDATE "+this.getClass().getSimpleName()+" SET nitFarmacia =?, nombreFarmacia=?, telefonoFarmacia=?, "
-                    + "correoFarmacia=?, ubicacionFarmacia=?  WHERE idFarmacia=?";
+                    + "correoFarmacia=?, ubicacionFarmacia=?  WHERE idFarmacia = ?";
        
            try {
                PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
