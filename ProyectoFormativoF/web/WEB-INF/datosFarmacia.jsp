@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="Public/Fuentes/PT_Sans_Narrow/PTSansNarrow-Regular.ttf">
     <link rel="stylesheet" href="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 </head>
+  <!--es como un import este useBean-->
+  <jsp:useBean id="unaFarmacia" class="modelo.Farmacia" scope="request" />
 
 <body>
     <main id="mainVDF">
@@ -70,68 +72,40 @@
                                 
                                 
                         <tBody>  
-<!--                        <?php
-
-                        
-                            include_once("../modelo/conexion.php");
-                            $objetoConexion = new conexion();
-                            $conexion = $objetoConexion->conectar();
-
-                            include_once("../modelo/DatosFarmacia.php");
                             
-                            $objetoDatosFarmacia = new DatosFarmacia ($conexion,0,'nitFarmacia','nombreFarmacia','telefonoFarmacia','correoFarmacia','ubicacionFarmacia');
-                            $listaDatosFarmacia = $objetoDatosFarmacia->listar(0);
-                        
-                            while($unRegistro = mysqli_fetch_array($listaDatosFarmacia)){
-                            
-                                echo '<tr><form id="fModificarDatosFarmacia"'.$unRegistro["idFarmacia"].' action="../controlador/controladorDatosFarmacia.php"method="post">';
-                                    echo '<td><input type="hidden" name="fIdFarmacia" value="'.$unRegistro['idFarmacia'].'">';
-                                    echo '    <input type="text" name="fNitFarmacia" value="'.$unRegistro['nitFarmacia'].'"></td>';
-                                    echo '<td><input type="text" name="fNombreFarmacia" value="'.$unRegistro['nombreFarmacia'].'"></td>';
-                                    echo '<td><input type="number" name="fTelefonoFarmacia" value="'.$unRegistro['telefonoFarmacia'].'"></td>';
-                                    echo '<td><input type="email" name="fCorreoFarmacia" value="'.$unRegistro['correoFarmacia'].'"></td>';
-                                    echo '<td><input type="text" name="fUbicacionFarmacia" value="'.$unRegistro['ubicacionFarmacia'].'"></td>';
-                                    echo '<td><button type="submit" name="fEnviar" value="Modificar" class="buttonEnviar2">Modificar</button>
-                                            <button type="submit" name="fEnviar" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>';
-                                echo '</form></tr>';
-                                    
-                            }
-                            // session_start();
-
-                            // $alert = $_SESSION['mensaje']; // Recuperar el valor de la variable de sesión
-
-                            // if ($alert == "Modificado") {
-                            //     echo '<script>alert("Mensaje de alerta");</script>'; // Mostrar mensaje de alerta si $alert es "Modificado"
-                            // }
-
-                            // var_dump($alert);
-                           
-                            
-                           
-
-                        ?>-->
+                            <c:forEach items="${unaFarmacia.listar()}" var= "laFarmacia">
+                                 
+                                 <tr><form id="fModificarDatosFarmacia"    action="controladorDatosFarmacia"  method="post">
+                                    <td><input type="hidden" name="fIdFarmacia" value="${laFarmacia.idFarmacia}">
+                                       <input type="text" name="fNitFarmacia" value="${laFarmacia.nitFarmacia}"></td>
+                                    <td><input type="text" name="fNombreFarmacia" value="${laFarmacia.nombreFarmacia}"></td>
+                                    <td><input type="number" name="fTelefonoFarmacia" value="${laFarmacia.telefonoFarmacia}"></td>
+                                    <td><input type="email" name="fCorreoFarmacia" value="${laFarmacia.correoFarmacia}"></td>
+                                    <td><input type="text" name="fUbicacionFarmacia" value="${laFarmacia.ubicacionFarmacia}"></td>
+                                    <td><button type="submit" name="fOpcion" value="Modificar" class="buttonEnviar2">Modificar</button>
+                                            <button type="submit" name="fOpcion" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>
+                                </form></tr>
+                                
+                                
+                            </c:forEach>
 
                                 <tr>
-                                    <form id="fIngresarFarmacia" action="../controlador/controladorDatosFarmacia.php" method="post">
+                                <form id="fIngresarFarmacia" action="controladorDatosFarmacia" method="post">
                                         <input type="hidden" name="fIdFarmacia" value="0">
                                         <td><input type="text"  name="fNitFarmacia"></td>
                                         <td><input type="text"  name="fNombreFarmacia"></td>
                                         <td><input type="number" name="fTelefonoFarmacia"></td>
                                         <td><input type="email" name="fCorreoFarmacia"></td>
                                         <td><input type="text" name="fUbicacionFarmacia"></td>
-                                        <td><button type="submit" name="fEnviar" value="Ingresar" class="buttonEnviar">Ingresar</button>
-                                            <button type="reset" name="fEnviar" value="Limpiar"  class="buttonEnviar">Limpiar</button></td>
+                                        <td><button type="submit" name="fOpcion" value="Ingresar" class="buttonEnviar">Ingresar</button>
+                                            <button type="reset"  value="Limpiar"  class="buttonEnviar">Limpiar</button></td>
                                     </form>
                                 </tr>  
                             </tBody>
 
                         </table>
                         
-<!--                        <?php
-                            mysqli_free_result($listaDatosFarmacia);
-                            $objetoConexion->desconectar($conexion);
-                        
-                        ?>-->
+
                 </div>
 
                 
@@ -139,7 +113,7 @@
             <div class="lineaAF"></div>
             <div id="tituloAbajo">
                 <div id="iconoAbajo">
-                    <img src="../Imgs/logoQ1.png" alt="logo" width="41px" height="41px">
+                    <img src="Public/Imgs/logoQ1.png" alt="logo" width="41px" height="41px">
 
                 </div>
                 <div id="tituloH">

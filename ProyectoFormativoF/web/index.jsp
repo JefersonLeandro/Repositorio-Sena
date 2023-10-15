@@ -83,11 +83,9 @@
                                         <button type='button' class='btn btn-tranparent dropdown-toggle' style='padding: 0; border: none; display: flex; align-items: center; gap: 5px;' data-bs-toggle='dropdown' aria-expanded='false' id='btnTogglee'>
                                             <strong><%= nombre %></strong>
                                         </button>
-                        
                                           <ul class='dropdown-menu' style='padding-left:10px; '>
                                             <li><a class='dropdown-items' href='#'>Perfil</a></li>
                                             <li><a class='dropdown-items' href='#'> otra action</a></li>
-                                           
                         <%
                                 int idTP = (int) session.getAttribute("idTipoPersona");
 
@@ -98,7 +96,6 @@
                                 }
                                     
                         %>
-                                            
                                             <li><hr class='dropdown-divider'></li>
                                             <li><a class='dropdown-item' href='controladorCerrarSesion'>Cerrar session</a></li>
                                           </ul>
@@ -114,45 +111,7 @@
                             }
                             
                         
-                        %>
-                        
-           
-                        
-                        
-
-                        <!--           <?php 
-                        
-                                    if (!empty($_SESSION['nombre']) and !empty($_SESSION['apellido'])) { //si la variable no esta vacia haga esto 
-                                        
-                                      echo"<div class='btn-group'>";
-                                        echo"<button type='button' class='btn btn-tranparent dropdown-toggle' style='padding: 0; border: none; display: flex; align-items: center; gap: 5px;' data-bs-toggle='dropdown' aria-expanded='false' id='btnTogglee'>";
-                                          $nombre=$_SESSION['nombre'];
-                                          
-                                          echo "<strong id'strongT'>".$nombre."</strong>";
-                                        echo"</button>";
-                        
-                                          echo"<ul class='dropdown-menu' style='padding-left:10px; '>";
-                                            echo"<li><a class='dropdown-items' href=''>action</a></li>";
-                                            echo"<li><a class='dropdown-items' href=''> otra action</a></li>";
-                                            echo"<li><a class='dropdown-items' href=''> otra action</a></li>";
-                                            echo"<li><hr class='dropdown-divider'></li>";
-                                            echo"<li><a class='dropdown-item' href='../controlador/controladorCerrarSession.php'>Cerrar session</a></li>";
-                                          echo"</ul>";
-                                      echo"</div>";
-                        
-                                      // echo "<a  href='../controlador/controladorCerrarSession.php' >Soy yo</a>";
-                        
-                                    }else{
-                                      // si esta vacio haga esto 
-                                      echo"<a href='Registro.php'>";
-                                        echo"<strong class='aSvg'>Registro</strong>";
-                                      echo"</a>";
-                                    }
-                                    1-linea
-                                    ?>-->
-                        
-                             
-                                       
+                        %>                
                     </div>
                 </div>
 
@@ -192,38 +151,7 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <!-- <a class="nav-link" href="AreaAdministracion.html">Area de Administracion</a> -->
-                                        <!--                  <?php
-                                        
-                                                            // cosas por arreglar si la persona ya esta iniciada y es administrador y se quiere cambiar a tro rol 
-                                                            // por ejemplo a cliente y lo modifico y en la vista sigue como administrador como si no hubiera hecho el cambio 
-                                                            // depronto es porque esa misma session esta activa pero si se session y va y mira los cambios ya se ven reflejados 
-                                        
-                                                            // arreglar el archivo de administracion osea poner que la idTipoPersona==3 dejelo ahi pero si no es redirecionelo a 
-                                                            // la pagina principal.
-                                                           
-                                                            if(isset($_SESSION['id']) and isset($_SESSION['idTipoPer'])){
-                                        
-                                                              $verificacionT=$_SESSION['idTipoPer'];
-                                        
-                                                              if($verificacionT==3){
-                                        
-                                                               echo"<a class='nav-link' href='AreaAdministracion.html'>Area de Administracion</a>";
-                                                              }
-                                                            }
-                                                            // session_start();
-                                                            // $id=$_SESSION['id'];
-                                                            if (isset($_SESSION['id'])) {
-                                                              echo"<a class='nav-link' href='../controlador/controladorCerrarSession.php'>Cerrar session</a>";
-                                                            }
-                                                            
-                                                            if(empty($_SESSION['id'])){
-                                        
-                                                              echo"<a class='nav-link' href='Registro.php'>Iniciar Sesion</a>";
-                                                            }
-                                                            1-linea
-                                                          ?>-->
-                                        
+                                       
                                        
                                                     <%
 

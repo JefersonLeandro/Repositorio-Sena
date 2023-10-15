@@ -138,7 +138,7 @@ public class Farmacia {
         
         ArrayList listaFarmacias = new ArrayList();
         
-        Farmacia laFarmacia;
+      
         String listado = " SELECT * FROM "+this.getClass().getSimpleName()+" GROUP BY idFarmacia";
         
         int pagina = 0;
