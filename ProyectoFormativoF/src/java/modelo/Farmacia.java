@@ -131,26 +131,23 @@ public class Farmacia {
     
 //    Listar
         
-    public ArrayList listar() throws SQLException{
+    public ArrayList listar(int pagina) throws SQLException{
        
-//    
-        System.out.println("dentre al Listar - modeloPersona");
+
         
         ArrayList listaFarmacias = new ArrayList();
-        
-      
         String listado = " SELECT * FROM "+this.getClass().getSimpleName()+" GROUP BY idFarmacia";
         
-        int pagina = 0;
+       
         
         if (pagina>0) {
+            
             int paginacionMax = pagina*this.paginacion;
             int paginacionMin = paginacionMax - this.paginacion;
             
-            System.out.println("dentre al if del listar");
             try {
                 System.out.println("dentre al try catch");
-                listado = " SELECT * FROM "+this.getClass().getSimpleName()+" ORDEN BY idFarmacia LIMIT ?,?";
+                listado = " SELECT * FROM "+this.getClass().getSimpleName()+" GROUP BY idFarmacia LIMIT ?,?";
                 
                 PreparedStatement sql = Conexion.conectar().prepareStatement(listado);
                  
@@ -169,8 +166,6 @@ public class Farmacia {
 
         try {
             
-            
-            System.out.println("esta es la consulta"+listado);
             
             
             PreparedStatement sql = Conexion.conectar().prepareStatement(listado);
@@ -192,7 +187,7 @@ public class Farmacia {
             
         } catch (SQLException error) {
             
-            System.err.println("Error al listar las Personas: "+error.getLocalizedMessage());
+            System.err.println("Error al listar las Farmacias: "+error.getLocalizedMessage());
         }
     
         Conexion.desconectar();

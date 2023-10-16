@@ -34,10 +34,10 @@ public class controladorDireccionamiento extends HttpServlet {
           String opcion = request.getParameter("opcion");
         
         switch (opcion) {
+           
             case "Registro":
             case "crearCuenta":
             case "cerrarSesion":
-            case "Alquiler":
             case "areaAdministracion":
             case "datosFarmacia":
         

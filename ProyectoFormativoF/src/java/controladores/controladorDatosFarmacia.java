@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelo.Farmacia;
 
 /**
  *
@@ -83,20 +84,51 @@ public class controladorDatosFarmacia extends HttpServlet {
         String opcion = request.getParameter("fOpcion");
           
         
+        //Castim y asignamientos de los datos 
         
-        System.out.println("datos ++++");
+        Farmacia unaFarmacia = null;
+        try {
+            
+           int idFarmacia = (int) Integer.parseInt(id);
+           
+           unaFarmacia = new Farmacia();
+           unaFarmacia.setIdFarmacia(idFarmacia);
+           unaFarmacia.setNitFarmacia(nit);
+           unaFarmacia.setNombreFarmacia(nombre);
+           unaFarmacia.setTelefonoFarmacia(telefono);
+           unaFarmacia.setCorreoFarmacia(correo);
+           unaFarmacia.setUbicacionFarmacia(ubicacion);
+           
+           
+            
+        } catch (Exception error) {
+            
+            System.out.println("Error al hacer el castim "+error);
+        }
         
-        System.out.println(id);
-        System.out.println(nit);
-        System.out.println(nombre);
-        System.out.println(telefono);
-        System.out.println(correo);
-        System.out.println(ubicacion);
-        System.out.println(opcion);
         
-        
-        
-        
+        switch (opcion) {
+            case "Ingresar":
+                unaFarmacia.insertar();
+                break;
+                
+            case "Modificar":
+                
+                unaFarmacia.modificar();
+                break;
+                
+            case "Eliminar":
+                unaFarmacia.eliminar();
+                break;
+        }
+
+//        request.getRequestDispatcher("WEB-INF/datosFarmacia.jsp).forward(request, response); al hacerlo asi permite la duplicacion de los datos
+
+          response.sendRedirect("controladorDireccionamiento?opcion=datosFarmacia"); // se hace el direccionamiento con otra pagina para eliminar las duplicacines ya que el direcconamiento de arriba hace otra vez 
+
+
+
+
         
         processRequest(request, response);
     }
