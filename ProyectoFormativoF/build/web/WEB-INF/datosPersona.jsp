@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,10 +14,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datos Personas</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../Fuentes/PT_Sans_Narrow/PTSansNarrow-Regular.ttf">
-    <link rel="stylesheet" href="../bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="Public/Estilos/style.css">
+    <link rel="stylesheet" href="Public/Fuentes/PT_Sans_Narrow/PTSansNarrow-Regular.ttf">
+    <link rel="stylesheet" href="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 </head>
+  <jsp:useBean id="laPersona" class="modelo.Persona" scope="request" />
 
 <body>
     <main id="mainVDF">
@@ -35,7 +37,7 @@
                 </div>
                 <div id="iconsAV">
                     <div class="divMv">
-                        <a href="index.php">
+                        <a href="controladorDireccionamiento?opcion=index">
                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
                                 class="bi bi-house-fill" viewBox="0 0 16 16">
                                 <path
@@ -52,7 +54,8 @@
             <div id="seccionGV">
                 <div class="seccionCVP">
                     <table border="1" class="table  table-striped">
-                        <tBody>
+                        
+                        <thead>
                             <tr>
                                 <th scope="col">nombrePersona</th>
                                 <th scope="col">apellidoPersona</th>
@@ -64,6 +67,33 @@
                                 <th scope="col"></th>
 
                             </tr>
+                        </thead>     
+                        <tBody>
+                            
+                           <!--la variable var unaPersona recibe los datos y con ella misma se muestran--> 
+                            <c:forEach items="${laPersona.listar(0)}" var= "unaPersona">
+                                
+                                <tr><form id="fModificarDatosPersona"  action="#" method="post">
+                                    <td><input type="hidden" name="fIdPersona" value="${unaPersona.idPersona}">
+                                    <input type="text" name="fNombrePersona" value="${unaPersona.nombrePersona}"></td>
+                                <td><input type="text" name="fApellidoPersona" value="${unaPersona.apellidoPersona}"></td>
+                                <td><input type="number" name="fIdentificacionPersona" value="${unaPersona.identificacionPersona}"></td>
+                                <td><input type="email" name="fCorreoPersona" value="${unaPersona.correoPersona}" disabled ></td>
+                                <td><input type="number" name="fTelefonoPersona" value="${unaPersona.telefonoPersona}"></td>
+                                <td><input type="text" name="fContrasenaPersona" value="${unaPersona.contrasenaPersona}" disabled ></td>
+                               
+                                 <td><button type="submit" name="fEnviar" value="Modificar" class="buttonEnviar2">Modificar</button>
+                                            <button type="submit" name="fEnviar" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>
+                                </form></tr>
+                                <!--logica jcomboBox-->
+                                 <%--<c:out value="${unaPersona.idPersona}"/>--%>
+                            
+                            
+                            
+                            </c:forEach>
+                            
+                            
+                            
 <!--                            <?php
 
 
@@ -111,8 +141,7 @@
                             ?>-->
 
                             <tr>
-                                <form id="fIngresarPersona" action="../controlador/controladorDatosPersona.php"
-                                    method="post">
+                                <form id="fIngresarPersona" action="#" method="post">
                                     <input type="hidden" name="fIdPersona" value="0">
                                     <td><input type="text" name="fNombrePersona" required></td>
                                     <td><input type="text" name="fApellidoPersona" required></td>
@@ -154,7 +183,7 @@
             <div class="lineaAF"></div>
             <div id="tituloAbajo">
                 <div id="iconoAbajo">
-                    <img src="../Imgs/logoQ1.png" alt="logo" width="41px" height="41px">
+                    <img src="Public/imgs/logoQ1.png" alt="logo" width="41px" height="41px">
 
                 </div>
                 <div id="tituloH">

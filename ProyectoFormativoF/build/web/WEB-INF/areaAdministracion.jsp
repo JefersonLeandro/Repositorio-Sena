@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="buttonAb">
                                     <div class="buttonAF">
-                                        <a href="vistaDatosPersona.php">
+                                        <a href="controladorDireccionamiento?opcion=datosPersona">
                                             <h3>Personas</h3>
                                         </a>
                                     </div>
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="buttonAb">
                                     <div class="buttonAF">
-                                        <a href="vistaDatosProducto.php">
+                                        <a href="controladorDireccionamiento?opcion=datosProductos">
                                             <h3>Productos</h3>
                                         </a>
                                     </div>

@@ -96,6 +96,14 @@ public class Persona {
         this.idTipoPersona = idTipoPersona;
     }
     
+      // CONSTRUCTOR VACIO
+
+    public Persona() {
+        
+        
+    }
+    
+    
     //CONSTRUCTOR Con datos
 
     public Persona(int idPersona, String nombrePersona, String apellidoPersona, String identificacionPersona, String correoPersona, String telefonoPersona, String contrasenaPersona, int idTipoPersona) {
@@ -110,49 +118,36 @@ public class Persona {
     }
     
     
-    // CONSTRUCTOR VACIO
-
-    public Persona() {
-        
-        
-    }
+  
     
     
     
     //    CRUD 
 //    
 //    Listar
-    public ArrayList listar() throws SQLException{
-       
-//    
-        System.out.println("dentre al Listar - modeloPersona");
+    public ArrayList listar(int pagina) throws SQLException{
         
         ArrayList listaPersonas = new ArrayList();
         
-        Persona laPersona;
+        
         String listado = " SELECT * FROM "+this.getClass().getSimpleName()+" GROUP BY idPersona";
-//      PreparedStatement sql = Conexion.conectar().prepareStatement(listado);
-//        System.out.println("22222222222222222.555555555555555555555");
-//      ResultSet rs = sql.executeQuery();//
 
         
-        int pagina = 0;
+        
         
         if (pagina>0) {
             int paginacionMax = pagina*this.paginacion;
             int paginacionMin = paginacionMax - this.paginacion;
-            
-            System.out.println("dentre al if del listar");
             try {
                 System.out.println("dentre al try catch");
-                listado = " SELECT * FROM "+this.getClass().getSimpleName()+" ORDEN BY idPersona LIMIT ?,?";
+                listado = " SELECT * FROM "+this.getClass().getSimpleName()+" GROUP BY idPersona LIMIT ?,?";
                 
                 PreparedStatement sql = Conexion.conectar().prepareStatement(listado);
                  
                 sql.setInt(1, paginacionMin);
                 sql.setInt(2, paginacionMax);
                 
-//                ResultSet resutadoL2 = sql.executeQuery(); creo que no es necesario
+
             } catch (Exception error) {
                 
                 System.err.println("Error al hacer la consulta select con limite en la funcion Listar"+error.getLocalizedMessage());   
@@ -173,7 +168,7 @@ public class Persona {
             
             while(rs.next()){
                 
-              laPersona = new Persona(idPersona, nombrePersona, apellidoPersona, identificacionPersona, correoPersona, telefonoPersona, contrasenaPersona, idTipoPersona); // nose porque no dejar instaciar el objecto sin que se le pase normal
+               Persona laPersona = new Persona(); // nose porque no dejar instaciar el objecto sin que se le pase normal
                
                laPersona.setIdPersona(rs.getInt("idPersona"));
                laPersona.setNombrePersona(rs.getString("nombrePersona"));
@@ -183,10 +178,21 @@ public class Persona {
                laPersona.setTelefonoPersona(rs.getString("telefonoPersona"));
                laPersona.setContrasenaPersona(rs.getString("contrasenaPersona"));
                laPersona.setIdTipoPersona(rs.getInt("idTipoPersona"));
+               
 
+                System.out.println("datos");
+                System.out.println(rs.getInt("idPersona"));
+                System.out.println(rs.getString("nombrePersona"));
+                System.out.println(rs.getString("apellidoPersona"));
+                System.out.println(rs.getString("identificacionPersona"));
+                System.out.println(rs.getString("correoPersona"));
+                System.out.println(rs.getString("telefonoPersona"));
+                System.out.println(rs.getString("contrasenaPersona"));
+                System.out.println(rs.getString("idTipoPersona"));
                listaPersonas.add(laPersona);
             
             }
+
             
         } catch (SQLException error) {
             
