@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,12 +82,28 @@
                                 <td><input type="email" name="fCorreoPersona" value="${unaPersona.correoPersona}" disabled ></td>
                                 <td><input type="number" name="fTelefonoPersona" value="${unaPersona.telefonoPersona}"></td>
                                 <td><input type="text" name="fContrasenaPersona" value="${unaPersona.contrasenaPersona}" disabled ></td>
+                                  <!--logica jcomboBox-->
+                                <td><select name='fIdTipoPersona' required>
+                               
+
+                                <!-- Crear una variable llamada "miVariable" con un valor específico -->
+                                <c:set var="miVariable" value="${unaPersona.idTipoPersona}" />
+
+                                <!-- Utilizar la variable en la página -->
+                                <option><c:out value="${miVariable}" /></option>
+
+                                 </select></td>
+                                
+                                
                                
                                  <td><button type="submit" name="fEnviar" value="Modificar" class="buttonEnviar2">Modificar</button>
                                             <button type="submit" name="fEnviar" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>
                                 </form></tr>
-                                <!--logica jcomboBox-->
+                              
                                  <%--<c:out value="${unaPersona.idPersona}"/>--%>
+                                 
+                                 
+                                 
                             
                             
                             
@@ -159,10 +176,9 @@
                                         }
                                         echo "</select></td>";
                                     ?>-->
-                                    <td><button type="submit" name="fEnviar" value="Ingresar"
-                                            class="buttonEnviar">Ingresar</button>
-                                        <button type="reset" name="fEnviar" value="Limpiar"
-                                            class="buttonEnviar">Limpiar</button>
+                                    <td>
+                                        <button type="submit" name="fEnviar" value="Ingresar" class="buttonEnviar">Ingresar</button>
+                                        <button type="reset" name="fEnviar" value="Limpiar" class="buttonEnviar">Limpiar</button>
                                     </td>
                                     
                                 </form>
