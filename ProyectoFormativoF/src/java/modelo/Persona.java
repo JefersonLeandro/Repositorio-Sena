@@ -214,9 +214,26 @@ public class Persona {
             System.out.println(this.getTelefonoPersona());
             System.out.println(this.getContrasenaPersona());
             
+            int idT = this.getIdTipoPersona();
+            
+            
+             String consulta; 
+             
+            if (idT == 1 ) {
+                
+                consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?,?,?,?,1)";
+                
+            } else {
+                consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?,?,?,?,?)";
+                
+            }
+            
+            
             
             // este insert es para la vista de crear cuenta, agregar la logica para las dos vistas
-            String consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?,?,?,?,1)";
+            
+            
+            
             PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
             
             //cambio
