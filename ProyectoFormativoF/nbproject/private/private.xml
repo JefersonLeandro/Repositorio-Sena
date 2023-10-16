@@ -6,7 +6,9 @@
             <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/index.jsp</file>
             <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/controladores/controladorDatosFarmacia.java</file>
             <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/datosFarmacia.jsp</file>
-            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/modelo/Farmacia.java</file>
+            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/modelo/Conexion.java</file>
+            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/modelo/Persona.java</file>
+            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/controladores/controladorDireccionamiento.java</file>
         </group>
     </open-files>
 </project-private>

@@ -217,14 +217,16 @@ public class Persona {
             int idT = this.getIdTipoPersona();
             
             
-             String consulta; 
+             String consulta;
+             PreparedStatement sql = null ;
              
-            if (idT == 1 ) {
+            if (idT == 1) {
                 
                 consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?,?,?,?,1)";
                 
             } else {
                 consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?,?,?,?,?)";
+                sql.setInt(7, this.getIdTipoPersona());
                 
             }
             
@@ -232,9 +234,7 @@ public class Persona {
             
             // este insert es para la vista de crear cuenta, agregar la logica para las dos vistas
             
-            
-            
-            PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
+            sql = Conexion.conectar().prepareStatement(consulta);
             
             //cambio
              sql.setString(1, this.getNombrePersona());
@@ -243,7 +243,7 @@ public class Persona {
              sql.setString(4, this.getCorreoPersona());
              sql.setString(5, this.getTelefonoPersona());
              sql.setString(6, this.getContrasenaPersona());
-//           sql.setInt(7, this.getIdTipoPersona());
+//          
 
              sql.executeUpdate();
              
