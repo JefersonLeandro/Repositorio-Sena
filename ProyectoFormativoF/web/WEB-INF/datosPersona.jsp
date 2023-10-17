@@ -119,7 +119,7 @@
 
                                           <td>
                                               <select name='fIdTipoPersona' required>
-                                                <option disabled >
+                                                <option disabled selected>
                                                        <c:out value="-Seleciona-"/>
                                                  </option>
                                                 <c:forEach items="${unTipoPersona.listar(0)}" var="elTipoPersona">
@@ -141,11 +141,7 @@
 
                     </table>
 
-<!--                    <?php
-                    mysqli_free_result($listaDatosPersonas);
-                    $objetoConexion->desconectar($conexion);
 
-                    ?>-->
                 </div>
 
 

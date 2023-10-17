@@ -117,11 +117,6 @@ public class Persona {
         this.idTipoPersona = idTipoPersona;
     }
     
-    
-  
-    
-    
-    
     //    CRUD 
 //    
 //    Listar
@@ -136,6 +131,7 @@ public class Persona {
         
         
         if (pagina>0) {
+            
             int paginacionMax = pagina*this.paginacion;
             int paginacionMin = paginacionMax - this.paginacion;
             try {
@@ -200,11 +196,7 @@ public class Persona {
     public void insertar (){
         
         try {
-            
             int idT = this.getIdTipoPersona();
-            
-            System.out.println("estoy denrtro del metodo insertar , el id "+idT);
-            
             
              String consulta;
              PreparedStatement sql = null ;
@@ -214,19 +206,9 @@ public class Persona {
             if (idT == 1) {
                 
                 consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?,?,?,?,1)";
-                
-                System.out.println("dentre donde es igual a 1 ");
             } else {
-                
-                
-                System.out.println("primero ");
                 consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?,?,?,?,?)";
-                
-                
                 doble = true;
-                System.out.println("dentre donde no es igual  ");
-
-                
             }
             // este insert es para la vista de crear cuenta, agregar la logica para las dos vistas
             
@@ -244,8 +226,6 @@ public class Persona {
                  sql.setInt(7, idT);
             }
              
-             
-//          
              sql.executeUpdate();
              System.out.println(this.getClass().getSimpleName()+" Insertado correctamente");
             
@@ -263,24 +243,21 @@ public class Persona {
        public void modificar(){
        
            try {
-               PreparedStatement sql = Conexion.conectar().prepareStatement(" UPDATE "+this.getClass().getSimpleName()+" SET nombrePersona = ?, apellidoPersona=?, identificacionPersona=?, correoPersona=?, telefonoPersona=?, contrasenaPersona=?, idTipoPersona=? WHERE idPersona=?");
+               
+               
+               String consulta =   " UPDATE "+this.getClass().getSimpleName()+" SET nombrePersona = ?, apellidoPersona=?, identificacionPersona=?, telefonoPersona=?, idTipoPersona=? WHERE idPersona=?"  ;
+               PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
               
                 sql.setString(1, this.getNombrePersona());
                 sql.setString(2, this.getApellidoPersona());
                 sql.setString(3, this.getIdentificacionPersona());
-                sql.setString(4, this.getCorreoPersona());
-                sql.setString(5, this.getTelefonoPersona());
-                sql.setString(6, this.getContrasenaPersona());
-                sql.setInt(7, this.getIdTipoPersona());
-                
-                sql.setInt(8, this.getIdPersona());
-                 System.out.println(sql);
+                sql.setString(4, this.getTelefonoPersona());
+                sql.setInt(5, this.getIdTipoPersona());
+                sql.setInt(6, this.getIdPersona());
                 sql.executeUpdate();
                 
                 System.out.println(this.getClass().getSimpleName()+" Modificado correctamente ");
                 
-               
-               
            } catch (SQLException error) {
                
                System.out.println(" Error al modificar :  "+this.getClass().getSimpleName());
@@ -294,8 +271,10 @@ public class Persona {
        public void eliminar(){
            
            try {
-               PreparedStatement sql= Conexion.conexion.prepareStatement
-                (" DELETE FROM "+this.getClass().getSimpleName()+" WHERE idPersona=?");
+               
+               String consulta = " DELETE FROM "+this.getClass().getSimpleName()+" WHERE idPersona=?";
+               
+               PreparedStatement sql= Conexion.conectar().prepareStatement(consulta);
                
                sql.setInt(1,this.getIdPersona());
                sql.executeUpdate();
@@ -304,8 +283,7 @@ public class Persona {
                
            } catch (SQLException error) {
                
-               System.err.println("Error al Eliminar "
-               +this.getClass().getSimpleName()+" : "+error.getMessage()); 
+               System.err.println("Error al Eliminar "+this.getClass().getSimpleName()+" : "+error.getMessage()); 
            }
        }
        

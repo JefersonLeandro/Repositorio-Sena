@@ -78,8 +78,6 @@ public class controladorDatosPersona extends HttpServlet {
                     
                     if (request.getParameter("fOpcion").equals("Ingresar")) {
                         
-                        System.out.println("dentre al primer if");
-                        
                          correoPersona = request.getParameter("fCorreoPersona");
                          String contrasenaPersona = request.getParameter("fContrasenaPersona");
                          contrasenaEncriptada = BCrypt.hashpw(contrasenaPersona, BCrypt.gensalt()); // se le pasa una variable la contrsena que la va a encriptar teniendo encuenta el metodo que le esta encriptando donde se le esta agregado sal o salting
@@ -88,17 +86,7 @@ public class controladorDatosPersona extends HttpServlet {
                          System.out.println("Contraseña encriptadaAAAAAAAA: " + contrasenaEncriptada);// esta es la forma mas recomendable para encriptar la contrasena con una libreria que utiliza salting 
                     }           
             
-                    System.out.println(idP);
-                    System.out.println(nombrePersona);
-                    System.out.println(apellidoPersona);
-                    System.out.println(correoPersona);
-                    System.out.println(telefonoPersona);
-                    System.out.println(idTP);
-                    
-                    
-                    
-                    
-                    
+                   
             //castim
             Persona unaPersona = null;
              
@@ -118,8 +106,6 @@ public class controladorDatosPersona extends HttpServlet {
                     unaPersona.setIdTipoPersona(idTipoPersona);
                     
                     if (request.getParameter("fOpcion").equals("Ingresar")) {
-                        
-                        System.out.println("dentre al segundo if");
 
                         unaPersona.setCorreoPersona(correoPersona);
                         unaPersona.setContrasenaPersona(contrasenaEncriptada);
