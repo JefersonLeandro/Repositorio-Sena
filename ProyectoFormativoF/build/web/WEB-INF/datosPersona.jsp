@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 </head>
   <jsp:useBean id="laPersona" class="modelo.Persona" scope="request" />
+  <jsp:useBean id="unTipoPersona" class="modelo.TipoPersona" scope="request" />
 
 <body>
     <main id="mainVDF">
@@ -83,79 +84,26 @@
                                 <td><input type="number" name="fTelefonoPersona" value="${unaPersona.telefonoPersona}"></td>
                                 <td><input type="text" name="fContrasenaPersona" value="${unaPersona.contrasenaPersona}" disabled ></td>
                                   <!--logica jcomboBox-->
-                                <td><select name='fIdTipoPersona' required>
-                               
+                               <td>
+                                    <select name='fIdTipoPersona' required>
+                                        <c:set var="valorAlmacenadoTPBD" value="${unaPersona.idTipoPersona}" />
+                                        <c:forEach items="${unTipoPersona.listar(0)}" var="elTipoPersona">
+                                            <c:set var="selected" value=""/> <!-- Restablecer "selected" en cada iteración -->
+                                            <c:if test="${valorAlmacenadoTPBD == elTipoPersona.idTipoPersona}">
+                                                <!-- Código a ejecutar si la condición es verdadera -->
+                                                 <c:set var="selected" value="selected"/>
+                                            </c:if> 
+                                            <option value="${elTipoPersona.idTipoPersona}" ${selected}>
+                                                <c:out value="${elTipoPersona.nombreTipoPersona}"/>
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
 
-                                <!-- Crear una variable llamada "miVariable" con un valor específico -->
-                                <c:set var="miVariable" value="${unaPersona.idTipoPersona}" />
-
-                                <!-- Utilizar la variable en la página -->
-                                <option><c:out value="${miVariable}" /></option>
-
-                                 </select></td>
-                                
-                                
-                               
-                                 <td><button type="submit" name="fEnviar" value="Modificar" class="buttonEnviar2">Modificar</button>
-                                            <button type="submit" name="fEnviar" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>
+                                <td><button type="submit" name="fOpcion" value="Modificar" class="buttonEnviar2">Modificar</button>
+                                            <button type="submit" name="fOpcion" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>
                                 </form></tr>
-                              
-                                 <%--<c:out value="${unaPersona.idPersona}"/>--%>
-                                 
-                                 
-                                 
-                            
-                            
-                            
                             </c:forEach>
-                            
-                            
-                            
-<!--                            <?php
-
-
-                            include_once("../modelo/conexion.php");
-                            $objetoConexion = new conexion();
-                            $conexion = $objetoConexion->conectar();
-
-                            include_once("../modelo/DatosPersona.php");
-
-                            $objetoPersona = new Persona($conexion, 0, 'nombrePersona', 'apellidoPersona', 'identificacionPersona', 'correoPersona', 'telefonoPersona', 'contrasenaPersona','idTipoPersona');
-                            $listaDatosPersonas = $objetoPersona->listar(0);
-
-                            while ($unRegistro = mysqli_fetch_array($listaDatosPersonas)) {
-
-                                echo '<tr><form id="fModificarDatosPersona"' . $unRegistro["idPersona"] . ' action="../controlador/controladorDatosPersona.php"method="post">';
-                                echo '<td><input type="hidden" name="fIdPersona" value="' . $unRegistro['idPersona'] . '">';
-                                echo '    <input type="text" name="fNombrePersona" value="' . $unRegistro['nombrePersona'] . '"></td>';
-                                echo '<td><input type="text" name="fApellidoPersona" value="' . $unRegistro['apellidoPersona'] . '"></td>';
-                                echo '<td><input type="number" name="fIdentificacionPersona" value="' . $unRegistro['identificacionPersona'] . '"></td>';
-                                echo '<td><input type="email" name="fCorreoPersona" value="' . $unRegistro['correoPersona'] . '"></td>';
-                                echo '<td><input type="number" name="fTelefonoPersona" value="' . $unRegistro['telefonoPersona'] . '"></td>';
-                                echo '<td><input type="text" name="fContrasenaPersona" value="' . $unRegistro['contrasenaPersona'] . '"></td>';
-
-                                $consulta = "SELECT idTipoPersona, nombreTipoPersona FROM tipopersona;";
-                               
-                                $resultado = mysqli_query($conexion, $consulta);
-                                $valorAlmacenadoEnLaBaseDeDatos = $unRegistro['idTipoPersona'];
-                                echo "<td><select name='fIdTipoPersona' required>";
-                                foreach ($resultado as $fila) {
-                                $selected = "";
-                                if ($fila['idTipoPersona'] == $valorAlmacenadoEnLaBaseDeDatos) {
-                                    $selected = "selected";
-                                }
-                                echo "<option value='" . $fila['idTipoPersona'] . "' " . $selected . ">" . $fila['nombreTipoPersona'] . "</option>";
-                                }
-                                echo "</select></td>";
-                                
-                                //  echo '<td><input type="number" name="fIdTipoPersona" value="' . $unRegistro['idTipoPersona'] . '"></td>';
-                                echo '<td><button type="submit" name="fEnviar" value="Modificar" class="buttonEnviar2">Modificar</button>
-                                            <button type="submit" name="fEnviar" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>';
-                                echo '</form></tr>';
-
-                            }
-                          
-                            ?>-->
 
                             <tr>
                                 <form id="fIngresarPersona" action="#" method="post">
@@ -166,19 +114,23 @@
                                     <td><input type="email" name="fCorreoPersona" required></td>
                                     <td><input type="number" name="fTelefonoPersona" required></td>
                                     <td><input type="text" name="fContrasenaPersona" required></td>
-                                    <!-- <option value="" disabled selected></option> -->
-<!--                                    <?php
-                                        echo "<td><select name='fIdTipoPersona'>";
-                                        echo"<option disabled selected>-Seleciona-</option>";
-                                        foreach ($resultado as $fila) {
 
-                                            echo "<option  value='" .$fila['idTipoPersona']. "'>" .$fila['nombreTipoPersona']. "</option>";
-                                        }
-                                        echo "</select></td>";
-                                    ?>-->
+                                          <td>
+                                              <select name='fIdTipoPersona' required>
+                                                <option disabled >
+                                                       <c:out value="-Seleciona-"/>
+                                                 </option>
+                                                <c:forEach items="${unTipoPersona.listar(0)}" var="elTipoPersona">
+                                                  <option value="${elTipoPersona.idTipoPersona}" >
+                                                        <c:out value="${elTipoPersona.nombreTipoPersona}"/>
+                                                  </option>
+
+                                                </c:forEach>
+                                            </select> 
+                                          </td>
                                     <td>
-                                        <button type="submit" name="fEnviar" value="Ingresar" class="buttonEnviar">Ingresar</button>
-                                        <button type="reset" name="fEnviar" value="Limpiar" class="buttonEnviar">Limpiar</button>
+                                        <button type="submit" name="fOpcion" value="Ingresar" class="buttonEnviar">Ingresar</button>
+                                        <button type="reset"  value="Limpiar" class="buttonEnviar">Limpiar</button>
                                     </td>
                                     
                                 </form>

@@ -179,16 +179,6 @@ public class Persona {
                laPersona.setContrasenaPersona(rs.getString("contrasenaPersona"));
                laPersona.setIdTipoPersona(rs.getInt("idTipoPersona"));
                
-
-                System.out.println("datos");
-                System.out.println(rs.getInt("idPersona"));
-                System.out.println(rs.getString("nombrePersona"));
-                System.out.println(rs.getString("apellidoPersona"));
-                System.out.println(rs.getString("identificacionPersona"));
-                System.out.println(rs.getString("correoPersona"));
-                System.out.println(rs.getString("telefonoPersona"));
-                System.out.println(rs.getString("contrasenaPersona"));
-                System.out.println(rs.getString("idTipoPersona"));
                listaPersonas.add(laPersona);
             
             }
@@ -211,15 +201,6 @@ public class Persona {
         
         try {
             
-            System.out.println("--DATOS EN FUNCION INSERTAR--");
-            
-            System.out.println(this.getNombrePersona());
-            System.out.println(this.getApellidoPersona());
-            System.out.println(this.getIdentificacionPersona());
-            System.out.println(this.getCorreoPersona());
-            System.out.println(this.getTelefonoPersona());
-            System.out.println(this.getContrasenaPersona());
-            
             int idT = this.getIdTipoPersona();
             
             
@@ -235,9 +216,6 @@ public class Persona {
                 sql.setInt(7, this.getIdTipoPersona());
                 
             }
-            
-            
-            
             // este insert es para la vista de crear cuenta, agregar la logica para las dos vistas
             
             sql = Conexion.conectar().prepareStatement(consulta);
@@ -250,12 +228,7 @@ public class Persona {
              sql.setString(5, this.getTelefonoPersona());
              sql.setString(6, this.getContrasenaPersona());
 //          
-
              sql.executeUpdate();
-             
-             
-             System.out.println(" ESTA ES LA CONSULTA ======= "+sql);
-
              System.out.println(this.getClass().getSimpleName()+" Insertado correctamente");
             
         } catch (Exception error) {
@@ -272,7 +245,7 @@ public class Persona {
        public void modificar(){
        
            try {
-               PreparedStatement sql = Conexion.conexion.prepareStatement(" UPDATE "+this.getClass().getSimpleName()+" SET nombrePersona = ?, apellidoPersona=?, identificacionPersona=?, correoPersona=?, telefonoPersona=?, contrasenaPersona=?, idTipoPersona=? WHERE idPersona=?");
+               PreparedStatement sql = Conexion.conectar().prepareStatement(" UPDATE "+this.getClass().getSimpleName()+" SET nombrePersona = ?, apellidoPersona=?, identificacionPersona=?, correoPersona=?, telefonoPersona=?, contrasenaPersona=?, idTipoPersona=? WHERE idPersona=?");
               
                 sql.setString(1, this.getNombrePersona());
                 sql.setString(2, this.getApellidoPersona());

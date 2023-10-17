@@ -154,7 +154,6 @@ public class controladorSesion extends HttpServlet {
                         int idTipoPersona = resultado.getInt("idTipoPersona");
                         mensaje = " Datos validos";
                         
-                        request.getRequestDispatcher("index.jsp?msj="+mensaje).forward(request, response);
 //                    
 
                       // Guardar información del usuario en la sesión
@@ -163,15 +162,7 @@ public class controladorSesion extends HttpServlet {
                         session.setAttribute("apellidoPersona", apellidoPersona);
                         session.setAttribute("idTipoPersona", idTipoPersona);
                         
-                        
-                        System.out.println(" DATOS DE ENTRADA ");
-                        System.out.println(idPersona);
-                        System.out.println(nombrePersona);
-                        System.out.println(apellidoPersona);
-                        System.out.println(idTipoPersona);
-                           
-                      
-                        
+                        request.getRequestDispatcher("index.jsp?msj=" + mensaje).forward(request, response);
                         
                         
                     }else{
