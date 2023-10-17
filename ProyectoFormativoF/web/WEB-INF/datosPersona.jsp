@@ -75,7 +75,7 @@
                            <!--la variable var unaPersona recibe los datos y con ella misma se muestran--> 
                             <c:forEach items="${laPersona.listar(0)}" var= "unaPersona">
                                 
-                                <tr><form id="fModificarDatosPersona"  action="#" method="post">
+                                <tr><form id="fModificarDatosPersona"  action="controladorDatosPersona" method="post">
                                     <td><input type="hidden" name="fIdPersona" value="${unaPersona.idPersona}">
                                     <input type="text" name="fNombrePersona" value="${unaPersona.nombrePersona}"></td>
                                 <td><input type="text" name="fApellidoPersona" value="${unaPersona.apellidoPersona}"></td>
@@ -85,7 +85,7 @@
                                 <td><input type="text" name="fContrasenaPersona" value="${unaPersona.contrasenaPersona}" disabled ></td>
                                   <!--logica jcomboBox-->
                                <td>
-                                    <select name='fIdTipoPersona' required>
+                                    <select name="fIdTipoPersona" required>
                                         <c:set var="valorAlmacenadoTPBD" value="${unaPersona.idTipoPersona}" />
                                         <c:forEach items="${unTipoPersona.listar(0)}" var="elTipoPersona">
                                             <c:set var="selected" value=""/> <!-- Restablecer "selected" en cada iteración -->
@@ -93,20 +93,22 @@
                                                 <!-- Código a ejecutar si la condición es verdadera -->
                                                  <c:set var="selected" value="selected"/>
                                             </c:if> 
-                                            <option value="${elTipoPersona.idTipoPersona}" ${selected}>
+                                            <option value="${elTipoPersona.idTipoPersona}"  ${selected}>
                                                 <c:out value="${elTipoPersona.nombreTipoPersona}"/>
                                             </option>
                                         </c:forEach>
                                     </select>
                                 </td>
 
-                                <td><button type="submit" name="fOpcion" value="Modificar" class="buttonEnviar2">Modificar</button>
-                                            <button type="submit" name="fOpcion" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>
+                                <td>
+                                    <button type="submit" name="fOpcion" value="Modificar" class="buttonEnviar2">Modificar</button>
+                                    <button type="submit" name="fOpcion" value="Eliminar" class="buttonEnviar2">Eliminar</button>
+                                </td>
                                 </form></tr>
                             </c:forEach>
 
                             <tr>
-                                <form id="fIngresarPersona" action="#" method="post">
+                                <form id="fIngresarPersona" action="controladorDatosPersona" method="post">
                                     <input type="hidden" name="fIdPersona" value="0">
                                     <td><input type="text" name="fNombrePersona" required></td>
                                     <td><input type="text" name="fApellidoPersona" required></td>

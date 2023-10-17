@@ -11,6 +11,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelo.Persona;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -60,10 +62,100 @@ public class controladorDatosPersona extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+                String idP =  request.getParameter("fIdPersona");
+                String nombrePersona = request.getParameter("fNombrePersona");
+                String apellidoPersona = request.getParameter("fApellidoPersona");
+                String identificacionPersona = request.getParameter("fIdentificacionPersona");
+                String telefonoPersona = request.getParameter("fTelefonoPersona");
+                String idTP = request.getParameter("fIdTipoPersona");
+                String accion = request.getParameter("fOpcion");
+                
+
+                String correoPersona = null;
+                String contrasenaEncriptada = null;
+                    
+                    
+                    if (request.getParameter("fOpcion").equals("Ingresar")) {
+                        
+                        System.out.println("dentre al primer if");
+                        
+                         correoPersona = request.getParameter("fCorreoPersona");
+                         String contrasenaPersona = request.getParameter("fContrasenaPersona");
+                         contrasenaEncriptada = BCrypt.hashpw(contrasenaPersona, BCrypt.gensalt()); // se le pasa una variable la contrsena que la va a encriptar teniendo encuenta el metodo que le esta encriptando donde se le esta agregado sal o salting
+                         
+                         System.out.println("Contraseña en texto claro: " + contrasenaPersona);
+                         System.out.println("Contraseña encriptadaAAAAAAAA: " + contrasenaEncriptada);// esta es la forma mas recomendable para encriptar la contrasena con una libreria que utiliza salting 
+                    }           
+            
+                    System.out.println(idP);
+                    System.out.println(nombrePersona);
+                    System.out.println(apellidoPersona);
+                    System.out.println(correoPersona);
+                    System.out.println(telefonoPersona);
+                    System.out.println(idTP);
+                    
+                    
+                    
+                    
+                    
+            //castim
+            Persona unaPersona = null;
+             
+              try {
+                  
+                   int idPersona = (int) Integer.parseInt(idP);
+                   int idTipoPersona = (int) Integer.parseInt(idTP);
+                        
+                    // asignar valores 
+                    unaPersona = new Persona(); // se envia cero ya que no importa el id a la hora de insertar a lo que va en autoincremento como null
+
+                    unaPersona.setIdPersona(idPersona);
+                    unaPersona.setNombrePersona(nombrePersona);
+                    unaPersona.setApellidoPersona(apellidoPersona);
+                    unaPersona.setIdentificacionPersona(identificacionPersona);
+                    unaPersona.setTelefonoPersona(telefonoPersona);
+                    unaPersona.setIdTipoPersona(idTipoPersona);
+                    
+                    if (request.getParameter("fOpcion").equals("Ingresar")) {
+                        
+                        System.out.println("dentre al segundo if");
+
+                        unaPersona.setCorreoPersona(correoPersona);
+                        unaPersona.setContrasenaPersona(contrasenaEncriptada);
+                    }
+                      
+                      
+              } catch (Exception error) {
+              
+                  System.out.println(" Error al hacer castim "+error.getLocalizedMessage());
+              
+              
+              }
+              
+              String mensaje = "" ; 
+              
+            switch (accion) { //toLowerCase() transforma de todo el texto que venga a minuscula osea ABc   a  abc
+                
+            case "Ingresar":
+                unaPersona.insertar();
+                mensaje="Insertado ";
+                
+                System.out.println("dentrre al caso insertar");
+                break;
+            case "Modificar":
+                unaPersona.modificar();
+                mensaje="Modificado";
+                break;
+            case "Eliminar":
+                unaPersona.eliminar();
+                mensaje=" Eliminado";
+                break;
+        }
+                
         
-        
-        
-        
+
+            request.getRequestDispatcher("controladorDireccionamiento?opcion=datosPersona").forward(request, response);
         
         
         processRequest(request, response);

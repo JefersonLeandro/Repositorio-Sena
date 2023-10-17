@@ -203,17 +203,29 @@ public class Persona {
             
             int idT = this.getIdTipoPersona();
             
+            System.out.println("estoy denrtro del metodo insertar , el id "+idT);
+            
             
              String consulta;
              PreparedStatement sql = null ;
+             
+             boolean doble = false ;
              
             if (idT == 1) {
                 
                 consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?,?,?,?,1)";
                 
+                System.out.println("dentre donde es igual a 1 ");
             } else {
+                
+                
+                System.out.println("primero ");
                 consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?,?,?,?,?)";
-                sql.setInt(7, this.getIdTipoPersona());
+                
+                
+                doble = true;
+                System.out.println("dentre donde no es igual  ");
+
                 
             }
             // este insert es para la vista de crear cuenta, agregar la logica para las dos vistas
@@ -227,6 +239,12 @@ public class Persona {
              sql.setString(4, this.getCorreoPersona());
              sql.setString(5, this.getTelefonoPersona());
              sql.setString(6, this.getContrasenaPersona());
+             
+             if (doble) {
+                 sql.setInt(7, idT);
+            }
+             
+             
 //          
              sql.executeUpdate();
              System.out.println(this.getClass().getSimpleName()+" Insertado correctamente");
