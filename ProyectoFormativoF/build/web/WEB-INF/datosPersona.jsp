@@ -37,6 +37,11 @@
                 <div id="contenedorH1" class="Separar">
                     <h1>Personas</h1>
                 </div>
+                 <div class="subTituloT" style="display: flex; align-items: end; padding-bottom: 4px; margin-left: 20px; width: auto;">
+                    <a href="#">
+                    <h4>-Roles</h4>
+                    </a>
+                </div>
                 <div id="iconsAV">
                     <div class="divMv">
                         <a href="controladorDireccionamiento?opcion=index">
