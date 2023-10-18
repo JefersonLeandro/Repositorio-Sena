@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 </head>
 
+
+  <jsp:useBean id="elProducto" class="modelo.Producto" scope="request" />
+
 <body>
     <main id="mainVDF">
         <div id="divVG">
@@ -55,7 +58,7 @@
             <div id="seccionGV">
                 <div class="seccionCV">
                     <table border="1" class="table  table-striped">
-                        <tBody>
+                        <thead>    
                             <tr>
                                 <th scope="col">nombreProducto</th>
                                 <th scope="col">descripcionUnidad</th>
@@ -66,53 +69,49 @@
                                 <th scope="col"></th>
 
                             </tr>
-<!--                            <?php
-
-
-                            include_once("../modelo/conexion.php");
-                            $objetoConexion = new conexion();
-                            $conexion = $objetoConexion->conectar();
-
-                            include_once("../modelo/DatosProducto.php");
-
-                            $objetoProducto = new DatosProducto($conexion,0,'nombreProducto','descripcionUnidad', 'descripcionProductoGeneral', 'stockProducto', 'precioProducto', 'idMarcaProducto');
-                            $listaDatosProducto = $objetoProducto->listar(0);
-
-                            while ($unRegistro = mysqli_fetch_array($listaDatosProducto)) {
-
-                                echo '<tr><form id="fModificarDatosProducto"' . $unRegistro["idProducto"] . ' action="../controlador/controladorDatosProducto.php"method="post">';
-                                echo '<td><input type="hidden" name="fIdProducto" value="' . $unRegistro['idProducto'] . '">';
-                                echo '    <input type="text" name="fNombreProducto" required value="' . $unRegistro['nombreProducto'] . '"></td>';
-                                echo '<td><input type="text" name="fDescripcionUnidad" required value="' . $unRegistro['descripcionUnidad'] . '"></td>';
-                                echo '<td><input type="text" name="fDescripcionProductoGeneral" value="' . $unRegistro['descripcionProductoGeneral'] . '"></td>';
-                                echo '<td><input type="number" name="fStockProducto" value="' . $unRegistro['stockProducto'] . '"></td>';
-                                echo '<td><input type="number" name="fPrecioProducto" value="' . $unRegistro['precioProducto'] . '"></td>';
-                                
-                                $consulta = "SELECT idMarcaProducto, nombreMarca FROM marcaproducto;";
-                                $resultado = mysqli_query($conexion, $consulta);
-                                $valorAlmacenadoEnLaBaseDeDatos = $unRegistro['idMarcaProducto'] ;
-                                echo "<td><select required name='fIdMarcaProducto' >";
-                                foreach ($resultado as $fila) {
-                                $selected = "";
-                                if ($fila['idMarcaProducto'] == $valorAlmacenadoEnLaBaseDeDatos) {
-                                    $selected = "selected";
-                                }
-                                echo "<option value='" . $fila['idMarcaProducto'] . "' " . $selected . ">" . $fila['nombreMarca'] . "</option>";
-                                }
-                                echo "</select></td>";
-
-                                // echo '<td><input type="number" name="fIdMarcaProducto" value="' . $unRegistro['idMarcaProducto'] . '"></td>';
-
-                                echo '<td><button type="submit" name="fEnviar" value="Modificar" class="buttonEnviar2">Modificar</button>
-                                            <button type="submit" name="fEnviar" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>';
-                                echo '</form></tr>';
-
-                            }
-
-                            ?>-->
+                        </thead>
+                            
+                         <tBody>
+                             
+                         <c:forEach items="${unProducto.listar(0)}" var= "elProducto">
+                             
+                            <tr>
+                                <form id="fModificarDatosProducto" action="controladorDatosProducto" method="post">
+                                    <td><input type="hidden" name="fIdProducto" value=""></td>
+                                    <td><input type="text" name="fNombreProducto" required value=""></td>
+                                    <td><input type="text" name="fDescripcionUnidad" required value=""></td>
+                                    <td><input type="text" name="fDescripcionProductoGeneral" value=""></td>
+                                    <td><input type="number" name="fStockProducto" value=""></td>
+                                    <td><input type="number" name="fPrecioProducto" value=""></td>
+                                    
+                                     <!--logica jcomboBox-->
+                                    <td>
+                                         <select name="fIdDatosProducto" required>
+                                             <c:set var="valorAlmacenadoTPBD" value="${un.idTipoPersona}" />
+                                             <c:forEach items="${unTipoPersona.listar(0)}" var="elTipoPersona">
+                                                 <c:set var="selected" value=""/> <!-- Restablecer "selected" en cada iteración -->
+                                                 <c:if test="${valorAlmacenadoTPBD == elTipoPersona.idTipoPersona}">
+                                                     <!-- Código a ejecutar si la condición es verdadera -->
+                                                      <c:set var="selected" value="selected"/>
+                                                 </c:if> 
+                                                 <option value="${elTipoPersona.idTipoPersona}"  ${selected}>
+                                                     <c:out value="${elTipoPersona.nombreTipoPersona}"/>
+                                                 </option>
+                                             </c:forEach>
+                                         </select>
+                                     </td>
+                               </c:forEach>
+                                    
+                                    
+                                    
+                                    <td><button type="submit" name="fEnviar" value="Modificar" class="buttonEnviar2">Modificar</button>
+                                        <button type="submit" name="fEnviar" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>
+                                </form>
+                            </tr>
+                           
 
                             <tr>
-                                <form id="fIngresarProducto" action="../controlador/controladorDatosProducto.php" method="post">
+                                <form id="fIngresarProducto" action="controladorDatosProducto" method="post">
                                     <input type="hidden" name="fIdProducto" value="0">
                                     <td><input type="text" name="fNombreProducto" required></td>
                                     <td><input type="text" name="fDescripcionUnidad" required></td>
@@ -120,23 +119,26 @@
                                     <td><input type="number" name="fStockProducto" required></td>
                                     <td><input type="number" name="fPrecioProducto" required></td>
 
-<!--                                 <?php
-                                        echo "<td><select required name='fIdMarcaProducto' >";
-                                        echo"<option disabled selected>-Seleciona-</option>";
-                                        foreach ($resultado as $fila) {
+                                    
+                                    <!--logica para el select de insertar-->
+                                    <td>
+                                        <select name='fIdTipoPersona' required>
+                                          <option disabled selected>
+                                                 <c:out value="-Seleciona-"/>
+                                           </option>
+                                          <c:forEach items="${unTipoPersona.listar(0)}" var="elTipoPersona">
+                                            <option value="${elTipoPersona.idTipoPersona}" >
+                                                  <c:out value="${elTipoPersona.nombreTipoPersona}"/>
+                                            </option>
 
-                                            echo "<option  value='" .$fila['idMarcaProducto']. "'>" .$fila['nombreMarca']. "</option>";
-                                        }
-                                        echo "</select></td>";
-                                    ?>-->
+                                          </c:forEach>
+                                         </select> 
+                                    </td>
 
-                                            
-
-                                    <!-- <td><input type="number" name="fIdMarcaProducto" required></td> -->
-                                    <!-- //arreglar al select nose porque no me coje la propiedad required hacer un if que si no nada
-                                    // selecionado y se le dio click al button de ingresar mandar una alerta o mensaje diciendo que selecione
-                                    // algo y ya. -->
-
+                                    
+                                    
+                                    
+                                    
 
                                     <td><button type="submit" name="fEnviar" value="Ingresar"
                                             class="buttonEnviar">Ingresar</button>
