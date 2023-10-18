@@ -33,7 +33,7 @@
                 </div>
                 <div id="iconsH">
                     <div class="divMv">
-                        <a href="index.php">
+                        <a href="controladorDireccionamiento?opcion=datosPersona">
                             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
                               </svg>
@@ -58,55 +58,55 @@
             <div id="seccionGV" class="seccionGeneral">
                 
                 <!--arreglar el posicionamiento de la tabla o dejarlo asi o mirar otro diseno de tabla y mirar los espacios --> 
-            <div class="seccionCV subSeccion">
-                <table border="1" class="table table-striped">
-                    <tbody>
-                        <tr>
-                            <th scope="col">TipoPersona</th>
-                            <th scope="col"></th>
-                        </tr>
-                        <tr>
-                            <form id="fModificarDatosFarmacia">
-                                <td class="align-middle text-right">
-                                    <div class="row mb-2 justify-content-center">
-                                        <div class="col-6">
-                                            <input type="hidden" name="fIdFarmacia" value="0">
-                                            <input type="text" name="fNombreFarmacia">
+                <div class="seccionCV subSeccion">
+                    <table border="1" class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th scope="col" style="padding-left: 60px">TipoPersona</th>
+                                <th scope="col"></th>
+                            </tr>
+                            <tr>
+                        <form id="fModificarDatosFarmacia" action="controladorTipoPersona">
+                                    <td class="align-middle text-right">
+                                        <div class="row mb-2 justify-content-center">
+                                            <div class="col-6">
+                                                <input type="hidden" name="fIdTipoPersona" value="0">
+                                                <input type="text" name="fNombreTipoPersona" style="margin-left: 15px;">
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="submit" name="fOpcion" value="Modificar" class="buttonEnviar2">Modificar</button>
+                                                <button type="submit" name="fOpcion" value="Eliminar" class="buttonEnviar2">Eliminar</button>
+                                            </div>
                                         </div>
-                                        <div class="col-6">
-                                            <button type="submit" name="fEnviar" value="Modificar" class="buttonEnviar2">Modificar</button>
-                                            <button type="submit" name "fEnviar" value="Eliminar" class="buttonEnviar2">Eliminar</button>
+                                    </td>
+                                </form>
+                            </tr>
+                            <tr>
+                                <form id="fIngresarFarmacia">
+                                    <td class="align-middle text-right">
+                                        <div class="row mb-2 justify-content-center">
+                                            <div class="col-6">
+                                                <input type="hidden" name="fIdTipoPersona" value="0">
+                                                <input type="text"  name="fNombreTipoPersona"  style="margin-left: 15px;">
+                                            </div>
+                                            <div class="col-6">
+                                                <button type="submit" name="fOpcion" value="Ingresar" class="buttonEnviar">Ingresar</button>
+                                                <button type="reset"  value="Limpiar" class="buttonEnviar">Limpiar</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </form>
-                        </tr>
-                        <tr>
-                            <form id="fIngresarFarmacia">
-                                <td class="align-middle text-right">
-                                    <div class="row mb-2 justify-content-center">
-                                        <div class="col-6">
-                                            <input type="hidden" name="fIdFarmacia" value="0">
-                                            <input type="text"  name="fNitFarmacia">
-                                        </div>
-                                        <div class="col-6">
-                                            <button type="submit" name="fEnviar" value="Ingresar" class="buttonEnviar">Ingresar</button>
-                                            <button type="reset" name="fEnviar" value="Limpiar" class="buttonEnviar">Limpiar</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </form>
-                        </tr>
-                    </tbody>
-                </table>
+                                    </td>
+                                </form>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
 
             <div class="lineaAF"></div>
             <div id="tituloAbajo">
                 <div id="iconoAbajo">
-                    <img src="../Imgs/logoQ1.png" alt="logo" width="41px" height="41px">
+                    <img src="Public/imgs/logoQ1.png" alt="logo" width="41px" height="41px">
                 </div>
                 <div id="tituloH">
                     <h2>Farmacit</h2>
