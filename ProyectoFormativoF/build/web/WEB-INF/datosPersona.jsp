@@ -38,7 +38,7 @@
                     <h1>Personas</h1>
                 </div>
                  <div class="subTituloT" style="display: flex; align-items: end; padding-bottom: 4px; margin-left: 20px; width: auto;">
-                    <a href="#">
+                    <a href="controladorDireccionamiento?opcion=datosTipoPersona">
                     <h4>-Roles</h4>
                     </a>
                 </div>
