@@ -78,7 +78,7 @@ public class MarcaProducto {
     
 //    Listar
   
-    public ArrayList listar() throws SQLException{
+    public ArrayList listar(int pagina) throws SQLException{
        
         
 //    
@@ -89,7 +89,7 @@ public class MarcaProducto {
         MarcaProducto laMarca;
         String listado = " SELECT * FROM "+this.getClass().getSimpleName()+" GROUP BY idMarcaProducto";
         
-        int pagina = 0;
+       
        
         if (pagina>0) {
            
@@ -99,7 +99,7 @@ public class MarcaProducto {
             System.out.println("dentre al if del listar");
             try {
                 System.out.println("dentre al try catch");
-                listado = " SELECT * FROM "+this.getClass().getSimpleName()+" ORDEN BY idMarcaProducto LIMIT ?,?";
+                listado = " SELECT * FROM "+this.getClass().getSimpleName()+" GROUP BY idMarcaProducto LIMIT ?,?";
                 
                 PreparedStatement sql = Conexion.conectar().prepareStatement(listado);
                  
@@ -122,9 +122,7 @@ public class MarcaProducto {
             System.out.println("esta es la consulta"+listado);
             PreparedStatement sql = Conexion.conectar().prepareStatement(listado);
             ResultSet rs = sql.executeQuery();// el execute query hace parte STETAMENT
-            
-           
-            
+
             while (rs.next()) {
                 MarcaProducto unaMarca = new MarcaProducto();
                 unaMarca.setIdMarcaProducto(rs.getInt("idMarcaProducto"));

@@ -71,6 +71,78 @@ public class controladorDatosProductos extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        
+        
+        
+        
+//           // obtener datos 
+//        
+//        String id = request.getParameter("fIdFarmacia");
+//        String nit = request.getParameter("fNitFarmacia");
+//        String nombre = request.getParameter("fNombreFarmacia");
+//        String telefono = request.getParameter("fTelefonoFarmacia");
+//        String correo = request.getParameter("fCorreoFarmacia");
+//        String ubicacion = request.getParameter("fUbicacionFarmacia");
+//        String opcion = request.getParameter("fOpcion");
+//          
+//        
+//        //Castim y asignamientos de los datos 
+//        
+//        Farmacia unaFarmacia = null;
+//        try {
+//            
+//           int idFarmacia = (int) Integer.parseInt(id);
+//           
+//           unaFarmacia = new Farmacia();
+//           unaFarmacia.setIdFarmacia(idFarmacia);
+//           unaFarmacia.setNitFarmacia(nit);
+//           unaFarmacia.setNombreFarmacia(nombre);
+//           unaFarmacia.setTelefonoFarmacia(telefono);
+//           unaFarmacia.setCorreoFarmacia(correo);
+//           unaFarmacia.setUbicacionFarmacia(ubicacion);
+//           
+//           
+//            
+//        } catch (Exception error) {
+//            
+//            System.out.println("Error al hacer el castim "+error);
+//        }
+//        
+//        
+//        switch (opcion) {
+//            case "Ingresar":
+//                unaFarmacia.insertar();
+//                break;
+//                
+//            case "Modificar":
+//                
+//                unaFarmacia.modificar();
+//                break;
+//                
+//            case "Eliminar":
+//                unaFarmacia.eliminar();
+//                break;
+//        }
+//
+////        request.getRequestDispatcher("WEB-INF/datosFarmacia.jsp).forward(request, response); al hacerlo asi permite la duplicacion de los datos
+//
+//          response.sendRedirect("controladorDireccionamiento?opcion=datosFarmacia"); // se hace el direccionamiento con otra pagina para eliminar las duplicacines ya que el direcconamiento de arriba hace otra vez 
+//
+//
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         processRequest(request, response);
     }
 

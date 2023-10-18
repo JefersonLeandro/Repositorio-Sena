@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="Public/Fuentes/PT_Sans_Narrow/PTSansNarrow-Regular.ttf">
     <link rel="stylesheet" href="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 </head>
+
   <jsp:useBean id="laPersona" class="modelo.Persona" scope="request" />
   <jsp:useBean id="unTipoPersona" class="modelo.TipoPersona" scope="request" />
 
@@ -37,7 +38,7 @@
                 <div id="contenedorH1" class="Separar">
                     <h1>Personas</h1>
                 </div>
-                 <div class="subTituloT" style="display: flex; align-items: end; padding-bottom: 4px; margin-left: 20px; width: auto;">
+                <div class="subTituloT" style="display: flex; align-items: end; padding-bottom: 4px; margin-left: 20px; width: auto;">
                     <a href="controladorDireccionamiento?opcion=datosTipoPersona">
                     <h4>-Roles</h4>
                     </a>

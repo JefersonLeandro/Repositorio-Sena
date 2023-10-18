@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +21,8 @@
 </head>
 
 
-  <jsp:useBean id="elProducto" class="modelo.Producto" scope="request" />
+  <jsp:useBean id="unProducto" class="modelo.Producto" scope="request" />
+  <jsp:useBean id="laMarca" class="modelo.MarcaProducto" scope="request" />
 
 <body>
     <main id="mainVDF">
@@ -52,7 +55,6 @@
                     </div>
                 </div>
 
-
             </div>
             <div class="lineaA"></div>
             <div id="seccionGV">
@@ -77,38 +79,37 @@
                              
                             <tr>
                                 <form id="fModificarDatosProducto" action="controladorDatosProducto" method="post">
-                                    <td><input type="hidden" name="fIdProducto" value=""></td>
-                                    <td><input type="text" name="fNombreProducto" required value=""></td>
-                                    <td><input type="text" name="fDescripcionUnidad" required value=""></td>
-                                    <td><input type="text" name="fDescripcionProductoGeneral" value=""></td>
-                                    <td><input type="number" name="fStockProducto" value=""></td>
-                                    <td><input type="number" name="fPrecioProducto" value=""></td>
+                                    <td><input type="hidden" name="fIdProducto" value="${elProducto.idProducto}"></td>
+                                    <td><input type="text" name="fNombreProducto" required value="${elProducto.nombreProducto}"></td>
+                                    <td><input type="text" name="fDescripcionUnidad" required value="${elProducto.descripcionUnidad}"></td>
+                                    <td><input type="text" name="fDescripcionProductoGeneral" value="${elProducto.descripcionProductoGeneral}"></td>
+                                    <td><input type="number" name="fStockProducto" value="${elProducto.stockProducto}"></td>
+                                    <td><input type="number" name="fPrecioProducto" value="${elProducto.precioProducto}"></td>
                                     
                                      <!--logica jcomboBox-->
+                                     <!--se coje el id que viene por fuera  y el id itirativo y comprueba si son iguales y son lo pone selected y en este caso como solo es una vez lo pone-->
                                     <td>
-                                         <select name="fIdDatosProducto" required>
-                                             <c:set var="valorAlmacenadoTPBD" value="${un.idTipoPersona}" />
-                                             <c:forEach items="${unTipoPersona.listar(0)}" var="elTipoPersona">
+                                         <select name="fIdMarcaProducto" required>
+                                             <c:set var="valorAlmacenadoMBD" value="${laMarca.idMarcaProducto}" />
+                                             <c:forEach items="${laMarca.listar(0)}" var="unaMarca">
                                                  <c:set var="selected" value=""/> <!-- Restablecer "selected" en cada iteración -->
-                                                 <c:if test="${valorAlmacenadoTPBD == elTipoPersona.idTipoPersona}">
+                                                 <c:if test="${valorAlmacenadoMBD == unaMarca.idMarcaProducto}">
                                                      <!-- Código a ejecutar si la condición es verdadera -->
                                                       <c:set var="selected" value="selected"/>
                                                  </c:if> 
-                                                 <option value="${elTipoPersona.idTipoPersona}"  ${selected}>
-                                                     <c:out value="${elTipoPersona.nombreTipoPersona}"/>
+                                                 <option value="${unaMarca.idMarcaProducto}"  ${selected}>
+                                                     <c:out value="${unaMarca.nombreMarca}"/>
                                                  </option>
                                              </c:forEach>
                                          </select>
                                      </td>
-                               </c:forEach>
-                                    
-                                    
                                     
                                     <td><button type="submit" name="fEnviar" value="Modificar" class="buttonEnviar2">Modificar</button>
                                         <button type="submit" name="fEnviar" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>
                                 </form>
+                               
                             </tr>
-                           
+                             </c:forEach>
 
                             <tr>
                                 <form id="fIngresarProducto" action="controladorDatosProducto" method="post">
@@ -122,23 +123,18 @@
                                     
                                     <!--logica para el select de insertar-->
                                     <td>
-                                        <select name='fIdTipoPersona' required>
+                                        <select name='fIdMarcaProducto' required>
                                           <option disabled selected>
                                                  <c:out value="-Seleciona-"/>
                                            </option>
-                                          <c:forEach items="${unTipoPersona.listar(0)}" var="elTipoPersona">
-                                            <option value="${elTipoPersona.idTipoPersona}" >
-                                                  <c:out value="${elTipoPersona.nombreTipoPersona}"/>
+                                          <c:forEach items="${laMarca.listar(0)}" var="unaMarca">
+                                            <option value="${unaMarca.idMarcaProducto}" >
+                                                <c:out value="${unaMarca.nombreMarca}"/>
                                             </option>
 
                                           </c:forEach>
                                          </select> 
                                     </td>
-
-                                    
-                                    
-                                    
-                                    
 
                                     <td><button type="submit" name="fEnviar" value="Ingresar"
                                             class="buttonEnviar">Ingresar</button>
@@ -151,12 +147,6 @@
                         </tBody>
 
                     </table>
-
-<!--                    <?php
-                    mysqli_free_result($listaDatosProducto);
-                    $objetoConexion->desconectar($conexion);
-
-                    ?>-->
                 </div>
 
 
