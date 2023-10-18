@@ -90,10 +90,7 @@ public class controladorTipoPersona extends HttpServlet {
             unTipoPersona.setNombreTipoPersona(nombreTipoP);
             
         } catch (Exception error) {
-            
-            
             System.out.println(" Eror al hacer castim "+error.getLocalizedMessage());
-            
         }
         
         

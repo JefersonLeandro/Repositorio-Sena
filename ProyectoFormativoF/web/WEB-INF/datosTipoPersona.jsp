@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,40 +73,45 @@
                             
                         </thead>
                         
-                        <tbody>
-                            <tr>
-                                <form id="fModificarDatosFarmacia" action="controladorTipoPersona">
-                                    <td class="align-middle text-right">
-                                        <div class="row mb-2 justify-content-center">
-                                            <div class="col-6">
-                                                <input type="hidden" name="fIdTipoPersona" value="0">
-                                                <input type="text" name="fNombreTipoPersona" style="margin-left: 15px;">
-                                            </div>
-                                            <div class="col-6">
-                                                <button type="submit" name="fOpcion" value="Modificar" class="buttonEnviar2">Modificar</button>
-                                                <button type="submit" name="fOpcion" value="Eliminar" class="buttonEnviar2">Eliminar</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </form>
-                                </tr>
+                        
+                            
+                            <tbody>
+                                <c:forEach items="${unTipoPersona.listar(0)}" var= "unTipoPersona">
                                 <tr>
-                                    <form id="fIngresarFarmacia">
+                                <form id="fModificarDatosFarmacia" action="controladorTipoPersona" method="post">
                                         <td class="align-middle text-right">
                                             <div class="row mb-2 justify-content-center">
                                                 <div class="col-6">
-                                                    <input type="hidden" name="fIdTipoPersona" value="0">
-                                                    <input type="text"  name="fNombreTipoPersona"  style="margin-left: 15px;">
+                                                    <input type="hidden" name="fIdTipoPersona" value="${unTipoPersona.idTipoPersona}">
+                                                    <input type="text" name="fNombreTipoPersona" style="margin-left: 15px;" value="${unTipoPersona.nombreTipoPersona}">
                                                 </div>
                                                 <div class="col-6">
-                                                    <button type="submit" name="fOpcion" value="Ingresar" class="buttonEnviar">Ingresar</button>
-                                                    <button type="reset"  value="Limpiar" class="buttonEnviar">Limpiar</button>
+                                                    <button type="submit" name="fOpcion" value="Modificar" class="buttonEnviar2">Modificar</button>
+                                                    <button type="submit" name="fOpcion" value="Eliminar" class="buttonEnviar2">Eliminar</button>
                                                 </div>
                                             </div>
                                         </td>
                                     </form>
                                 </tr>
-                        </tbody>
+                                </c:forEach>
+                                    <tr>
+                                    <form id="fIngresarFarmacia" action="controladorTipoPersona" method="post">
+                                            <td class="align-middle text-right">
+                                                <div class="row mb-2 justify-content-center">
+                                                    <div class="col-6">
+                                                        <input type="hidden" name="fIdTipoPersona" value="0">
+                                                        <input type="text"  name="fNombreTipoPersona"  style="margin-left: 15px;">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <button type="submit" name="fOpcion" value="Ingresar" class="buttonEnviar">Ingresar</button>
+                                                        <button type="reset"  value="Limpiar" class="buttonEnviar">Limpiar</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </form>
+                                    </tr>
+                            </tbody>
+                        
                     </table>
                 </div>
             </div>

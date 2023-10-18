@@ -138,18 +138,17 @@ public class TipoPersona {
 
                 try {
                      System.out.println("Dentre al try del insertar ");
-                      
-                     PreparedStatement sql = Conexion.conexion.prepareStatement(" INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?)");
+                     
+                     
+                     String consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?)";
+                     PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
                  
 
                      sql.setString(1, this.getNombreTipoPersona());
-                     
-
                      sql.executeUpdate();
 
                      System.out.println(this.getClass().getSimpleName()+" Insertado correctamente");
-
-
+                     
                 } catch (SQLException error) {
 
                     System.err.println("Error al insertar tipo persona - "+this.getClass().getSimpleName()+":"+error.getMessage());
@@ -162,10 +161,11 @@ public class TipoPersona {
         public void modificar(){
        
            try {
-               PreparedStatement sql = Conexion.conexion.prepareStatement(" UPDATE "+this.getClass().getSimpleName()+" SET nombreTipoPersona =?  WHERE idTipoPersona=?");
+               String consulta = " UPDATE "+this.getClass().getSimpleName()+" SET nombreTipoPersona = ?  WHERE idTipoPersona= ?";
+               
+               PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
                
                 sql.setString(1, this.getNombreTipoPersona());
-                
                 sql.setInt(2, this.getIdTipoPersona());
                 
                 sql.executeUpdate();
@@ -187,11 +187,11 @@ public class TipoPersona {
          public void eliminar(){
            
            try {
-               PreparedStatement sql= Conexion.conexion.prepareStatement
-                (" DELETE FROM "+this.getClass().getSimpleName()+" WHERE idTipoPersona=? ");
+               
+               String consulta = " DELETE FROM "+this.getClass().getSimpleName()+" WHERE idTipoPersona=? ";
+               PreparedStatement sql= Conexion.conectar().prepareStatement(consulta);
                
                sql.setInt(1,this.getIdTipoPersona());
-               
                sql.executeUpdate();
                
                System.out.println(this.getClass().getSimpleName()+" Eliminado correctamente");
@@ -241,32 +241,32 @@ public class TipoPersona {
         
       // poner el buscar por id 
           
-        public TipoPersona buscarPorId (int elId){
-       
-           TipoPersona unTipoPersona = new TipoPersona();
-           unTipoPersona.setNombreTipoPersona(" el tipo persona no existe");
-           
-           try {
-               
-               PreparedStatement sql = Conexion.conexion.prepareStatement(
-                       " SELECT * FROM "+this.getClass().getSimpleName()+" WHERE idTipoPersona = ?");
-               
-               sql.setInt(1, elId);
-               
-               ResultSet rs = sql.executeQuery();
-               
-               
-               while(rs.next()){
-                   
-                   unTipoPersona = new TipoPersona();
-                   unTipoPersona.setIdTipoPersona(rs.getInt ("idTipoPersona"));
-                   unTipoPersona.setNombreTipoPersona(rs.getString("nombreTipoPersona"));
-               }
-               
-           } catch (SQLException error) {
-               
-               System.err.println(" Error al buscar por id : "+error.getMessage());
-           }
-           return unTipoPersona;
-        }
+//        public TipoPersona buscarPorId (int elId){
+//       
+//           TipoPersona unTipoPersona = new TipoPersona();
+//           unTipoPersona.setNombreTipoPersona(" el tipo persona no existe");
+//           
+//           try {
+//               
+//               PreparedStatement sql = Conexion.conexion.prepareStatement(
+//                       " SELECT * FROM "+this.getClass().getSimpleName()+" WHERE idTipoPersona = ?");
+//               
+//               sql.setInt(1, elId);
+//               
+//               ResultSet rs = sql.executeQuery();
+//               
+//               
+//               while(rs.next()){
+//                   
+//                   unTipoPersona = new TipoPersona();
+//                   unTipoPersona.setIdTipoPersona(rs.getInt ("idTipoPersona"));
+//                   unTipoPersona.setNombreTipoPersona(rs.getString("nombreTipoPersona"));
+//               }
+//               
+//           } catch (SQLException error) {
+//               
+//               System.err.println(" Error al buscar por id : "+error.getMessage());
+//           }
+//           return unTipoPersona;
+//        }
 }
