@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="buttonAb">
                                     <div class="buttonAF">
-                                        <a href="controladorDireccionamiento?opcion=datosProductos">
+                                        <a href="controladorDireccionamiento?opcion=datosProducto">
                                             <h3>Productos</h3>
                                         </a>
                                     </div>
