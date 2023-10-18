@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 </head>
 
+  <jsp:useBean id="unTipoPersona" class="modelo.TipoPersona" scope="request" />
+
 <body>
     <main id="mainVDF">
         <div id="divVG" class="subMain">
@@ -60,13 +62,18 @@
                 <!--arreglar el posicionamiento de la tabla o dejarlo asi o mirar otro diseno de tabla y mirar los espacios --> 
                 <div class="seccionCV subSeccion">
                     <table border="1" class="table table-striped">
-                        <tbody>
-                            <tr>
+                        <thead>
+                            
+                            <tr class="encabezadoGris">
                                 <th scope="col" style="padding-left: 60px">TipoPersona</th>
                                 <th scope="col"></th>
                             </tr>
+                            
+                        </thead>
+                        
+                        <tbody>
                             <tr>
-                        <form id="fModificarDatosFarmacia" action="controladorTipoPersona">
+                                <form id="fModificarDatosFarmacia" action="controladorTipoPersona">
                                     <td class="align-middle text-right">
                                         <div class="row mb-2 justify-content-center">
                                             <div class="col-6">
@@ -80,23 +87,23 @@
                                         </div>
                                     </td>
                                 </form>
-                            </tr>
-                            <tr>
-                                <form id="fIngresarFarmacia">
-                                    <td class="align-middle text-right">
-                                        <div class="row mb-2 justify-content-center">
-                                            <div class="col-6">
-                                                <input type="hidden" name="fIdTipoPersona" value="0">
-                                                <input type="text"  name="fNombreTipoPersona"  style="margin-left: 15px;">
+                                </tr>
+                                <tr>
+                                    <form id="fIngresarFarmacia">
+                                        <td class="align-middle text-right">
+                                            <div class="row mb-2 justify-content-center">
+                                                <div class="col-6">
+                                                    <input type="hidden" name="fIdTipoPersona" value="0">
+                                                    <input type="text"  name="fNombreTipoPersona"  style="margin-left: 15px;">
+                                                </div>
+                                                <div class="col-6">
+                                                    <button type="submit" name="fOpcion" value="Ingresar" class="buttonEnviar">Ingresar</button>
+                                                    <button type="reset"  value="Limpiar" class="buttonEnviar">Limpiar</button>
+                                                </div>
                                             </div>
-                                            <div class="col-6">
-                                                <button type="submit" name="fOpcion" value="Ingresar" class="buttonEnviar">Ingresar</button>
-                                                <button type="reset"  value="Limpiar" class="buttonEnviar">Limpiar</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </form>
-                            </tr>
+                                        </td>
+                                    </form>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
@@ -145,6 +152,7 @@
             gap: 10px ;
 
         }
+       
        
 
     </style>

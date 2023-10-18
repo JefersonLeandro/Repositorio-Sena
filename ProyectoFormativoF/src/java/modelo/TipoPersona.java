@@ -91,7 +91,7 @@ public class TipoPersona {
                 sql.setInt(1, paginacionMin);
                 sql.setInt(2, paginacionMax);
                 
-//              ResultSet resutadoL2 = sql.executeQuery(); creo que no es necesario
+
             } catch (Exception error) {
                 
                 System.err.println("Error al hacer la consulta select con limite en la funcion Listar"+error.getLocalizedMessage());   
@@ -104,6 +104,9 @@ public class TipoPersona {
         try {
             
             PreparedStatement sql = Conexion.conectar().prepareStatement(listado);
+            
+            
+            
             ResultSet rs = sql.executeQuery();// el execute query hace parte STETAMENT
             
             while (rs.next()) {

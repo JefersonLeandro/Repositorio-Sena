@@ -1691,3 +1691,12 @@ a:visited{
     margin-left: 5px;
 }
 
+                                        /*////////////////////////////////////     CLASES REUTILIZABLES         \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+                                        
+                                        
+                                        
+ .encabezadoGris{
+            
+      background: rgba(0, 0, 0, 0.05);
+ 
+    }

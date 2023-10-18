@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelo.TipoPersona;
 
 /**
  *
@@ -72,23 +73,57 @@ public class controladorTipoPersona extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String idTipoP = request.getParameter("fIdTipoPersona");
+        String nombreTipoP = request.getParameter("fNombreTipoPersona");
+        String accion = request.getParameter("fOpcion");
+        
+        //Castim 
+
+        TipoPersona unTipoPersona = null;
+        
+        try {
+            
+            int idTipoPersona = (int) Integer.parseInt(idTipoP); 
+            
+            unTipoPersona = new TipoPersona();
+            unTipoPersona.setIdTipoPersona(idTipoPersona);
+            unTipoPersona.setNombreTipoPersona(nombreTipoP);
+            
+        } catch (Exception error) {
+            
+            
+            System.out.println(" Eror al hacer castim "+error.getLocalizedMessage());
+            
+        }
         
         
+         String mensaje = "" ; 
+              
+            switch (accion) { //toLowerCase() transforma de todo el texto que venga a minuscula osea ABc   a  abc
+                
+            case "Ingresar":
+                unTipoPersona.insertar();
+                mensaje="Insertado ";
+                
+                System.out.println("dentrre al caso insertar");
+                break;
+            case "Modificar":
+                unTipoPersona.modificar();
+                mensaje="Modificado";
+                break;
+            case "Eliminar":
+                unTipoPersona.eliminar();
+                mensaje=" Eliminado";
+                break;
+        }
+                
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+            request.getRequestDispatcher("controladorDireccionamiento?opcion=datosTipoPersona").forward(request, response);
+            
+            
+            
+            
         processRequest(request, response);
     }
 
