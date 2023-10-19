@@ -94,7 +94,7 @@ public class controladorDatosProducto extends HttpServlet {
             
            int idProducto = (int) Integer.parseInt(idP);
            int stockProducto = (int) Integer.parseInt(stockP);
-           int precioProducto = (int) Integer.parseInt(precioP);
+           double precioProducto = (double) Double.parseDouble(precioP);
            int idMarcaProducto = (int) Integer.parseInt(idMarcaP);
            
            unProducto = new Producto();
@@ -108,10 +108,8 @@ public class controladorDatosProducto extends HttpServlet {
             
         } catch (Exception error) {
             
-            System.out.println("Error al hacer el castim "+error.getMessage());
+            System.err.println("Error al hacer el castim "+error.getMessage());
         }
-
-        
         
         
         switch (opcion) {

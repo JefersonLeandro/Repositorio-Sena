@@ -42,6 +42,13 @@
                 <div id="contenedorH1" class="Separar">
                     <h1>Productos</h1>
                 </div>
+                <div class="subTituloT" style="display: flex; align-items: end; padding-bottom: 4px; margin-left: 20px; width: auto;">
+                    <a href="controladorDireccionamiento?opcion=">
+                    <h4>-Marcas</h4>
+                    </a>
+                </div>
+                
+                
                 <div id="iconsAV">
                     <div class="divMv">
                         <a href="index.php">
@@ -84,7 +91,7 @@
                                     <td><input type="text" name="fDescripcionUnidad" required value="${elProducto.descripcionUnidad}"></td>
                                     <td><input type="text" name="fDescripcionProductoGeneral" value="${elProducto.descripcionProductoGeneral}"></td>
                                     <td><input type="number" name="fStockProducto" value="${elProducto.stockProducto}"></td>
-                                    <td><input type="number" name="fPrecioProducto" value="${elProducto.precioProducto}"></td>
+                                    <td><input type="number" name="fPrecioProducto" value="${elProducto.precioProducto}" ></td>
                                     
                                      <!--logica jcomboBox-->
                                      <!--se toma el id del producto de la marca y el id de la marca y se combrueban si son iguales los pone en ==-->
@@ -118,7 +125,7 @@
                                     <td><input type="text" name="fDescripcionUnidad" required></td>
                                     <td><input type="text" name="fDescripcionProductoGeneral" required></td>
                                     <td><input type="number" name="fStockProducto" required></td>
-                                    <td><input type="number" name="fPrecioProducto" required></td>
+                                    <td><input type="text" name="fPrecioProducto" required ></td>
 
                                     
                                     <!--logica para el select de insertar-->

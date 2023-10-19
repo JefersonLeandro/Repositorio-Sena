@@ -21,7 +21,7 @@ public class Producto {
     private String descripcionUnidad;
     private String descripcionProductoGeneral;
     private int StockProducto;
-    private float precioProducto;
+    private double precioProducto;
     private int idMarcaProducto;
     private int paginacion;
     
@@ -67,11 +67,11 @@ public class Producto {
         this.StockProducto = StockProducto;
     }
 
-    public float getPrecioProducto() {
+    public double getPrecioProducto() {
         return precioProducto;
     }
 
-    public void setPrecioProducto(float precioProducto) {
+    public void setPrecioProducto(double precioProducto) {
         this.precioProducto = precioProducto;
     }
 
@@ -87,7 +87,7 @@ public class Producto {
         
     }
 
-    public Producto(int idProducto, String nombreProducto, String descripcionUnidad, String descripcionProductoGeneral, int StockProducto, float precioProducto, int idMarcaProducto) {
+    public Producto(int idProducto, String nombreProducto, String descripcionUnidad, String descripcionProductoGeneral, int StockProducto, double precioProducto, int idMarcaProducto) {
         
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
@@ -187,7 +187,7 @@ public class Producto {
                      sql.setString(2, this.getDescripcionUnidad());
                      sql.setString(3, this.getDescripcionProductoGeneral());
                      sql.setInt(4, this.getStockProducto());
-                     sql.setFloat(5, this.getPrecioProducto());
+                     sql.setDouble(5, this.getPrecioProducto());
                      sql.setInt(6, this.getIdMarcaProducto());
 
 
@@ -218,7 +218,7 @@ public class Producto {
                 sql.setString(2, this.getDescripcionUnidad());
                 sql.setString(3, this.getDescripcionProductoGeneral());
                 sql.setInt(4, this.getStockProducto());
-                sql.setFloat(5, this.getPrecioProducto());
+                sql.setDouble(5, this.getPrecioProducto());
                 sql.setInt(6, this.getIdMarcaProducto());
                 
                 sql.setInt(7, this.getIdProducto());
