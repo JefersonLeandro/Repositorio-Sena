@@ -47,6 +47,11 @@
                     <h4>-Marcas</h4>
                     </a>
                 </div>
+                <div class="subTituloT" style="display: flex; align-items: end; padding-bottom: 4px; margin-left: 20px; width: auto;">
+                    <a href="controladorDireccionamiento?opcion=datosImagen">
+                    <h4>-Imagenes</h4>
+                    </a>
+                </div>
                 
                 
                 <div id="iconsAV">
