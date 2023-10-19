@@ -80,7 +80,7 @@
                             <tbody>
                                 <c:forEach items="${unaMarca.listar(0)}" var= "laMarca">
                                 <tr>
-                                <form  action="controladorMarcaProducto" method="post">
+                                    <form  action="controladorMarcaProducto" method="post">
                                         <td class="align-middle text-right">
                                             <div class="row mb-2 justify-content-center">
                                                 <div class="col-6">
