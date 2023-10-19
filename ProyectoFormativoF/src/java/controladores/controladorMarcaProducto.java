@@ -111,9 +111,6 @@ public class controladorMarcaProducto extends HttpServlet {
                 mensaje=" Eliminado";
                 break;
         }
-                
-        
-
             request.getRequestDispatcher("controladorDireccionamiento?opcion=datosMarca").forward(request, response);
         
         processRequest(request, response);
