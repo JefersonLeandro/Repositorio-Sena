@@ -211,7 +211,7 @@ public class Producto {
                        + "descripcionProductoGeneral=?, stockProducto=?, precioProducto=?,"
                        + " idMarcaProducto=? WHERE idProducto=?";
                
-               PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
+                PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
               
                
                 sql.setString(1, this.getNombreProducto());

@@ -11,13 +11,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelo.Producto;
 
 /**
  *
  * @author ADMON
  */
-@WebServlet(name = "controladorDatosProductos", urlPatterns = {"/controladorDatosProductos"})
-public class controladorDatosProductos extends HttpServlet {
+@WebServlet(name = "controladorDatosProducto", urlPatterns = {"/controladorDatosProducto"})
+public class controladorDatosProducto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -74,74 +75,66 @@ public class controladorDatosProductos extends HttpServlet {
         
         
         
-        
-        
-        
 //           // obtener datos 
+        
+            String idP = request.getParameter("fIdProducto");
+            String nombreProducto= request.getParameter("fNombreProducto");
+            String descripcionUnidad = request.getParameter("fDescripcionUnidad");
+            String descripcionProductoG = request.getParameter("fDescripcionProductoGeneral");
+            String stockP = request.getParameter("fStockProducto");
+            String precioP = request.getParameter("fPrecioProducto");
+            String idMarcaP = request.getParameter("fIdMarcaProducto");
+            String opcion = request.getParameter("fOpcion");
+            
 //        
-//        String id = request.getParameter("fIdFarmacia");
-//        String nit = request.getParameter("fNitFarmacia");
-//        String nombre = request.getParameter("fNombreFarmacia");
-//        String telefono = request.getParameter("fTelefonoFarmacia");
-//        String correo = request.getParameter("fCorreoFarmacia");
-//        String ubicacion = request.getParameter("fUbicacionFarmacia");
-//        String opcion = request.getParameter("fOpcion");
-//          
+        //Castim y asignamientos de los datos 
 //        
-//        //Castim y asignamientos de los datos 
-//        
-//        Farmacia unaFarmacia = null;
-//        try {
-//            
-//           int idFarmacia = (int) Integer.parseInt(id);
-//           
-//           unaFarmacia = new Farmacia();
-//           unaFarmacia.setIdFarmacia(idFarmacia);
-//           unaFarmacia.setNitFarmacia(nit);
-//           unaFarmacia.setNombreFarmacia(nombre);
-//           unaFarmacia.setTelefonoFarmacia(telefono);
-//           unaFarmacia.setCorreoFarmacia(correo);
-//           unaFarmacia.setUbicacionFarmacia(ubicacion);
-//           
-//           
-//            
-//        } catch (Exception error) {
-//            
-//            System.out.println("Error al hacer el castim "+error);
-//        }
-//        
-//        
-//        switch (opcion) {
-//            case "Ingresar":
-//                unaFarmacia.insertar();
-//                break;
-//                
-//            case "Modificar":
-//                
-//                unaFarmacia.modificar();
-//                break;
-//                
-//            case "Eliminar":
-//                unaFarmacia.eliminar();
-//                break;
-//        }
-//
-////        request.getRequestDispatcher("WEB-INF/datosFarmacia.jsp).forward(request, response); al hacerlo asi permite la duplicacion de los datos
-//
-//          response.sendRedirect("controladorDireccionamiento?opcion=datosFarmacia"); // se hace el direccionamiento con otra pagina para eliminar las duplicacines ya que el direcconamiento de arriba hace otra vez 
-//
-//
-
+        Producto unProducto = null;
+        try {
+            
+           int idProducto = (int) Integer.parseInt(idP);
+           int stockProducto = (int) Integer.parseInt(stockP);
+           int precioProducto = (int) Integer.parseInt(precioP);
+           int idMarcaProducto = (int) Integer.parseInt(idMarcaP);
+           
+           unProducto = new Producto();
+           unProducto.setIdProducto(idProducto);
+           unProducto.setNombreProducto(nombreProducto);
+           unProducto.setDescripcionUnidad(descripcionUnidad);
+           unProducto.setDescripcionProductoGeneral(descripcionProductoG);
+           unProducto.setStockProducto(stockProducto);
+           unProducto.setPrecioProducto(precioProducto);
+           unProducto.setIdMarcaProducto(idMarcaProducto);
+            
+        } catch (Exception error) {
+            
+            System.out.println("Error al hacer el castim "+error.getMessage());
+        }
 
         
         
         
-        
-        
-        
-        
-        
-        
+        switch (opcion) {
+            case "Ingresar":
+                unProducto.insertar();
+                break;
+                
+            case "Modificar":
+                
+                unProducto.modificar();
+                break;
+                
+            case "Eliminar":
+                unProducto.eliminar();
+                break;
+        }
+
+//       request.getRequestDispatcher("WEB-INF/datosFarmacia.jsp").forward(request, response); al hacerlo asi permite la duplicacion de los datos
+         response.sendRedirect("controladorDireccionamiento?opcion=datosProducto"); // se hace el direccionamiento con otra pagina para eliminar las duplicacines ya que el direcconamiento de arriba hace otra vez 
+
+          
+          
+          
         
         processRequest(request, response);
     }

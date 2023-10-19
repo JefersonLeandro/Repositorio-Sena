@@ -79,21 +79,21 @@
                              
                             <tr>
                                 <form id="fModificarDatosProducto" action="controladorDatosProducto" method="post">
-                                    <td><input type="hidden" name="fIdProducto" value="${elProducto.idProducto}"></td>
-                                    <td><input type="text" name="fNombreProducto" required value="${elProducto.nombreProducto}"></td>
+                                    <td><input type="hidden" name="fIdProducto" value="${elProducto.idProducto}">
+                                        <input type="text" name="fNombreProducto" required value="${elProducto.nombreProducto}"></td>
                                     <td><input type="text" name="fDescripcionUnidad" required value="${elProducto.descripcionUnidad}"></td>
                                     <td><input type="text" name="fDescripcionProductoGeneral" value="${elProducto.descripcionProductoGeneral}"></td>
                                     <td><input type="number" name="fStockProducto" value="${elProducto.stockProducto}"></td>
                                     <td><input type="number" name="fPrecioProducto" value="${elProducto.precioProducto}"></td>
                                     
                                      <!--logica jcomboBox-->
-                                     <!--se coje el id que viene por fuera  y el id itirativo y comprueba si son iguales y son lo pone selected y en este caso como solo es una vez lo pone-->
+                                     <!--se toma el id del producto de la marca y el id de la marca y se combrueban si son iguales los pone en ==-->
                                     <td>
                                          <select name="fIdMarcaProducto" required>
-                                             <c:set var="valorAlmacenadoMBD" value="${laMarca.idMarcaProducto}" />
+                                             <c:set var="idMarcaProductoG" value="${elProducto.idMarcaProducto}" />
                                              <c:forEach items="${laMarca.listar(0)}" var="unaMarca">
                                                  <c:set var="selected" value=""/> <!-- Restablecer "selected" en cada iteración -->
-                                                 <c:if test="${valorAlmacenadoMBD == unaMarca.idMarcaProducto}">
+                                                 <c:if test="${idMarcaProductoG == unaMarca.idMarcaProducto}">
                                                      <!-- Código a ejecutar si la condición es verdadera -->
                                                       <c:set var="selected" value="selected"/>
                                                  </c:if> 
@@ -104,8 +104,8 @@
                                          </select>
                                      </td>
                                     
-                                    <td><button type="submit" name="fEnviar" value="Modificar" class="buttonEnviar2">Modificar</button>
-                                        <button type="submit" name="fEnviar" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>
+                                    <td><button type="submit" name="fOpcion" value="Modificar" class="buttonEnviar2">Modificar</button>
+                                        <button type="submit" name="fOpcion" value="Eliminar" class="buttonEnviar2">Eliminar</button></td>
                                 </form>
                                
                             </tr>
@@ -136,9 +136,9 @@
                                          </select> 
                                     </td>
 
-                                    <td><button type="submit" name="fEnviar" value="Ingresar"
+                                    <td><button type="submit" name="fOpcion" value="Ingresar"
                                             class="buttonEnviar">Ingresar</button>
-                                        <button type="reset" name="fEnviar" value="Limpiar"
+                                        <button type="reset" value="Limpiar"
                                             class="buttonEnviar">Limpiar</button>
                                     </td>
 
@@ -154,7 +154,7 @@
             <div class="lineaAF"></div>
             <div id="tituloAbajo">
                 <div id="iconoAbajo">
-                    <img src="../Public/imgs/logoQ1.png" alt="logo" width="41px" height="41px">
+                    <img src="Public/imgs/logoQ1.png" alt="logo" width="41px" height="41px">
 
                 </div>
                 <div id="tituloH">
