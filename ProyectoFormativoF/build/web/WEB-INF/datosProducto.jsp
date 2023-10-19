@@ -43,7 +43,7 @@
                     <h1>Productos</h1>
                 </div>
                 <div class="subTituloT" style="display: flex; align-items: end; padding-bottom: 4px; margin-left: 20px; width: auto;">
-                    <a href="controladorDireccionamiento?opcion=">
+                    <a href="controladorDireccionamiento?opcion=datosMarca">
                     <h4>-Marcas</h4>
                     </a>
                 </div>

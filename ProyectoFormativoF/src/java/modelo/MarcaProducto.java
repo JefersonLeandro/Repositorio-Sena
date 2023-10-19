@@ -79,10 +79,6 @@ public class MarcaProducto {
 //    Listar
   
     public ArrayList listar(int pagina) throws SQLException{
-       
-        
-//    
-        System.out.println("dentre al Listar - modeloPersona");
         
         ArrayList listaMarcas = new ArrayList();
         
@@ -96,7 +92,6 @@ public class MarcaProducto {
             int paginacionMax = pagina*this.paginacion;
             int paginacionMin = paginacionMax - this.paginacion;
             
-            System.out.println("dentre al if del listar");
             try {
                 System.out.println("dentre al try catch");
                 listado = " SELECT * FROM "+this.getClass().getSimpleName()+" GROUP BY idMarcaProducto LIMIT ?,?";
@@ -106,7 +101,7 @@ public class MarcaProducto {
                 sql.setInt(1, paginacionMin);
                 sql.setInt(2, paginacionMax);
                 
-//                ResultSet resutadoL2 = sql.executeQuery(); creo que no es necesario
+
             } catch (Exception error) {
                 
                 System.err.println("Error al hacer la consulta select con limite en la funcion Listar"+error.getLocalizedMessage());   
@@ -118,8 +113,6 @@ public class MarcaProducto {
 
         try {
             
-            
-            System.out.println("esta es la consulta"+listado);
             PreparedStatement sql = Conexion.conectar().prepareStatement(listado);
             ResultSet rs = sql.executeQuery();// el execute query hace parte STETAMENT
 
@@ -149,7 +142,7 @@ public class MarcaProducto {
 //                
 
                 try {
-                     System.out.println("Dentre al try del insertar ");
+              
                      
                      String consulta = " INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?)"; 
                      PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
@@ -178,9 +171,7 @@ public class MarcaProducto {
                PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
               
                 sql.setString(1, this.getNombreMarca());
-                
                 sql.setInt(2, this.getIdMarcaProducto());
-                
                 sql.executeUpdate();
                 
                 System.out.println(this.getClass().getSimpleName()+" Modificado correctamente ");
@@ -217,43 +208,43 @@ public class MarcaProducto {
        }
          
     
-       //Buscar 
-         
-          public Iterator <MarcaProducto> buscar (String busqueda){
-           
-           ArrayList <MarcaProducto> lasMarcas = new ArrayList<>();
-       
-           try {
-               
-               
-               PreparedStatement sql= Conexion.conectar().prepareStatement
-               (" SELECT * FROM "+this.getClass().getSimpleName()
-              +" WHERE nombreMarca LIKE ?  ");
-               
-               sql.setString(1,"%"+busqueda+"%");
-               
-               ResultSet rs = sql.executeQuery();
-               
-                MarcaProducto unaMarca;
-               
-               while (rs.next()) {
-                   
-                   unaMarca = new MarcaProducto();
-                   unaMarca.setIdMarcaProducto(rs.getInt ("idMarcaProducto"));
-                   unaMarca.setNombreMarca(rs.getString("nombreMarca"));
-              
-               
-                   
-                   lasMarcas.add(unaMarca);
-               }
-               
-           } catch (SQLException error) {
-               System.err.println("Error al buscar : "+this.getClass().getSimpleName()+" : "+error.getMessage());  
-           }
-           
-           return lasMarcas.iterator();
-       }
-          
+//       //Buscar 
+//         
+//          public Iterator <MarcaProducto> buscar (String busqueda){
+//           
+//           ArrayList <MarcaProducto> lasMarcas = new ArrayList<>();
+//       
+//           try {
+//               
+//               
+//               PreparedStatement sql= Conexion.conectar().prepareStatement
+//               (" SELECT * FROM "+this.getClass().getSimpleName()
+//              +" WHERE nombreMarca LIKE ?  ");
+//               
+//               sql.setString(1,"%"+busqueda+"%");
+//               
+//               ResultSet rs = sql.executeQuery();
+//               
+//                MarcaProducto unaMarca;
+//               
+//               while (rs.next()) {
+//                   
+//                   unaMarca = new MarcaProducto();
+//                   unaMarca.setIdMarcaProducto(rs.getInt ("idMarcaProducto"));
+//                   unaMarca.setNombreMarca(rs.getString("nombreMarca"));
+//              
+//               
+//                   
+//                   lasMarcas.add(unaMarca);
+//               }
+//               
+//           } catch (SQLException error) {
+//               System.err.println("Error al buscar : "+this.getClass().getSimpleName()+" : "+error.getMessage());  
+//           }
+//           
+//           return lasMarcas.iterator();
+//       }
+//          
           // poner el buscar por id 
           
 //           public MarcaProducto buscarPorId (int elId){
