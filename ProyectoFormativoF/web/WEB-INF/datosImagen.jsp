@@ -145,19 +145,37 @@
                                 <div class="miListaS">
                                       
                                     
-                                    <ul class="list-group list-group-flush scrollable listaFavoritos" id="listaProductos">
-                                 <c:if test="${not empty resultadosBusqueda}">
+                                    <!--<ul class="list-group list-group-flush scrollable listaFavoritos" id="listaProductos">-->
+                                        <!--resultadoBusqueda se encuentra en la solicitud devuelta por el controlador--> 
+                                        <c:if test="${not empty resultadosBusqueda}">
                                             
-                                                <c:forEach items="${resultadosBusqueda}" var="elProducto">
-                                                    <li>ID del Producto: ${elProducto.idProducto}</li>
-                                                    <li>Nombre del Producto: ${elProducto.nombreProducto}</li>
-                                                    <li>Descripción de la Unidad: ${elProducto.descripcionUnidad}</li>
-                                                    <!-- Agrega más campos si es necesario -->
-                                                </c:forEach>
+                                             
+                                            
+                                                        
+                                                     <ol class="list-group list-group-numbered listaFavoritos scrollable" id="listaProductos">
+                                                            <c:forEach items="${resultadosBusqueda}" var="elProducto">
+                                                        
+                                                                <li class="list-group-item d-flex justify-content-between align-items-start"  >
+                                                                  <div class="ms-2 me-auto">
+                                                                    <div class="fw-bold">${elProducto.nombreProducto}</div>
+                                                                     ${elProducto.descripcionUnidad} 
+                                                                  </div>
+                                                                  <span class="badge bg-primary rounded-pill">${elProducto.idProducto}</span>
+                                                                </li>
+                                                          </c:forEach>
+                                                    </ol>
+                                                       
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                             
                                            
                                         </c:if>
 
-                                    </ul>
+                                    <!--</ul>-->
 
                                     
                                   
