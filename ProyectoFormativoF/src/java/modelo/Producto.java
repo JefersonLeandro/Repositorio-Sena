@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -98,13 +99,13 @@ public class Producto {
         this.idMarcaProducto = idMarcaProducto;
         
     }
+
+    
+
     
     
-    // to string 
-    @Override
-    public String toString() {
-        return "Producto{" + "nombreProducto=" + nombreProducto + '}';
-    }    
+    
+    
     
     
      public ArrayList listar(int pagina) throws SQLException{
@@ -252,6 +253,58 @@ public class Producto {
                System.err.println("Error al Eliminar "+this.getClass().getSimpleName()+" : "+error.getMessage()); 
            }
        }
+        
+        //buscar utilizado en la tabla imagen 
+        
+           public List <Producto> buscar (String busqueda){
+           
+           ArrayList <Producto> losProductos = new ArrayList<>();
+       
+           try {
+               PreparedStatement sql= Conexion.conectar().prepareStatement
+               (" SELECT * FROM "+this.getClass().getSimpleName()
+              +" WHERE nombreProducto LIKE ? OR descripcionUnidad LIKE ? OR descripcionProductoGeneral LIKE ?  OR StockProducto LIKE ?  OR precioProducto LIKE ?"
+                      + "  OR idMarcaProducto LIKE ? ");
+               
+               sql.setString(1,"%"+busqueda+"%");
+               sql.setString(2,"%"+busqueda+"%");
+               sql.setString(3,"%"+busqueda+"%");
+               sql.setString(4,"%"+busqueda+"%");
+               sql.setString(5,"%"+busqueda+"%");
+               sql.setString(6,"%"+busqueda+"%");
+           
+             
+               
+               ResultSet rs = sql.executeQuery();
+               
+               Producto unProducto;
+               
+               while (rs.next()) {
+                   
+                    unProducto = new Producto();
+                    unProducto.setIdProducto(rs.getInt("idProducto"));
+                    unProducto.setNombreProducto(rs.getString("nombreProducto"));
+                    unProducto.setDescripcionUnidad(rs.getString("descripcionUnidad"));
+                    
+                    
+                    
+                    System.out.println("busqueda: ");
+                    System.out.println(rs.getInt("idProducto"));
+                    System.out.println(rs.getString("nombreProducto"));
+                    System.out.println(rs.getString("descripcionUnidad"));
+                   
+                   losProductos.add(unProducto);
+                   
+                 
+               }
+               
+           } catch (SQLException error) {
+               System.err.println("Error al buscar : "+this.getClass().getSimpleName()+" : "+error.getMessage());  
+           }
+           
+           return losProductos;
+       }
+   
         
        
 //        //buscar

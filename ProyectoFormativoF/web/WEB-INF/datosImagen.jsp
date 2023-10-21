@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +18,8 @@
     <link rel="stylesheet" href="Public/Fuentes/PT_Sans_Narrow/PTSansNarrow-Regular.ttf">
     <link rel="stylesheet" href="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 </head>
+  <jsp:useBean id="laImagen" class="modelo.Imagen" scope="request" />
+  <jsp:useBean id="elProducto" class="modelo.Producto" scope="request" />
 
 <body>
     <main id="mainVDF">
@@ -69,30 +72,46 @@
 
 
                                 </tBody>
-                                <tr>
-                                    <form id="fModificarDatosFarmacia">
-                                        <td class="miTds">
-                                            <input type="hidden" name="fIdFarmacia" value="0">
-                                            <input type="text" name="fNombreFarmacia">
-                                        </td>
+                                <c:forEach items="${laImagen.listar(0)}" var= "unaImagen">
+                                    <tr>
+                                        <form id="fModificarDatosFarmacia">
+                                            <td class="miTds">
+                                                <input type="hidden" name="fIdImagem" value="${unaImagen.idImagen}">
+                                                <input type="text" name="fNombreImagen" value="${unaImagen.nombreImagen}">
+                                            </td>
 
-                                        <td style="padding-left: 0!important;">
-                                            <select name="fTipoImagen" id="">
-                                                <option value="0">Primaria</option>
-                                                <option value="1">Secundaria</option>
-                                            </select>
-                                        </td>
-                                        <td style="width: 18%;">
-                                            <input type="number" style="width: 90%; ">
-                                        </td>
-                                        <td>
-                                            <button type="submit" name="fEnviar" value="Modificar"
-                                                class="buttonEnviar2">Modificar</button>
-                                            <button type="submit" name="fEnviar" value="Eliminar"
-                                                class="buttonEnviar2">Eliminar</button>
-                                        </td>
-                                    </form>
-                                </tr>
+                                            <td style="padding-left: 0!important;">
+                                                <select name="fTipoImagen" >
+                                                    
+                                                     
+                                                     <c:set var="seleccionada1" value="" />
+                                                     <c:set var="seleccionada0" value="" />
+                                                     
+                                                     <c:if test="${ unaImagen.tipoImagen == 0}"> 
+                                                         <c:set var="seleccionada0" value="selected" />
+                                                     </c:if>
+                                                     <c:if test="${ unaImagen.tipoImagen == 1}"> 
+                                                         <c:set var="seleccionada1" value="selected" />
+                                                     </c:if>
+                                                     
+                                                        <!--0 - primeria-->
+                                                        <!--1 - segundarias-->
+                                                        <option value="0" ${seleccionada0}>Primaria</option>
+                                                        <option value="1" ${seleccionada1}>Secundaria</option>
+                                                </select>
+                                            </td>
+                                            <td style="width: 18%;">
+                                                <input type="number" style="width: 90%;" value="${unaImagen.idProducto}" readonly>
+                                            </td>
+                                            <td>
+                                                <button type="submit" name="fEnviar" value="Modificar"
+                                                    class="buttonEnviar2">Modificar</button>
+                                                <button type="submit" name="fEnviar" value="Eliminar"
+                                                    class="buttonEnviar2">Eliminar</button>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </c:forEach>
 
                                 </tBody>
                             </table>
@@ -104,17 +123,17 @@
                     <div class="cajaDerechaG">
                         <div class="buscarP">
                             <h5>Buscar un producto</h5>
-                            <form action="#" method="post">
+                            <form action="controladorDatosImagen" method="post">
                                 <!-- dentro de controlador usar una funcion que le quite los espacio al valor  -->
                                 <div class="areaBuscar">
                                     <div class="subABuscar">
 
-                                        <input type="search" placeholder="Aqui" class="inputBusquedaP">
-
+                                        <input type="search" placeholder="Aqui" class="inputBusquedaP" name="fValorBusqueda" >
                                     </div>
 
-                                    <button type="submit" name="fEnviar" value="Buscar" class="buttonEnviar"
-                                        style="width: 20%;">Buscar</button>
+                                    <button type="submit" name="fEnviar" value="Buscar" class="buttonEnviar" style="width: 20%;">Buscar</button>
+                                        
+                                 
 
                                 </div>
                             </form>
@@ -124,21 +143,25 @@
 
                             <form class="areaListaP" action="#" method="post">
                                 <div class="miListaS">
+                                      
+                                    
                                     <ul class="list-group list-group-flush scrollable listaFavoritos" id="listaProductos">
-                                        <li class='list-group-item'>A list item</li>
-                                        <li class="list-group-item">A list item</li>
-                                        <li class="list-group-item">A list item</li>
-                                        <li class="list-group-item">A list item</li>
-                                        <li class="list-group-item">A list item</li>
-                                        <li class="list-group-item">A list item</li>
-                                        <li class="list-group-item">A list item</li>
-                                        <li class="list-group-item">A list item</li>
-                                        <li class="list-group-item">A list item</li>
-                                        <li class="list-group-item">A list item</li>
-                                        <li class="list-group-item">A list item</li>
-                                        <li class="list-group-item">A list item</li>
+                                 <c:if test="${not empty resultadosBusqueda}">
+                                            
+                                                <c:forEach items="${resultadosBusqueda}" var="elProducto">
+                                                    <li>ID del Producto: ${elProducto.idProducto}</li>
+                                                    <li>Nombre del Producto: ${elProducto.nombreProducto}</li>
+                                                    <li>Descripción de la Unidad: ${elProducto.descripcionUnidad}</li>
+                                                    <!-- Agrega más campos si es necesario -->
+                                                </c:forEach>
+                                           
+                                        </c:if>
+
                                     </ul>
 
+                                    
+                                  
+                                  
                                 </div>
 
 
