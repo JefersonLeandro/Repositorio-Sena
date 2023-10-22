@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Imagen;
 import modelo.Producto;
 
 /**
@@ -75,19 +76,72 @@ public class controladorDatosImagen extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
       
-            
+            //obtener valores
             String valorBusqueda = request.getParameter("fValorBusqueda");
+         
+            String idIm = request.getParameter("fIdImagen");
+            String nombreImagen = request.getParameter("fNombreImagen");
+            String tipoIm = request.getParameter("fTipoImagen");
+            String idP = request.getParameter("fIdProducto");
+            
             String accion = request.getParameter("fEnviar");
+            
+//            String nombreArchivo = request.getParameter("fNombreArchivo");
+
+
+            
+            System.out.println("datos en controlador imagen");
+            
+            System.out.println(idIm);
+            System.out.println(nombreImagen);
+            System.out.println(tipoIm);
+            System.out.println(idP);
+    
+            
+//            System.out.println(nombreArchivo);
+            
+            // castim y asignacion de los valores 
+            
+            Imagen unaImagen = null;
+            
+            try {
+                
+                int idImagen = Integer.parseInt(idIm);
+                int tipoImagen = Integer.parseInt(tipoIm);
+                int idProducto = Integer.parseInt(idP);
+                
+                unaImagen = new Imagen();
+                
+                unaImagen.setIdImagen(idImagen);
+                unaImagen.setNombreImagen(nombreImagen);
+                unaImagen.setTipoImagen(tipoImagen);
+                unaImagen.setIdProducto(idProducto);
+                
+            } catch (Exception error) {
+                
+                System.err.println("Eror al hacer castim controlador imagen "+error.getLocalizedMessage());
+                
+                
+            }
 
             List<Producto> resultadosBusqueda = new ArrayList<>(); // Crear una lista para almacenar los resultados
-
+            
+            String mensaje = "";
             switch (accion) {
                 case "Ingresar":
-                    // Insertar lógica aquí
+                   
+                    unaImagen.insertar();
+                    mensaje = "insertado";
                     break;
 
                 case "Modificar":
-                    // Modificar lógica aquí
+                    unaImagen.modificar();
+                    mensaje = "modificado";
+                    break;
+                    
+                case "Eliminar":
+                    unaImagen.eliminar();
+                    mensaje = "Eliminado";
                     break;
 
                 case "Buscar":
@@ -101,13 +155,15 @@ public class controladorDatosImagen extends HttpServlet {
                         System.out.println("Nombre del Producto: " + producto.getNombreProducto());
                         System.out.println("Descripción de la Unidad: " + producto.getDescripcionUnidad());
                         // Agrega más campos si es necesario
-                  }
-                    
+                    }
+                    mensaje="buscado";
                     break;
             }
 
             request.setAttribute("resultadosBusqueda", resultadosBusqueda); // Configurar los resultados de la búsqueda en el alcance de solicitud
 
+            
+            
             // Redirigir a la vista
             request.getRequestDispatcher("controladorDireccionamiento?opcion=datosImagen").forward(request, response);
         

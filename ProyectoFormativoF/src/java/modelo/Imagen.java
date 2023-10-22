@@ -133,7 +133,84 @@ public class Imagen {
    
    
     
+     // insertar
+          public void insertar (){
+//                
+
+                try {
+           
+                     
+                     String consulta = "INSERT INTO "+this.getClass().getSimpleName()+" VALUES (NULL,?,?,?)";
+                     PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
+                 
+
+                     sql.setString(1, this.getNombreImagen());
+                     sql.setInt(2, this.getTipoImagen());
+                     sql.setInt(3, this.getIdProducto());
+                    
+
+                     sql.executeUpdate();
+                     System.out.println(this.getClass().getSimpleName()+" Insertado correctamente");
+
+
+                } catch (SQLException error) {
+
+                    System.err.println("Error al insertar - "+this.getClass().getSimpleName()+":"+error.getMessage());
+                }
+
+        }
+          
+          
+        // Modificar
+        public void modificar(){
+            
+            String consulta = " UPDATE "+this.getClass().getSimpleName()+" SET nombreImagen =?, tipoImagen=?, idProducto=? WHERE idImagen=?";
+       
+           try {
+               PreparedStatement sql = Conexion.conectar().prepareStatement(consulta);
+               
+     
+                sql.setString(1, this.getNombreImagen());
+                sql.setInt(2, this.getTipoImagen());
+                sql.setInt(3, this.getIdProducto());
+
+                sql.setInt(4, this.getIdImagen());
+                     
+                sql.executeUpdate();
+                
+                System.out.println(this.getClass().getSimpleName()+" Modificado correctamente ");
+                
+               
+               
+           } catch (SQLException error) {
+               
+               System.out.println(" Error al modificar :  "+this.getClass().getSimpleName());
+               System.out.println(" Error :  "+error.getMessage()); 
+           }
+       }
     
+
+    // Eliminar
+        
+        
+         public void eliminar(){
+           
+           try {
+               PreparedStatement sql= Conexion.conectar().prepareStatement
+                (" DELETE FROM "+this.getClass().getSimpleName()+" WHERE idImagen=? ");
+               
+               sql.setInt(1,this.getIdImagen());
+               
+               sql.executeUpdate();
+               
+               System.out.println(this.getClass().getSimpleName()+" Eliminado correctamente");
+               
+           } catch (SQLException error) {
+               
+               System.err.println("Error al Eliminar "
+               +this.getClass().getSimpleName()+" : "+error.getMessage()); 
+           }
+       }
     
     
     
@@ -153,50 +230,50 @@ public class Imagen {
     
     
  
-           // buscar
-       
-       public Iterator <Producto> buscar (String busqueda){
-           
-           ArrayList <Producto> losProductos = new ArrayList<>();
-       
-           try {
-               PreparedStatement sql= Conexion.conectar().prepareStatement
-               (" SELECT * FROM "+this.getClass().getSimpleName()
-              +" WHERE nombreProducto LIKE ? OR descripcionUnidad LIKE ? OR descripcionProductoGeneral LIKE ?  OR StockProducto LIKE ?  OR precioProducto LIKE ?"
-                      + "  OR idMarcaProducto LIKE ? ");
-               
-               sql.setString(1,"%"+busqueda+"%");
-               sql.setString(2,"%"+busqueda+"%");
-               sql.setString(3,"%"+busqueda+"%");
-               sql.setString(4,"%"+busqueda+"%");
-               sql.setString(5,"%"+busqueda+"%");
-               sql.setString(6,"%"+busqueda+"%");
-               sql.setString(7,"%"+busqueda+"%");
-             
-               
-               ResultSet rs = sql.executeQuery();
-               
-               Producto unProducto;
-               
-               while (rs.next()) {
-                   
-                    unProducto = new Producto();
-                    unProducto.setIdProducto(rs.getInt("idProducto"));
-                    unProducto.setNombreProducto(rs.getString("nombreProducto"));
-                    unProducto.setDescripcionUnidad(rs.getString("descripcionUnidad"));
-                 
-                   
-                   losProductos.add(unProducto);
-                   
-                 
-               }
-               
-           } catch (SQLException error) {
-               System.err.println("Error al buscar : "+this.getClass().getSimpleName()+" : "+error.getMessage());  
-           }
-           
-           return losProductos.iterator();
-       }
+//           // buscar
+//       
+//       public Iterator <Producto> buscar (String busqueda){
+//           
+//           ArrayList <Producto> losProductos = new ArrayList<>();
+//       
+//           try {
+//               PreparedStatement sql= Conexion.conectar().prepareStatement
+//               (" SELECT * FROM "+this.getClass().getSimpleName()
+//              +" WHERE nombreProducto LIKE ? OR descripcionUnidad LIKE ? OR descripcionProductoGeneral LIKE ?  OR StockProducto LIKE ?  OR precioProducto LIKE ?"
+//                      + "  OR idMarcaProducto LIKE ? ");
+//               
+//               sql.setString(1,"%"+busqueda+"%");
+//               sql.setString(2,"%"+busqueda+"%");
+//               sql.setString(3,"%"+busqueda+"%");
+//               sql.setString(4,"%"+busqueda+"%");
+//               sql.setString(5,"%"+busqueda+"%");
+//               sql.setString(6,"%"+busqueda+"%");
+//               sql.setString(7,"%"+busqueda+"%");
+//             
+//               
+//               ResultSet rs = sql.executeQuery();
+//               
+//               Producto unProducto;
+//               
+//               while (rs.next()) {
+//                   
+//                    unProducto = new Producto();
+//                    unProducto.setIdProducto(rs.getInt("idProducto"));
+//                    unProducto.setNombreProducto(rs.getString("nombreProducto"));
+//                    unProducto.setDescripcionUnidad(rs.getString("descripcionUnidad"));
+//                 
+//                   
+//                   losProductos.add(unProducto);
+//                   
+//                 
+//               }
+//               
+//           } catch (SQLException error) {
+//               System.err.println("Error al buscar : "+this.getClass().getSimpleName()+" : "+error.getMessage());  
+//           }
+//           
+//           return losProductos.iterator();
+//       }
    
    
     

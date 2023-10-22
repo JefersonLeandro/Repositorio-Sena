@@ -55,8 +55,8 @@
             </div>
             <div class="lineaA"></div>
             <div id="seccionGV">
-                <div class="miCaja1">
-                    <div class="miSubC">
+                <div class="miCaja1 ">
+                    <div class="miSubC seccionCVP">
                         <div class="cajaIntermedia">
                             <table border="1" class="table table-striped">
 
@@ -74,9 +74,9 @@
                                 </tBody>
                                 <c:forEach items="${laImagen.listar(0)}" var= "unaImagen">
                                     <tr>
-                                        <form id="fModificarDatosFarmacia">
+                                    <form id="fModificarDatosFarmacia" action="controladorDatosImagen" method="post">
                                             <td class="miTds">
-                                                <input type="hidden" name="fIdImagem" value="${unaImagen.idImagen}">
+                                                <input type="hidden" name="fIdImagen" value="${unaImagen.idImagen}">
                                                 <input type="text" name="fNombreImagen" value="${unaImagen.nombreImagen}">
                                             </td>
 
@@ -101,7 +101,7 @@
                                                 </select>
                                             </td>
                                             <td style="width: 18%;">
-                                                <input type="number" style="width: 90%;" value="${unaImagen.idProducto}" readonly>
+                                                <input type="number" name="fIdProducto" style="width: 90%;" value="${unaImagen.idProducto}" class="inputDisabled" readonly>
                                             </td>
                                             <td>
                                                 <button type="submit" name="fEnviar" value="Modificar"
@@ -144,14 +144,9 @@
                             <form class="areaListaP" action="#" method="post">
                                 <div class="miListaS">
                                       
-                                    
-                                    <!--<ul class="list-group list-group-flush scrollable listaFavoritos" id="listaProductos">-->
                                         <!--resultadoBusqueda se encuentra en la solicitud devuelta por el controlador--> 
                                         <c:if test="${not empty resultadosBusqueda}">
-                                            
                                              
-                                            
-                                                        
                                                      <ol class="list-group list-group-numbered listaFavoritos scrollable" id="listaProductos">
                                                             <c:forEach items="${resultadosBusqueda}" var="elProducto">
                                                         
@@ -165,18 +160,10 @@
                                                                   </div>
                                                                      <span class="badge bg-primary rounded-pill" id="unSpan">${elProducto.idProducto}</span>
                                                                 </li>
-                                                          </c:forEach>
-                                                                
-                                                               
-                                                                
+                                                          </c:forEach>      
                                                     </ol>
                                         </c:if>
 
-                                    <!--</ul>-->
-
-                                    
-                                  
-                                  
                                 </div>
 
 
@@ -185,7 +172,7 @@
 
                         </div>
 
-                        <form id="formularioPrincipal" action="">
+                        <form id="formularioPrincipal" action="controladorDatosImagen" method="post">
                             <div class="areaInsertar">
                                 <div class="subArea1P " >
                                     <table border="1" class="table table-striped">
@@ -201,17 +188,17 @@
                                             <tr>
                                                 <td>
                                                     <input type="hidden" name="fIdImagen" value="0">
-                                                    <input type="file" name="file" class="custom-file-upload" required>
+                                                    <input type="file" name="fNombreImagen" class="custom-file-upload" required>
                                                 </td>
                                                 <td>
-                                                    <select name="fTipoImagen" id="" required>
+                                                    <select name="fTipoImagen"  required>
                                                         <option value="" disabled selected>-Selecciona-</option>
                                                         <option value="0">Primaria</option>
                                                         <option value="1">Secundaria</option>
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="number"  readonly value="" id="inputDisabled" required>
+                                                    <input type="number" readonly name="fIdProducto" class="inputDisabled" id="inputD" required>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -246,7 +233,7 @@
             <script>
                   // Seleccionar todos los elementos <li> dentro del contenedor con la id "listaProductos"
                 let listaItems = document.querySelectorAll("#listaProductos li");
-                let inputId = document.querySelector("#inputDisabled");
+                let inputId = document.querySelector("#inputD");
 
                 // Iterar sobre cada elemento <li> utilizando forEach
                 listaItems.forEach(function(li) {
@@ -445,7 +432,7 @@
 
         }
 
-        #inputDisabled {
+        .inputDisabled {
 
             width: 90%;
             background-color: #f1f1f1; /* Cambia el color de fondo */
