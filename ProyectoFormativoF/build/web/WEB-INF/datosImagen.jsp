@@ -155,24 +155,21 @@
                                                      <ol class="list-group list-group-numbered listaFavoritos scrollable" id="listaProductos">
                                                             <c:forEach items="${resultadosBusqueda}" var="elProducto">
                                                         
-                                                                <li class="list-group-item d-flex justify-content-between align-items-start"  >
+                                                                <li class="list-group-item d-flex justify-content-between align-items-start" id="listaBuscar" >
                                                                   <div class="ms-2 me-auto">
-                                                                    <div class="fw-bold">${elProducto.nombreProducto}</div>
+                                                                    <div class="fw-bold">
+                                                                        ${elProducto.nombreProducto}
+                                                                    </div>
+                                                                    
                                                                      ${elProducto.descripcionUnidad} 
                                                                   </div>
-                                                                  <span class="badge bg-primary rounded-pill">${elProducto.idProducto}</span>
+                                                                     <span class="badge bg-primary rounded-pill" id="unSpan">${elProducto.idProducto}</span>
                                                                 </li>
                                                           </c:forEach>
+                                                                
+                                                               
+                                                                
                                                     </ol>
-                                                       
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                             
-                                           
                                         </c:if>
 
                                     <!--</ul>-->
@@ -246,6 +243,33 @@
             </div>
         </div>
     </main>
+            <script>
+                  // Seleccionar todos los elementos <li> dentro del contenedor con la id "listaProductos"
+                let listaItems = document.querySelectorAll("#listaProductos li");
+                let inputId = document.querySelector("#inputDisabled");
+
+                // Iterar sobre cada elemento <li> utilizando forEach
+                listaItems.forEach(function(li) {
+                    // Agregar un manejador de clic para cada elemento <li>
+                    li.addEventListener("click", function(event) {
+                        // Imprimir un mensaje en la consola cuando se hace clic en un elemento <li>
+                        console.log("Se hizo clic en un elemento con id 'listaBuscar'");
+
+                        // Obtener el valor del elemento <span> dentro del elemento <li> clicado
+                        let span = li.querySelector("#unSpan");
+                        // Imprimir el contenido del elemento <span> en la consola
+                        console.log("Valor del span: " + span.textContent);
+                        inputId.value = span.textContent;
+                    });
+                });
+
+           
+
+
+              </script>  
+    
+    
+    
     <style>
         .miCaja1 {
             width: 60%;
@@ -335,7 +359,7 @@
             border: none;
 
             outline: none;
-
+            
         }
 
         .areaBuscar {
@@ -447,7 +471,8 @@
             background-color: #e1e0e0; /* Color de la barra de desplazamiento */
             border-radius: 10px;
         }
-
+        
+    
 
     </style>
 
