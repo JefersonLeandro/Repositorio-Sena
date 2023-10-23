@@ -20,9 +20,8 @@
     <link rel="stylesheet" href="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 </head>
 
-
-  <jsp:useBean id="unProducto" class="modelo.Producto" scope="request" />
-  <jsp:useBean id="laMarca" class="modelo.MarcaProducto" scope="request" />
+    <jsp:useBean id="laMarca" class="modelo.MarcaProducto" scope="request" />
+    <jsp:useBean id="unProducto" class="modelo.Producto" scope="request" />
 
 <body>
     <main id="mainVDF">

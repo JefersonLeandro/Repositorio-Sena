@@ -148,6 +148,10 @@ public class controladorDatosImagen extends HttpServlet {
                     Producto unProducto = new Producto();
                     resultadosBusqueda = (List<Producto>) unProducto.buscar(valorBusqueda); // Almacenar los resultados en la lista
                
+                   
+                    
+                  
+                    
                     
                     for (Producto producto : resultadosBusqueda) {
                         System.out.println("Datos en controlador:");

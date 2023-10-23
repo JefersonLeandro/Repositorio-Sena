@@ -26,6 +26,27 @@ public class Producto {
     private int idMarcaProducto;
     private int paginacion;
     
+    
+    private Imagen unaImagen ;
+    
+    
+    public Imagen getUnaImagen() {
+        return unaImagen;
+    }
+
+    public void setUnaImagen(Imagen unaImagen) {
+        this.unaImagen = unaImagen;
+    }
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
 //    getter and setter
 
     public int getIdProducto() {
@@ -111,7 +132,7 @@ public class Producto {
      public ArrayList listar(int pagina) throws SQLException{
          
         ArrayList listaProductos = new ArrayList();
-        String listado = " SELECT * FROM "+this.getClass().getSimpleName()+" GROUP BY idProducto";
+        String listado = "SELECT * FROM Producto p  LEFT JOIN imagen i ON p.idProducto = i.idProducto GROUP BY p.idProducto, i.idProducto";
         
        
         
@@ -158,6 +179,24 @@ public class Producto {
                 unProducto.setPrecioProducto(rs.getFloat("precioProducto"));
                 unProducto.setIdMarcaProducto(rs.getInt("idMarcaProducto"));
                 
+                
+                Imagen laImagen = new Imagen();
+                
+                laImagen.setIdProducto(rs.getInt("idProducto"));
+                laImagen.setNombreImagen(rs.getString("nombreImagen"));
+               
+                if (laImagen.getNombreImagen() == null) {
+                    
+                    laImagen.setNombreImagen("registro.png");
+                    
+                }
+                
+//                System.out.println("el nombre ---- "+rs.getString("nombreImagen"));
+                
+                unProducto.setUnaImagen(laImagen);
+                
+                
+//                System.out.println("------"+ getUnaImagen().getNombreImagen());
                 listaProductos.add(unProducto);
             }
             

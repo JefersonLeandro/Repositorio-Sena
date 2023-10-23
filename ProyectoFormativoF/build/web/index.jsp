@@ -22,6 +22,11 @@
         <title>index</title>
 
     </head>
+    
+      <jsp:useBean id="unProducto" class="modelo.Producto" scope="request" />
+      <jsp:useBean id="laMarca" class="modelo.MarcaProducto" scope="request" />
+      <jsp:useBean id="unaImagen" class="modelo.Imagen" scope="request" />
+    
     <body>
         <header>
             <!-- P==PRIMARI@ -->
@@ -307,6 +312,21 @@
                                     }
                                     echo"</select>";// agruegar las opciones de la marca trayendo tambien los datos
                                     ?>-->
+
+                                     <select name='fIdMarcaProducto' class='selectBL2' required>
+                                          <option disabled selected>
+                                                 <c:out value="Marca"/>
+                                           </option>
+                                          <c:forEach items="${laMarca.listar(0)}" var="unaMarca">
+                                            <option value="${unaMarca.idMarcaProducto}" >
+                                                <c:out value="${unaMarca.nombreMarca}"/>
+                                            </option>
+
+                                          </c:forEach>
+                                    </select> 
+
+
+                                    
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-arrow-down-circle-fill" viewBox="0 0 16 16">
                                     <path
@@ -362,59 +382,101 @@
                         echo"</div>";
                         // si esta definido me dejar enviar los datos a deseados del resto no 
                         // si no esta entonces llevelo a registrar
+
+
+
                         if (isset($_SESSION['id'])) {
 
-                        echo"<form class='cajaFP'action='../controlador/controladorProductoDeseado.php' method='post'>";
-                        echo"<button class='cajaFavorito' name='favorito' value='".$miFila['idProducto']."'>";
-                        echo"<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-bookmark-star' viewBox='0 0 16 16'>
-                        <path d='M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z'/>
-                        <path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z'/>
-                        </svg>";
-                        echo"</button>";
-                        echo"</form>";
-                        echo"</div>";
+                            echo"<form class='cajaFP'action='../controlador/controladorProductoDeseado.php' method='post'>";
+                            echo"<button class='cajaFavorito' name='favorito' value='".$miFila['idProducto']."'>";
+                            echo"<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-bookmark-star' viewBox='0 0 16 16'>
+                            <path d='M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z'/>
+                            <path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z'/>
+                            </svg>";
+                            echo"</button>";
+                            echo"</form>";
+                            echo"</div>";
 
-                        echo"<form class='cajaCB' action='../controlador/controladorCarritoProducto.php' method='post'>";
-                        echo"<button class='buttonComprar' type='button'>";
-                        echo "<p>Comprar</p>";
-                        echo"</button>";
-                        echo"<button class='buttonAgregar' name='agregar' value='".$miFila['idProducto']."' type='submit'>";
-                        echo"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-cart-plus-fill' viewBox='0 0 16 16'>
-                        <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z'/>
-                        </svg>";
-                        echo"</button>";
-                        echo"</form>";
+                            echo"<form class='cajaCB' action='../controlador/controladorCarritoProducto.php' method='post'>";
+                            echo"<button class='buttonComprar' type='button'>";
+                            echo "<p>Comprar</p>";
+                            echo"</button>";
+                            echo"<button class='buttonAgregar' name='agregar' value='".$miFila['idProducto']."' type='submit'>";
+                            echo"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-cart-plus-fill' viewBox='0 0 16 16'>
+                            <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z'/>
+                            </svg>";
+                            echo"</button>";
+                            echo"</form>";
 
                         }else{
 
-                        echo"<a class='cajaFP' href='../vista/Registro.php'>";
-                        echo"<button class='cajaFavorito' name='favorito' type='button'>";
-                        echo"<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-bookmark-star' viewBox='0 0 16 16'>
-                        <path d='M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z'/>
-                        <path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z'/>
-                        </svg>";
-                        echo"</button>";
-                        echo"</a>";
-                        echo"</div>";
+                            echo"<a class='cajaFP' href='../vista/Registro.php'>";
+                            echo"<button class='cajaFavorito' name='favorito' type='button'>";
+                            echo"<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-bookmark-star' viewBox='0 0 16 16'>
+                            <path d='M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z'/>
+                            <path d='M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z'/>
+                            </svg>";
+                            echo"</button>";
+                            echo"</a>";
+                            echo"</div>";
 
-                        echo"<a class='cajaCB' href='../vista/Registro.php' >";
-                        echo"<button class='buttonComprar' type='button'>";
-                        echo "<p>Comprar</p>";
-                        echo"</button>";
-                        echo"<button class='buttonAgregar' name='agregar' type='button'>";
-                        echo"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-cart-plus-fill' viewBox='0 0 16 16'>
-                        <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z'/>
-                        </svg>";
-                        echo"</button>";
-                        echo"</a>";
-                        }
-                        echo"</div>";
-                        echo"</div>"; 
+                            echo"<a class='cajaCB' href='../vista/Registro.php' >";
+                            echo"<button class='buttonComprar' type='button'>";
+                            echo "<p>Comprar</p>";
+                            echo"</button>";
+                            echo"<button class='buttonAgregar' name='agregar' type='button'>";
+                            echo"<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-cart-plus-fill' viewBox='0 0 16 16'>
+                            <path d='M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z'/>
+                            </svg>";
+                            echo"</button>";
+                            echo"</a>";
+                            }
+                            echo"</div>";
+                            echo"</div>"; 
 
 
                         }
                         // RECUERDE QUE LO TOCA TRABAJAR CON LA ULTIMA BD DATOS Y AGREGAR SOLAMENTE EL NOMBRE DE LAS IMAGENES EN VEZ DE LAS IMAGENES
+
+                        se puede tambien trabajar con un solo metodo seria solo un metodo for earch que me retorne todos los datos incluyendos los datos solamente que necesito y a la misma el nombre de imagenes 
+                        en si seria un inner join que tome tados de una tabla a otra  si no hacer la logica con los dos listar y veficar los ids que vienen donde sean iguales , creo que es mas legible y organizado 
+                        con un metodo inner join 
                         ?>-->
+
+                        <c:forEach items="${unProducto.listar(0)}" var= "elProducto">
+                            
+                             <div class='divSeccion'>
+                                <div class='cajas'>
+                                    <div class='cajaSecundaria'>
+                                        <div  class='linkDi1'>
+                                            <div class='contenedorImgP'>";
+                                                <a href='DescripcionProductos.php' class='contenedorImg'>
+                                                    
+                                                    
+                                                   
+                                                    
+                                                        <!--toca comprobar el idProducto que viene de la tabla imagen con el idProducto que viene de la tabla producto-->
+
+
+                                                        <img src="Public/imgs/${elProducto.unaImagen.nombreImagen}" alt="<?php echo $miFila['nombreProducto'];?>" class='imgsG' width='75%' height='145px'>
+
+
+                                                    
+
+                                                </a>  
+                                                <a href='DescripcionProductos.php' class='cajaC'>
+                                                    <span>${elProducto.nombreProducto}</span>-->
+                                                    <h6>${elProducto.descripcionUnidad}</h6>
+                                                    <h6>${elProducto.precioProducto}</h6>
+                                                </a>
+                                            </div>
+
+
+
+                        </c:forEach>
+
+
+                            
                     </section>
                 </div>
             </div>
