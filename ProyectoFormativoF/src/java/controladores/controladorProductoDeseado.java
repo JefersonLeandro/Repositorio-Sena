@@ -11,6 +11,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import modelo.ProductoDeseado;
 
 /**
  *
@@ -68,17 +70,99 @@ public class controladorProductoDeseado extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
+
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // capturar los datos parte del index y parte de la vista de deseados \
-        
-        
-        
-        
-        
-        
+            HttpSession session = request.getSession();
+
+            // capturar los datos parte del index y parte de la vista de deseados \
+
+
+            String  idPr = request.getParameter("fIdProducto");
+            String  accion = request.getParameter("fAccion");
+            int idPersona = (int) session.getAttribute("idPersona");
+            
+            
+            
+            ProductoDeseado unProductoD = null;
+            
+            
+//            castim
+            try {
+                
+                int idProducto = Integer.parseInt(idPr);
+                
+                unProductoD = new ProductoDeseado();
+                unProductoD.setIdProducto(idProducto);
+                unProductoD.setIdPersona(idPersona);
+                
+            } catch (Exception error) {
+
+                System.out.println("error al asignar y hacer castim "+error.getMessage());
+                
+            }
+            
+      
+
+             switch (accion) { //toLowerCase() transforma de todo el texto que venga a minuscula osea ABc   a  abc
+
+             case "Ingresar":
+          
+                 unProductoD.insertar();
+             
+                 break;
+           
+             case "Eliminar":
+             case "EliminarTodo":
+                  unProductoD.eliminar(accion);
+              
+                 break;
+         }
+             
+             
+             boolean respuesta = unProductoD.insertar();
+             
+             
+             if (respuesta == true || respuesta == false) {
+                 
+                String mensaje = "";
+                
+                if (respuesta) {
+                     mensaje = "producto no agregado, ya esta en la lista de deseados";
+                    request.getRequestDispatcher("/index.jsp?mensaje=" + mensaje).forward(request, response);
+                    
+                    
+                System.out.println(" la respuesta es true");
+
+                }else{
+
+                    mensaje = "producto agregado a la lista";
+                    request.getRequestDispatcher("/index.jsp?mensaje=" + mensaje).forward(request, response);
+                    System.out.println(" la respuesta es false");
+
+                } 
+                 
+            
+            } 
+            
+            
+            
+             
+            
+
+            
+
+            
+            
+            
+             
+             
+             
+             
         
         
         

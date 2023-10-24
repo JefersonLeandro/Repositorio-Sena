@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import jakarta.servlet.http.HttpSession;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,11 +17,18 @@ import java.util.ArrayList;
 public class ProductoDeseado {
     
     
-    private int idProductoD;
+  
     private int idPersona;
     private int idProducto;
     private int paginacion;
     
+    
+    private String nombreProducto;
+    private String descripcionUnidad;
+    private String descripcionProductoGeneral;
+    private double precioProducto;
+    private int idProductoD;
+    private String nombreImagen;
     
     
     
@@ -59,7 +67,9 @@ public class ProductoDeseado {
 
         
         ArrayList listaDeseados = new ArrayList();
-        String listado = " SELECT p.nombreProducto, p.descripcionUnidad, p.descripcionProductoGeneral, p.precioProducto, p.imagenProducto ,d.idProductoD FROM productodeseado d JOIN producto p ON d.idProducto = p.idProducto and idPersona=?";
+        String listado = " SELECT p.nombreProducto, p.descripcionUnidad, p.descripcionProductoGeneral, p.precioProducto"
+                + ", d.idProductoD, i.nombreImagen FROM productodeseado d JOIN producto p ON d.idProducto = p.idProducto"
+                + " JOIN imagen i ON p.idProducto = i.idProducto WHERE d.idPersona = ? ORDER BY idProductoD ASC;";
         
         
         if (pagina>0) {
@@ -87,13 +97,9 @@ public class ProductoDeseado {
 
         try {
             
-            
-            
             PreparedStatement sql = Conexion.conectar().prepareStatement(listado);
+            
             sql.setInt(1, this.getIdPersona());
-
-            
-            
             
             
             
@@ -130,7 +136,7 @@ public class ProductoDeseado {
                     
                      int idFavorito = this.getIdProducto();
                      
-                     String consultaRepiticion = "SELECT idProducto from productodeseado WHERE idPersona=?";
+                     String consultaRepiticion = "SELECT idProducto FROM productodeseado WHERE idPersona=?";
                      PreparedStatement sql = Conexion.conectar().prepareStatement(consultaRepiticion);
                      
                      sql.setInt(1, this.getIdPersona());
@@ -145,19 +151,21 @@ public class ProductoDeseado {
                              
                              // nose se inserta nada ya que son iguales y se redirecciona a la misma pagina desde controlador
                                 bandera = true;
-                              
+                              System.out.println("son iguales");
+                         }else{
+                             System.out.println("no son iguales");
                          }
                     }
                      
-                    if ( bandera == false) {
+                    if (bandera == false) {
                         
                         String consulta = "INSERT INTO ProductoDeseado VALUES (null,?,?)";
                         PreparedStatement sqlInsert = Conexion.conectar().prepareStatement(consulta);
                      
-                        sql.setInt(1, this.getIdPersona());
-                        sql.setInt(2, idFavorito);
+                        sqlInsert.setInt(1, this.getIdPersona());
+                        sqlInsert.setInt(2, idFavorito);
                         
-                        sql.executeUpdate();
+                        sqlInsert.executeUpdate();
                         
                         
                         System.out.println(this.getClass().getSimpleName()+" Insertado correctamente");
@@ -179,17 +187,15 @@ public class ProductoDeseado {
     // Eliminar
         
         
-         public void eliminar(boolean opcion){
+         public void eliminar(String opcion){
            
            try {
                PreparedStatement sql;
-               if (opcion) {
+               if (opcion.equals("Eliminar")) {
                    //se elimina un solo produto 
                   sql = Conexion.conectar().prepareStatement(" DELETE FROM "+this.getClass().getSimpleName()+" WHERE idProductoD=?");
                
                 sql.setInt(1,this.getIdProductoD());
-
-            
 
                 System.out.println(this.getClass().getSimpleName()+" Eliminado correctamente un producto");
                    
@@ -199,8 +205,6 @@ public class ProductoDeseado {
                  sql= Conexion.conectar().prepareStatement(" DELETE FROM "+this.getClass().getSimpleName()+";");
                 
                 System.out.println(this.getClass().getSimpleName()+" Eliminado correctamente todos los productos");
-                  
-               
                
                }
                
@@ -227,20 +231,13 @@ public class ProductoDeseado {
               
               
           } catch (Exception e) {
+              
+              
+              
           }
           
           
-          
-     
-          
-          
-          
-          
-      
-      
-      
-      
-      
+          return 0;
       
       }
          
