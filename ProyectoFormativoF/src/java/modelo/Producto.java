@@ -26,8 +26,10 @@ public class Producto {
     private int idMarcaProducto;
     private int paginacion;
     
+    // imagen
     
-    private Imagen unaImagen ;
+    //se crea un objeto para recibir los atributos de la imagen como objeto y por medio de los seter y getter
+    private Imagen unaImagen;
     
     
     public Imagen getUnaImagen() {
@@ -129,10 +131,24 @@ public class Producto {
     
     
     
-     public ArrayList listar(int pagina) throws SQLException{
+     public ArrayList listar(int pagina , boolean opcion) throws SQLException{
          
         ArrayList listaProductos = new ArrayList();
-        String listado = "SELECT * FROM Producto p  LEFT JOIN imagen i ON p.idProducto = i.idProducto GROUP BY p.idProducto, i.idProducto";
+        
+        // logica para mostrar dos listados ya que en el index 
+        
+        
+         String listado;
+        
+         if (opcion) {
+             
+             listado = "SELECT * FROM Producto p  LEFT JOIN imagen i ON p.idProducto = i.idProducto GROUP BY p.idProducto, i.idProducto";
+             
+         }else{
+         
+             listado = "SELECT * FROM Producto p LEFT JOIN imagen i ON p.idProducto = i.idProducto WHERE i.tipoimagen = 0 OR i.tipoImagen IS NULL GROUP BY p.idProducto, i.idProducto;";
+         }
+        
         
        
         
@@ -180,23 +196,21 @@ public class Producto {
                 unProducto.setIdMarcaProducto(rs.getInt("idMarcaProducto"));
                 
                 
+                // no creamos otro objeto para asignarle los valores que vienen 
+                
                 Imagen laImagen = new Imagen();
                 
                 laImagen.setIdProducto(rs.getInt("idProducto"));
                 laImagen.setNombreImagen(rs.getString("nombreImagen"));
                
-                if (laImagen.getNombreImagen() == null) {
+                if (laImagen.getNombreImagen() == null) {// si el nombre de la imagen viene como nulo se le asigna una imagen por defecto que serian siendo esta la que los producto que no tienen imagen se le pone
                     
-                    laImagen.setNombreImagen("registro.png");
+                    laImagen.setNombreImagen("producto-sin-imagen.png");
                     
                 }
                 
-//                System.out.println("el nombre ---- "+rs.getString("nombreImagen"));
-                
-                unProducto.setUnaImagen(laImagen);
-                
-                
-//                System.out.println("------"+ getUnaImagen().getNombreImagen());
+                unProducto.setUnaImagen(laImagen); // le asinamos los atributos al objeto 
+
                 listaProductos.add(unProducto);
             }
             

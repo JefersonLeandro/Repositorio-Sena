@@ -73,6 +73,7 @@ public class controladorDatosProducto extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+   
         
         
 //           // obtener datos 

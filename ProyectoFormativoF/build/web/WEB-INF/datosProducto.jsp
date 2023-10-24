@@ -55,7 +55,7 @@
                 
                 <div id="iconsAV">
                     <div class="divMv">
-                        <a href="index.php">
+                        <a href="controladorDireccionamiento?opcion=">
                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
                                 class="bi bi-house-fill" viewBox="0 0 16 16">
                                 <path
@@ -86,7 +86,7 @@
                             
                          <tBody>
                              
-                         <c:forEach items="${unProducto.listar(0)}" var= "elProducto">
+                         <c:forEach items="${unProducto.listar(0,true)}" var= "elProducto">
                              
                             <tr>
                                 <form id="fModificarDatosProducto" action="controladorDatosProducto" method="post">

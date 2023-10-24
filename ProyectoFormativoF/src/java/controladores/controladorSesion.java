@@ -157,7 +157,7 @@ public class controladorSesion extends HttpServlet {
 //                    
 
                       // Guardar información del usuario en la sesión
-                        session.setAttribute("idPersona", idPersona );
+                        session.setAttribute("idPersona", idPersona);
                         session.setAttribute("nombrePersona",  nombrePersona);
                         session.setAttribute("apellidoPersona", apellidoPersona);
                         session.setAttribute("idTipoPersona", idTipoPersona);
