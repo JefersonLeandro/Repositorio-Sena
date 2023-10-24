@@ -50,7 +50,7 @@
             <div class="areaHeaderG">
                 <nav id="navSuperior">
                     <ul>
-                        <li><a href="tablaProductoDeseado.php" id="aLinkProductos">Productos deseados</a></li>
+                        <li><a href="controladorDireccionamiento?opcion=Favoritos" id="aLinkProductos">Productos deseados</a></li>
                         <li><a href="CarritoCompras.php" id="aLinkProductos">Carrito</a></li>
                         <!-- <li>compras</li> -->
                         <li>Servicios</li>

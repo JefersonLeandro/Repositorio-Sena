@@ -45,6 +45,7 @@ public class controladorDireccionamiento extends HttpServlet {
             case "datosProducto":
             case "datosMarca":
             case "datosImagen":
+            case "Favoritos":
         
                 request.getRequestDispatcher("WEB-INF/"+opcion+".jsp").forward(request, response);
                 break;
