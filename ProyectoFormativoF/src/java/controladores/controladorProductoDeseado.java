@@ -94,10 +94,16 @@ public class controladorProductoDeseado extends HttpServlet {
 //            castim
             try {
                 
-                int idProducto = Integer.parseInt(idPr);
                 
-                unProductoD = new ProductoDeseado();
-                unProductoD.setIdProducto(idProducto);
+                 unProductoD = new ProductoDeseado();
+                 
+                 
+                if ( idPr != null) {
+                        int idProducto = Integer.parseInt(idPr);
+                        unProductoD.setIdProducto(idProducto);
+                        System.out.println(idProducto+" ---este el id  ");
+                }
+                
                 unProductoD.setIdPersona(idPersona);
                 
             } catch (Exception error) {
@@ -105,74 +111,61 @@ public class controladorProductoDeseado extends HttpServlet {
                 System.out.println("error al asignar y hacer castim "+error.getMessage());
                 
             }
+                
             
+            boolean bandera = false;
       
-
+            
              switch (accion) { //toLowerCase() transforma de todo el texto que venga a minuscula osea ABc   a  abc
 
              case "Ingresar":
           
                  unProductoD.insertar();
-             
+                 bandera = true;
                  break;
            
              case "Eliminar":
              case "EliminarTodo":
-                  unProductoD.eliminar(accion);
-              
-                 break;
+                unProductoD.eliminar(accion);
+                
+                request.getRequestDispatcher("WEB-INF/Favoritos.jsp").forward(request, response);
+                break;
          }
              
              
-             boolean respuesta = unProductoD.insertar();
+      
              
-             
-             if (respuesta == true || respuesta == false) {
-                 
-                String mensaje = "";
+             if (bandera) {
                 
-                if (respuesta) {
-                     mensaje = "producto no agregado, ya esta en la lista de deseados";
-                    request.getRequestDispatcher("/index.jsp?mensaje=" + mensaje).forward(request, response);
-                    
-                    
-                System.out.println(" la respuesta es true");
-
-                }else{
-
-                    mensaje = "producto agregado a la lista";
-                    request.getRequestDispatcher("/index.jsp?mensaje=" + mensaje).forward(request, response);
-                    System.out.println(" la respuesta es false");
-
-                } 
+                 // este codigo seria mas notorio si se hicera desde el metodo get 
                  
-            
-            } 
-            
-            
-            
-             
-            
+                boolean respuesta = unProductoD.insertar();
+                String mensaje = ""; 
+                 
+                  if (respuesta == true || respuesta == false) {
 
-            
+                        if (respuesta) {
+                             mensaje = "producto no agregado, ya esta en la lista de deseados";
+                             System.out.println(" la respuesta es true");
 
-            
-            
-            
+                        }else{
+
+                            mensaje = "producto agregado a la lista";
+                            System.out.println(" la respuesta es false");
+
+                        } 
+                
+                    request.getRequestDispatcher("/index.jsp?mensaje="+ mensaje).forward(request, response);
+
+                }
+                
+                
+                
+             }
              
              
              
-             
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+           
         
         processRequest(request, response);
     }

@@ -6,6 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <c:if test="${sessionScope.idTipoPersona != 3}">
+    <script>
+         window.location.href = 'index.jsp';
+    </script> 
+</c:if>
+
 
 <!DOCTYPE html>
 <html lang="en">

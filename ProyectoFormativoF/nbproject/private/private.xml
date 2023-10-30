@@ -3,18 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/controladores/controladorProductoDeseado.java</file>
-            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/index.jsp</file>
-            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/datosProducto.jsp</file>
             <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/datosFarmacia.jsp</file>
-            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/datosPersona.jsp</file>
             <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/datosImagen.jsp</file>
             <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/Favoritos.jsp</file>
             <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/modelo/Producto.java</file>
             <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/modelo/ProductoDeseado.java</file>
-            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/controladores/controladorDatosProducto.java</file>
+            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/datosTipoPersona.jsp</file>
             <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/modelo/Farmacia.java</file>
-            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/src/java/controladores/controladorDireccionamiento.java</file>
+            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/index.jsp</file>
+            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/datosProducto.jsp</file>
+            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/datosPersona.jsp</file>
+            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/areaAdministracion.jsp</file>
+            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/Registro.jsp</file>
+            <file>file:/C:/Users/ADMON/RepositoriosGit/proyecto1Git/ProyectoFormativoF/web/WEB-INF/datosMarca.jsp</file>
         </group>
     </open-files>
 </project-private>

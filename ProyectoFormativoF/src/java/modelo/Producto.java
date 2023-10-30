@@ -122,11 +122,6 @@ public class Producto {
         this.idMarcaProducto = idMarcaProducto;
         
     }
-
-    
-
-    
-    
     
     
     

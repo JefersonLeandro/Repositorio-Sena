@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabla Productos deseados</title>
 
-    <script src="../Jquery/jquery-3.6.4.min.js"></script>
+    <script src="Public/Jquery/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="Public/Estilos/style.css">
     <script src="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
     <link rel="stylesheet" href="Public/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
@@ -26,7 +26,7 @@
 
 </head>
 
-    <jsp:useBean id="unProductoD" class="modelo.ProductoDeseado" scope="request" />
+    <jsp:useBean id="unProductoD" class="modelo.ProductoDeseado" scope="request"/>
 
 <body>
     
@@ -71,14 +71,40 @@
                                 }
                                  
                             ?>-->
-                            <c:set var="" value="" />                   
+                            <c:set var="valor" value="${unProductoD.contarValores(sessionScope.idPersona)}" />   
+                              
                             <c:if test="${not empty (sessionScope.idPersona)}">
                                 
-                                <!--implementar esta logica con un contador al momento de listar--> 
+                                <c:choose>
+                                    <c:when test="${valor == 0}">
+                                        
+                                         <!-- Código si la condición es falsa -->
+                                        <p>No hay productos por eliminar</p>
+                                        <strong>¿Deseas agregar?</strong>
+                                        
+                                        
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- Código si la condición es falsa -->
+                                        <strong>¿Deseas eliminar todos los productos?</strong>
+                                        
+                                        
+                                    </c:otherwise>
+                                        
+                                </c:choose>
                                 
                                 
                                 
                             </c:if>
+                            <c:if test="${empty sessionScope.idPersona}">
+                              
+                                 <p>No hay productos por eliminar</p>
+                                 <strong>¿Deseas agregar?</strong>
+                                
+                            </c:if>
+                            
+                            
+                                                                                        
                             
                         </div>
                         <div class="CerrarVentana" >
@@ -92,9 +118,13 @@
                             </a>
                         </div>
                     </div>
+                            
+                            
+                            
+                            
                    
 <!--                        <?php
-                            //!isset($contador) || empty($contandor)
+                           
                             if (isset($_SESSION['id'])) {
                         
                                 if ($contador==0) {
@@ -124,6 +154,44 @@
                         
                         
                         <!--?>-->
+                        
+                         <c:if test="${not empty (sessionScope.idPersona)}">
+                                
+                                <c:choose>
+                                    <c:when test="${valor == 0}">
+                                        
+                                    <div class='ventanaBotones' >
+                                        <button class='buttonVentana' id='cancelarBtn' type="button">Cancelar</button>
+                                        <button type'click' class='buttonVentana' onclick'direccionar()'  id='aceptarBtn1' >Aceptar</button>
+                                    </div>
+                                        
+                                        
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- Código si la condición es falsa -->
+                                       <form class='ventanaBotones'  action='controladorProductoDeseado' method='post'>
+                                            <button class='buttonVentana' id='cancelarBtn' type="button">Cancelar</button>
+                                            <button class='buttonVentana' id='aceptarBtn' name='fAccion'  value='EliminarTodo'>Aceptar</button>
+                                       </form>
+                                        
+                                        
+                                    </c:otherwise>
+                                </c:choose>
+                                
+                            </c:if>
+                             <c:if test="${empty sessionScope.idPersona}">
+                              
+                                 <div class='ventanaBotones' >
+                                     <button class='buttonVentana' id='cancelarBtn' type="button" >Cancelar</button>
+                                    <button type'click' class='buttonVentana' onclick'direccionar()'  id='aceptarBtn1' >Aceptar</button>
+                                 </div>
+                            </c:if>
+                        
+                        
+                        
+                        
+                        
+                        
 
                     </div>
                 </div>
@@ -194,7 +262,22 @@
                                         }
 
                                         ?>-->
-                                        
+                                 
+                                        <c:if test="${not empty (sessionScope.idPersona)}">
+                                            
+                                           
+                                              <c:set var="cont" value="0"/>   
+                                            
+                                            <c:forEach items="${unProductoD.listar(0,sessionScope.idPersona)}" var= "elProducto">
+                                                <a href="#${elProducto.idProductoD}" id="">
+                                                   
+                                                    <li class='list-group-item' id='${elProducto.nombreProducto}'><h6> ${elProducto.nombreProducto}</h6>${elProducto.descripcionUnidad} </li>
+                                                </a>
+
+                                                <c:set var="cont" value="${cont+1}"/> 
+                                                
+                                            </c:forEach>
+                                        </c:if>
                                         
 
 
@@ -220,6 +303,23 @@
                                
 
                                 ?>-->
+
+                                <c:choose>
+                                    <c:when test="${not empty cont && cont > 0}">
+                                        <!-- Código si la condición es verdadera -->
+                                          <button class='buttonComprarTodo'>
+                                               <p>COMPRAR TODO</p>
+                                          </button>
+                                        
+                                    </c:when>
+                                    <c:otherwise>
+                                        <!-- Código si la condición es falsa -->
+                                             <a href="index.jsp" class='buttonComprarTodo' style='text-align: center;' >
+                                                <p>AGREGAR PRODUCTOS</p>
+                                             </a>
+                                        
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                         <div id="lineaLateral"></div>
@@ -272,6 +372,57 @@
 
                                     }
                                     ?>-->
+
+                                    <c:if test="${not empty (sessionScope.idPersona)}">
+                                        <c:forEach items="${unProductoD.listar(0,sessionScope.idPersona)}" var= "elProductoD">
+                                            
+                                           
+                                            
+                                            <a href='#'><div class='cajaPD' id="${elProductoD.idProductoD}">
+                                                <h6></h6>
+                                                <h6>${elProductoD.nombreProducto}</h6>
+                                                <div class='dividirD'>
+                                                    <div class='descripcionP'>
+                                                        <div class='descripcionR'>
+                                                            <p>${elProductoD.descripcionProductoGeneral}</p>
+                                                        </div></a>
+                                                    
+                                                    <div id='botonesCE'>
+                                                        <Form class='botonG' action='controladorProductoDeseado' method='post'>
+                                                            <button type='button' name='#' class='buttonComprar' id='botonC'>Comprar</button>
+                                                            <input type="hidden" name="fIdProducto" value="${elProductoD.idProducto}" />
+                                                            <button type='submit' name='fAccion' value='Eliminar' class='buttonComprar' id='botonC'>Eliminar</button>
+                                                        </Form>
+                                                    </div>
+                                                </div>
+                                                <div class='divImagen'>
+                                                    <a href='#' class='imagenProducto'>
+                                                        <img src="Public/imgs/${elProductoD.nombreImagen}"
+                                                            alt="${elProductoD.nombreProducto}" class='imgsG' width='100%'
+                                                            height='100px'>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                            
+                                            
+                                        </c:forEach>
+                                        
+
+                                    </c:if>
+
+                                     <c:if test="${ empty (sessionScope.idPersona)}">
+                                         
+                                         <div class='alert alert-dark-tranparent' role='alert'>
+                                            <h5>Tu menú favoritos está vacío, Regístrate <a href='controladorDireccionamiento?opcion=Registro' style='text-decoration: underline; opacity: 0.6;'>aquí</a> para poder agregar productos.</h5>
+                                        </div>
+
+
+                                    </c:if>
+
+
+                                    
                                 </div>
                             </div>
                         </div>
@@ -467,7 +618,7 @@
                    svgCerrar =document.getElementById("svgCerrar"),
                    btnCancelar =document.getElementById("cancelarBtn"),
                    overLay =document.querySelector(".overLay"),
-                   btnAceptar1 =document.getElementById("aceptarBtn1");
+                   btnAceptar1 = document.getElementById("aceptarBtn1");
 
             
                         clickSvg.addEventListener('click',function () {
@@ -488,7 +639,7 @@
                             // location.reload(); 
                         });
                         btnAceptar1.addEventListener('click',function () {
-                            window.location.href = '/index.jsp';
+                            window.location.href = 'index.jsp';
                         
                         });
          </script>

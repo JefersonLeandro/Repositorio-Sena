@@ -29,6 +29,46 @@ public class ProductoDeseado {
     private double precioProducto;
     private int idProductoD;
     private String nombreImagen;
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public String getDescripcionUnidad() {
+        return descripcionUnidad;
+    }
+
+    public void setDescripcionUnidad(String descripcionUnidad) {
+        this.descripcionUnidad = descripcionUnidad;
+    }
+
+    public String getDescripcionProductoGeneral() {
+        return descripcionProductoGeneral;
+    }
+
+    public void setDescripcionProductoGeneral(String descripcionProductoGeneral) {
+        this.descripcionProductoGeneral = descripcionProductoGeneral;
+    }
+
+    public double getPrecioProducto() {
+        return precioProducto;
+    }
+
+    public void setPrecioProducto(double precioProducto) {
+        this.precioProducto = precioProducto;
+    }
+
+    public String getNombreImagen() {
+        return nombreImagen;
+    }
+
+    public void setNombreImagen(String nombreImagen) {
+        this.nombreImagen = nombreImagen;
+    }
     
     
     
@@ -59,17 +99,27 @@ public class ProductoDeseado {
     public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
     }
-    
-    
-    
-       public ArrayList listar(int pagina) throws SQLException{
-       
 
+   
+    
+    public ProductoDeseado() {
+    }
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+       public ArrayList listar(int pagina, int idPersona) throws SQLException{
+       
+//         Object idPersona = session.getAttribute("idPersona");
         
         ArrayList listaDeseados = new ArrayList();
-        String listado = " SELECT p.nombreProducto, p.descripcionUnidad, p.descripcionProductoGeneral, p.precioProducto"
-                + ", d.idProductoD, i.nombreImagen FROM productodeseado d JOIN producto p ON d.idProducto = p.idProducto"
-                + " JOIN imagen i ON p.idProducto = i.idProducto WHERE d.idPersona = ? ORDER BY idProductoD ASC;";
+        String listado = "SELECT p.idProducto, p.nombreProducto, p.descripcionUnidad, p.descripcionProductoGeneral, p.precioProducto, d.idProductoD, i.nombreImagen , i.tipoImagen FROM productodeseado d JOIN producto p ON d.idProducto = p.idProducto JOIN imagen i ON p.idProducto = i.idProducto WHERE d.idPersona = ? AND i.tipoimagen = 0 ORDER BY idProductoD ASC;";
         
         
         if (pagina>0) {
@@ -99,7 +149,7 @@ public class ProductoDeseado {
             
             PreparedStatement sql = Conexion.conectar().prepareStatement(listado);
             
-            sql.setInt(1, this.getIdPersona());
+            sql.setInt(1, (int) idPersona);
             
             
             
@@ -108,9 +158,23 @@ public class ProductoDeseado {
             while (rs.next()) {
 
                 ProductoDeseado unProductoD = new ProductoDeseado();
-                unProductoD.setIdProductoD(rs.getInt("idProductoD"));
-                unProductoD.setIdPersona(rs.getInt("idPersona"));
                 unProductoD.setIdProducto(rs.getInt("idProducto"));
+                unProductoD.setNombreProducto(rs.getString("nombreProducto"));
+                unProductoD.setDescripcionUnidad(rs.getString("descripcionUnidad"));
+                unProductoD.setDescripcionProductoGeneral(rs.getString("descripcionProductoGeneral"));
+                unProductoD.setPrecioProducto(rs.getDouble("precioProducto"));
+                unProductoD.setIdProductoD(rs.getInt("idProductoD"));
+                unProductoD.setNombreImagen(rs.getString("nombreImagen"));
+                
+                
+                System.out.println("datos en producto deseado: ");
+                System.out.println(rs.getInt("idProducto"));
+                System.out.println(rs.getInt("idProductoD"));
+                
+                
+                
+                
+                
                 
                 listaDeseados.add(unProductoD);
             }
@@ -193,10 +257,13 @@ public class ProductoDeseado {
                PreparedStatement sql;
                if (opcion.equals("Eliminar")) {
                    //se elimina un solo produto 
-                  sql = Conexion.conectar().prepareStatement(" DELETE FROM "+this.getClass().getSimpleName()+" WHERE idProductoD=?");
+                  sql = Conexion.conectar().prepareStatement("DELETE FROM "+this.getClass().getSimpleName()+" WHERE idProducto = ?");
                
-                sql.setInt(1,this.getIdProductoD());
-
+                  
+                    System.out.println(this.getIdProducto()+" el id en funcion ");
+                    
+                    sql.setInt(1, this.getIdProducto());
+                    
                 System.out.println(this.getClass().getSimpleName()+" Eliminado correctamente un producto");
                    
                    
@@ -221,23 +288,37 @@ public class ProductoDeseado {
        }
          
          
-      public int contarValores(){
-      
+      public int contarValores(int idPersona){
+          
+          int valorBD = 0;
+          
           try {
               
-              String consulta = "SELECT COUNT(*) FROM productodeseado WHERE idPersona=?";
-            PreparedStatement sqlContar = Conexion.conectar().prepareStatement(consulta);
+              
+              String consulta = "SELECT COUNT(*) AS contar FROM productodeseado WHERE idPersona=?";
+              PreparedStatement sqlContar = Conexion.conectar().prepareStatement(consulta);
+              
+              sqlContar.setInt(1, idPersona);
+                     
               
               
               
-          } catch (Exception e) {
+              ResultSet rs = sqlContar.executeQuery();// el execute query hace parte STETAMENT
               
+              if (rs.next()) {
+                  valorBD = rs.getInt("contar");
+              }
+              
+          } catch (Exception error) {
+              
+              
+              System.out.println("Error en la consulta "+error.getMessage());
               
               
           }
           
           
-          return 0;
+          return valorBD;
       
       }
          
