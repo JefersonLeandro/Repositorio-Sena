@@ -1,0 +1,927 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
+ */
+package vista;
+
+import controlador.controladorFarmacia;// Cambiar
+import controlador.controladorPersona;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
+import modelo.ConexionBD;
+import modelo.Farmacia;
+import modelo.Persona;
+import org.mindrot.jbcrypt.BCrypt;
+import static vista.Index.panelGeneral;
+import static vista.Index.panelSecundario;
+import static vista.Registro.unAreaADM;
+
+/**
+ *
+ * @author ADMON
+ */
+public class DatosPersona extends javax.swing.JInternalFrame {
+    
+    
+//    objetos Globales
+    controladorPersona controlarPersona = new controladorPersona();
+    DefaultTableModel tabla; 
+    DatosTipoPersona ventanaTipoPersona;
+    
+//  variables Globales 
+   private int idTipoPersona;
+   private String tipoPersona; 
+   private String contrasenaPersona;
+   private String contrasenaEncriptada;
+   private int primerCaracterID;
+    
+    
+    public DatosPersona() {
+        initComponents();
+        cargarMetodos();
+    }
+    
+    private void cargarMetodos (){
+        
+        agregarImgs();
+        funcionesExtras();
+        llenarTabla();
+        llenarCCBIdTipoPersona();
+    };
+    
+
+
+
+   
+    
+
+    private void agregarImgs() {
+        // icono de la persona a la  izquierda
+        
+        ImageIcon importarIconoP = (new ImageIcon("imgs/persona.png"));
+        JLabel personaImg =new JLabel();
+        personaImg.setIcon(new ImageIcon(importarIconoP.getImage().getScaledInstance(50,38, Image.SCALE_SMOOTH)));
+        personaImg.setBounds(130,46,50,38);
+        panelPersona.add(personaImg);
+        
+        // icono del logo abajo
+        ImageIcon importarIcono2 = (new ImageIcon("imgs/logoQ1.png"));
+        JLabel logoF =new JLabel();
+        logoF.setIcon(new ImageIcon(importarIcono2.getImage().getScaledInstance(32,32, Image.SCALE_SMOOTH)));
+        logoF.setBounds(743,743,32,32);
+        panelPersona.add(logoF);
+        
+        // icono de la flecha a la izquierda
+        ImageIcon importarFlecha = (new ImageIcon("imgs/flechaIzq.png"));
+        JLabel iconoFlecha = new JLabel();
+        iconoFlecha.setIcon(new ImageIcon(importarFlecha.getImage().getScaledInstance(33,33, Image.SCALE_SMOOTH)));
+        iconoFlecha.setBounds(20,25,33,33);
+        iconoFlecha.setCursor( new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR){});// curso de la mano
+        panelPersona.add(iconoFlecha);
+        
+        //eventos de escucha de la imagen registro
+        
+        iconoFlecha.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                retornarAreaAdministracion();    
+            }
+        }
+        );
+    }
+    
+    private void funcionesExtras(){
+        
+       this.setBounds(30, 6, this.getWidth(), this.getHeight());
+       spinnerId.setVisible(false);// cambiar 
+       btnModificar.setEnabled(false);
+       btnEliminar.setEnabled(false);
+       
+    }
+    
+    private void retornarAreaAdministracion(){
+        this.setVisible(false);
+        unAreaADM.setVisible(true);
+    }
+
+    private void llenarCCBIdTipoPersona() {
+        // cuando se esta haciendo una consulta a la base de datos el sistema obliga a poner un try a catch para manejar la parte de los errores de la consulta
+        try {
+            
+            String consulta = "SELECT idTipoPersona, nombreTipoPersona from tipoPersona"; 
+    
+            PreparedStatement sentenciaSQL = ConexionBD.conexion.prepareStatement(consulta); // se envia los  datos a la base de datos para hacer la consulta
+            ResultSet resultSet = sentenciaSQL.executeQuery();
+         
+            // llegan los datos de uno en uno  y a la misma vez va llenando el JcomboBox
+            while(resultSet.next()){ // mientras haiga otro resultado en la base de datos repita y haga lo mismo 
+
+                idTipoPersona = resultSet.getInt("idTipoPersona");
+                tipoPersona = resultSet.getString("nombreTipoPersona");
+                cbbIdTipoPersona.addItem(idTipoPersona+". "+tipoPersona);// se agrega directamente lo que trajo el resultado de la consulta
+            }
+            
+            
+        } catch (Exception error) {
+            System.out.println("Error con la consulta : "+error);
+        }
+    }
+   
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        panelPersona = new javax.swing.JPanel();
+        vSuperOfertas = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        txtNombrePersona = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtApellidoPersona = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtIdentificacionPersona = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtCorreoPersona = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        btnInsertar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        labelFarmacit = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        txtBuscar = new javax.swing.JTextField();
+        spinnerId = new javax.swing.JSpinner();
+        btnBuscar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaDatosPersona = new javax.swing.JTable();
+        txtTelefonoPersona = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtContrasenaPersona = new javax.swing.JTextField();
+        cbbIdTipoPersona = new javax.swing.JComboBox<>();
+        tablasRelacionales = new javax.swing.JLabel();
+        radioBtn = new javax.swing.JRadioButton();
+
+        setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
+
+        panelPersona.setBackground(new java.awt.Color(255, 255, 255));
+
+        vSuperOfertas.setFont(new java.awt.Font("PT Sans Narrow", 0, 35)); // NOI18N
+        vSuperOfertas.setText("Personas");
+        vSuperOfertas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        vSuperOfertas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                vSuperOfertasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                vSuperOfertasMouseExited(evt);
+            }
+        });
+
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel6.setFont(new java.awt.Font("PT Sans Narrow", 0, 22)); // NOI18N
+        jLabel6.setText("nombrePersona");
+
+        txtNombrePersona.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtNombrePersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombrePersonaActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("PT Sans Narrow", 0, 22)); // NOI18N
+        jLabel10.setText("apellidoPersona");
+
+        txtApellidoPersona.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtApellidoPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoPersonaActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("PT Sans Narrow", 0, 22)); // NOI18N
+        jLabel7.setText("identificacionPersona");
+
+        txtIdentificacionPersona.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtIdentificacionPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdentificacionPersonaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("PT Sans Narrow", 0, 22)); // NOI18N
+        jLabel8.setText("correoPersona");
+
+        txtCorreoPersona.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtCorreoPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorreoPersonaActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("PT Sans Narrow", 0, 22)); // NOI18N
+        jLabel9.setText("IdTipoPersona");
+
+        btnInsertar.setBackground(new java.awt.Color(0, 102, 255));
+        btnInsertar.setFont(new java.awt.Font("PT Sans Narrow", 0, 18)); // NOI18N
+        btnInsertar.setText("Insertar");
+        btnInsertar.setActionCommand("Registrar");
+        btnInsertar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInsertar.setName("Registrar"); // NOI18N
+        btnInsertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertarActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setBackground(new java.awt.Color(0, 102, 255));
+        btnLimpiar.setFont(new java.awt.Font("PT Sans Narrow", 0, 18)); // NOI18N
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setBackground(new java.awt.Color(0, 102, 255));
+        btnEliminar.setFont(new java.awt.Font("PT Sans Narrow", 0, 18)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setToolTipText("");
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.setName("Eliminar"); // NOI18N
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setBackground(new java.awt.Color(0, 102, 255));
+        btnModificar.setFont(new java.awt.Font("PT Sans Narrow", 0, 18)); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("PT Sans Narrow", 0, 24)); // NOI18N
+        jLabel11.setText("Ingresar una Persona");
+
+        labelFarmacit.setFont(new java.awt.Font("PT Sans Narrow", 0, 30)); // NOI18N
+        labelFarmacit.setText("Farmacit");
+        labelFarmacit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelFarmacit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelFarmacitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                labelFarmacitMouseExited(evt);
+            }
+        });
+
+        jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator4.setForeground(new java.awt.Color(18, 13, 13));
+
+        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtBuscar.setFont(new java.awt.Font("PT Sans Narrow", 0, 18)); // NOI18N
+        txtBuscar.setText("  Buscar una Persona");
+        txtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        spinnerId.setEnabled(false);
+
+        btnBuscar.setText("buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        tablaDatosPersona.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "idPersona", "nombrePersona", "apellidoPersona", "identificacionPersona", "correoPersona", "telefonoPersona", "contrasenaPersona", "idTipoPersona"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaDatosPersona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaDatosPersonaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tablaDatosPersona);
+
+        txtTelefonoPersona.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtTelefonoPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoPersonaActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("PT Sans Narrow", 0, 22)); // NOI18N
+        jLabel12.setText("telefonoPersona");
+
+        jLabel13.setFont(new java.awt.Font("PT Sans Narrow", 0, 22)); // NOI18N
+        jLabel13.setText("contrasenaPersona");
+
+        txtContrasenaPersona.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtContrasenaPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContrasenaPersonaActionPerformed(evt);
+            }
+        });
+
+        cbbIdTipoPersona.setBackground(new java.awt.Color(255, 248, 253));
+        cbbIdTipoPersona.setFont(new java.awt.Font("PT Sans Narrow", 0, 14)); // NOI18N
+        cbbIdTipoPersona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona" }));
+        cbbIdTipoPersona.setBorder(null);
+        cbbIdTipoPersona.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        tablasRelacionales.setFont(new java.awt.Font("PT Sans Narrow", 0, 18)); // NOI18N
+        tablasRelacionales.setText("- Tabla tipo de personas");
+        tablasRelacionales.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tablasRelacionales.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablasRelacionalesMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tablasRelacionalesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tablasRelacionalesMouseExited(evt);
+            }
+        });
+
+        radioBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radioBtnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelPersonaLayout = new javax.swing.GroupLayout(panelPersona);
+        panelPersona.setLayout(panelPersonaLayout);
+        panelPersonaLayout.setHorizontalGroup(
+            panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPersonaLayout.createSequentialGroup()
+                .addGap(185, 185, 185)
+                .addComponent(vSuperOfertas)
+                .addGap(134, 134, 134)
+                .addComponent(tablasRelacionales)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscar)
+                .addGap(192, 192, 192))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                .addContainerGap(114, Short.MAX_VALUE)
+                .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                            .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(80, 80, 80))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                                    .addComponent(spinnerId, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(107, 107, 107)
+                                    .addComponent(radioBtn)
+                                    .addGap(12, 12, 12))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                                    .addComponent(txtNombrePersona, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(46, 46, 46)))
+                            .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(panelPersonaLayout.createSequentialGroup()
+                                    .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtContrasenaPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtApellidoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(panelPersonaLayout.createSequentialGroup()
+                                            .addComponent(jLabel10)
+                                            .addGap(37, 37, 37)))
+                                    .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelPersonaLayout.createSequentialGroup()
+                                            .addGap(68, 68, 68)
+                                            .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(txtIdentificacionPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(panelPersonaLayout.createSequentialGroup()
+                                                    .addComponent(jLabel7)
+                                                    .addGap(19, 19, 19))))
+                                        .addGroup(panelPersonaLayout.createSequentialGroup()
+                                            .addGap(86, 86, 86)
+                                            .addComponent(cbbIdTipoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(62, 62, 62))
+                                .addGroup(panelPersonaLayout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addGap(131, 131, 131)
+                                    .addComponent(jLabel9)
+                                    .addGap(103, 103, 103)))
+                            .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addGap(90, 90, 90))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                                    .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(panelPersonaLayout.createSequentialGroup()
+                                                .addComponent(btnModificar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnLimpiar))
+                                            .addGroup(panelPersonaLayout.createSequentialGroup()
+                                                .addComponent(btnInsertar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnEliminar)))
+                                        .addComponent(txtCorreoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(64, 64, 64)))
+                            .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTelefonoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panelPersonaLayout.createSequentialGroup()
+                                    .addGap(24, 24, 24)
+                                    .addComponent(jLabel12)))
+                            .addGap(176, 176, 176))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(82, 82, 82))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                            .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 1363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(56, 56, 56))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addGap(649, 649, 649))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                            .addComponent(labelFarmacit)
+                            .addGap(659, 659, 659)))))
+            .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonaLayout.createSequentialGroup()
+                    .addContainerGap(79, Short.MAX_VALUE)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 1367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(55, 55, 55)))
+        );
+        panelPersonaLayout.setVerticalGroup(
+            panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPersonaLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPersonaLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(vSuperOfertas, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tablasRelacionales, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar)))
+                .addGap(62, 62, 62)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelPersonaLayout.createSequentialGroup()
+                        .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelPersonaLayout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtCorreoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtIdentificacionPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtApellidoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombrePersona, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTelefonoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(25, 25, 25)
+                        .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbbIdTipoPersona, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(radioBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtContrasenaPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(spinnerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(panelPersonaLayout.createSequentialGroup()
+                        .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnInsertar)
+                            .addComponent(btnEliminar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnModificar)
+                            .addComponent(btnLimpiar))))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelFarmacit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(panelPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelPersonaLayout.createSequentialGroup()
+                    .addGap(92, 92, 92)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(684, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(panelPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelPersona, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void txtContrasenaPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContrasenaPersonaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContrasenaPersonaActionPerformed
+
+    private void txtTelefonoPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoPersonaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoPersonaActionPerformed
+
+    private void tablaDatosPersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDatosPersonaMouseClicked
+        // TODO add your handling code here:
+
+        Farmacia estaFarmacia =new Farmacia();
+        if (evt.getClickCount()==2) {
+            int fila = tablaDatosPersona.rowAtPoint(evt.getPoint());
+
+            if(fila > -1){
+
+                spinnerId.setValue((Integer) tablaDatosPersona.getValueAt(fila,0));
+                txtNombrePersona.setText(((String) tablaDatosPersona.getValueAt(fila,1)));
+                txtApellidoPersona.setText((String) tablaDatosPersona.getValueAt(fila,2));
+                txtIdentificacionPersona.setText((String) tablaDatosPersona.getValueAt(fila,3));
+                txtCorreoPersona.setText((String) tablaDatosPersona.getValueAt(fila,4));
+                txtTelefonoPersona.setText((String) tablaDatosPersona.getValueAt(fila,5));
+                txtContrasenaPersona.setText((String) tablaDatosPersona.getValueAt(fila,6));
+//                cbbIdTipoPersona.setSelectedIndex((int) tablaDatosPersona.getValueAt(fila, 7));
+                
+                System.out.println( (int) tablaDatosPersona.getValueAt(fila, 7)+" este el numero traido de la tabla : ");
+                int idTPTabla =  (int) tablaDatosPersona.getValueAt(fila, 7); 
+                
+                // traer todas las opciones y buscar o iterar sobre ellas para bucar el numero que coincida con el traido con la tabla 
+                
+                System.out.println("Opciones en el JComboBox:");
+               
+               // CREO QUE HACIENDO LO CON OBJETOS COMO ESTA EN LA GUIA SE PODRIA SELECIONAR LA OPCION DE MANERA MAS FACIL LA MANERA RECOMENDADA DE HACERLO ES CON OBJETOS RECUERDE Y NO CON CADENAS ANQUE TAMBIEN SE PUEDE TRABAJAR COMO YO LO HIZE 
+
+                int itemCount = cbbIdTipoPersona.getItemCount();
+                for (int i = 0; i < itemCount; i++) {
+                    String opcion = (String) cbbIdTipoPersona.getItemAt(i);
+                    System.out.println(opcion);
+                    
+                    // extrer el numero de la cadena de texto del comboBOX
+                     Pattern pattern = Pattern.compile("\\d+"); // Expresión regular para encontrar uno o más dígitos
+                     Matcher matcher = pattern.matcher(opcion);
+            
+                    while (matcher.find()) {
+
+                        String numeroFinal = matcher.group();
+                        System.out.println("Valor numérico encontrado: " + numeroFinal);
+                        int castiarNumero = (int) Integer.parseInt(numeroFinal);
+                        
+                        if (idTPTabla==castiarNumero) {
+                            
+                            System.out.println("somos iguales ");
+                            cbbIdTipoPersona.setSelectedItem(cbbIdTipoPersona.getItemAt(i));
+                        } else {
+                            
+                            System.out.println("ninguno fue igual ");
+                            
+                        }   
+                    }   
+                }
+                // este caso tengo que asignarle el numero que esta en la tabla al jCombo 
+                btnModificar.setEnabled(true);
+                btnEliminar.setEnabled(true);
+                txtContrasenaPersona.setEnabled(false);// mirar para cuando salga de los dos click 
+
+                System.out.println("dentre a la funcion llenar la tabla con dos click");
+                //                BTNModificar.setVisible(true);
+                //                BTNModificar.seetrue);
+        }//   17/10/2024 tenemos dos anos para para la practica enviar correo en el momento de entrar a practicas tiene que enviar un correo al sena para pedir instructor de seguimiento.
+        // el id se esta pasando como cero hay que crear un objeto de la clase farmacia y traerlo y asinarselo ahi o mirar como lo hace en la guia
+        }
+    }//GEN-LAST:event_tablaDatosPersonaMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        llenarTablaConBusqueda(txtBuscar.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void labelFarmacitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFarmacitMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelFarmacitMouseExited
+
+    private void labelFarmacitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFarmacitMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelFarmacitMouseEntered
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        controlarPersona.controlarAccion(evt, obtenerPersona());
+        limpiarDatosPersona();
+        tabla.setRowCount(0);
+        llenarTabla();
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        controlarPersona.controlarAccion(evt, obtenerPersona());
+        limpiarDatosPersona();
+        tabla.setRowCount(0);
+        llenarTabla();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarDatosPersona();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
+        tabla.setRowCount(0);
+        controlarPersona.controlarAccion(evt, obtenerPersona());
+        System.out.println("Dentre al boton ingresar");
+        limpiarDatosPersona();
+        llenarTabla();
+    }//GEN-LAST:event_btnInsertarActionPerformed
+
+    private void txtCorreoPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoPersonaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoPersonaActionPerformed
+
+    private void txtIdentificacionPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionPersonaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdentificacionPersonaActionPerformed
+
+    private void txtApellidoPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoPersonaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoPersonaActionPerformed
+
+    private void txtNombrePersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombrePersonaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombrePersonaActionPerformed
+
+    private void vSuperOfertasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vSuperOfertasMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vSuperOfertasMouseExited
+
+    private void vSuperOfertasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vSuperOfertasMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vSuperOfertasMouseEntered
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        // TODO add your handling code here:
+         panelSecundario.setVisible(true);
+    }//GEN-LAST:event_formInternalFrameClosed
+
+    private void tablasRelacionalesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablasRelacionalesMouseEntered
+        tablasRelacionales.setForeground(Color.blue);
+    }//GEN-LAST:event_tablasRelacionalesMouseEntered
+
+    private void tablasRelacionalesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablasRelacionalesMouseExited
+        tablasRelacionales.setForeground(Color.black);
+    }//GEN-LAST:event_tablasRelacionalesMouseExited
+
+    private void tablasRelacionalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablasRelacionalesMouseClicked
+    
+        ventanaTipoPersona = new DatosTipoPersona();
+        this.dispose();
+        ventanaTipoPersona.setVisible(true);
+        panelGeneral.add(ventanaTipoPersona);
+        panelSecundario.setVisible(false);
+        this.setVisible(false);
+    }//GEN-LAST:event_tablasRelacionalesMouseClicked
+
+    private void radioBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radioBtnMouseClicked
+        txtContrasenaPersona.setEnabled(true);
+        
+        if (evt.getClickCount()==2) {
+            txtContrasenaPersona.setEnabled(false);
+        }
+    }//GEN-LAST:event_radioBtnMouseClicked
+    private void limpiarDatosPersona(){
+        
+        txtNombrePersona.setText("");
+        txtApellidoPersona.setText("");
+        txtIdentificacionPersona.setText("");
+        txtTelefonoPersona.setText("");
+        txtCorreoPersona.setText("");
+        txtContrasenaPersona.setText("");
+        cbbIdTipoPersona.setSelectedIndex(0);
+//      llenarTabla();
+        
+    }
+    
+    private void llenarTabla(){// cambiar
+        
+        Persona unaPersona = new Persona();
+        tabla = (DefaultTableModel)tablaDatosPersona.getModel();
+        tabla.setRowCount(0); 
+        Iterator<Persona> itPersona = unaPersona.Listar();
+        Object[] filaPersona = new Object[8];
+        
+        while (itPersona.hasNext()) {
+            
+            unaPersona = itPersona.next();
+            filaPersona[0] = unaPersona.getIdPersona();
+            filaPersona[1] = unaPersona.getNombrePersona();
+            filaPersona[2] = unaPersona.getApellidoPersona();
+            filaPersona[3] = unaPersona.getIdentificacionPersona();
+            filaPersona[4] = unaPersona.getCorreoPersona();
+            filaPersona[5] = unaPersona.getTelefonoPersona();
+            filaPersona[6] = unaPersona.getContrasenaPersona();
+            filaPersona[7] = unaPersona.getIdTipoPersona();
+            
+            tabla.addRow(filaPersona);
+          
+        }
+    }
+    
+        
+    private Persona obtenerPersona (){
+        // LO COMBINIENTE PARA INSERTAR DATOS Y TRAER DATOS DE UN Jcombo BOX Se hace por medio de LOS OBJECTOS QUE ES LO MAS RECOMENDABLE Y NO COMO YO LO HIZE ANQUE TAMBIEN FUNCIONA 
+        String idCBB = (String) cbbIdTipoPersona.getSelectedItem();// se obtiene la cadena selecionada ej : 2.proveedor 
+        contrasenaPersona = txtContrasenaPersona.getText();// se toma el primer carater de la cadena para poder asignarlo al momento de enviar los datos a traves de la consulta                                                      
+
+//        int primerCaracterID = Character.getNumericValue(idCBB.charAt(0));// se toma el primer caracter de la cadena en este caso 2 ya que es el primero de la cadena 2.proveedor en este caso no sirve asi porque solamente es el 2 pero si hibiea un 122 no sirve porque solamente tomaria el (1) y se necesita el 122 completo
+
+                // para sulucionar el anterior error se hace esta manera para extraer los numeros de una cadena : 
+                //Puedes llamar repetidamente a find() para encontrar todas las coincidencias en la cadena.
+
+                //Después de cada llamada exitosa a find(), puedes usar group() para obtener el valor coincidente.
+
+                //Si no encuentra más coincidencias, find() devuelve false.
+//
+                 Pattern pattern = Pattern.compile("\\d+"); // Expresión regular para encontrar uno o más dígitos
+                 Matcher matcher = pattern.matcher(idCBB);
+                 
+                 
+            
+                while (matcher.find()) {
+                    
+                    String numeroFinal = matcher.group();
+                    System.out.println("Valor numérico encontrado: " + numeroFinal);
+                    primerCaracterID = (int) Integer.parseInt(numeroFinal);
+                }
+
+
+
+
+
+        Persona laPersona = new Persona();
+        
+        laPersona.setIdPersona((Integer)spinnerId.getValue());
+        laPersona.setNombrePersona(txtNombrePersona.getText());
+        laPersona.setApellidoPersona(txtApellidoPersona.getText());
+        laPersona.setIdentificacionPersona(txtIdentificacionPersona.getText());
+        laPersona.setCorreoPersona(txtCorreoPersona.getText());
+        laPersona.setTelefonoPersona(txtTelefonoPersona.getText());
+        
+        //EncritarContrasena
+        contrasenaEncriptada = BCrypt.hashpw(contrasenaPersona, BCrypt.gensalt());// se le pasa una variable la contrsena encriptada teniendo encuenta el metodo que le esta encriptando tiniendo en cuenta que se le esta agregado sal o salting
+
+        System.out.println("Contraseña en texto claro: " + contrasenaPersona);
+        System.out.println("Contraseña encriptada de vista datos PERSONA: " + contrasenaEncriptada);
+        laPersona.setContrasenaPersona(contrasenaEncriptada);
+        
+        laPersona.setIdTipoPersona(primerCaracterID);
+        
+        System.out.println((int) idCBB.charAt(0)+" soy el id del combo box selecionado");
+        // aca se debe mirar el jCombo box porque acuerdese que se le agrego dos datos en una opcion , tomar el primer dato que seria el numero y si es necesario convertirlo y ya
+//        System.out.println((int) a.charAt()+" soy yo "); // .charAt(0)
+        
+        return (laPersona);
+    }
+    
+     private void llenarTablaConBusqueda(String busqueda){
+        
+        Persona unaPersona =new Persona();
+        DefaultTableModel tabla = (DefaultTableModel)tablaDatosPersona.getModel();
+        Iterator<Persona> itPersona = unaPersona.buscar(busqueda);
+        Object[] filaPersona = new Object [8];
+        
+        tabla.setRowCount(0); // es para limpiar la tabla 
+        
+        while (itPersona.hasNext()){
+            
+            unaPersona = itPersona.next();
+            filaPersona[0] = unaPersona.getIdPersona();
+            filaPersona[1] = unaPersona.getNombrePersona();
+            filaPersona[2] = unaPersona.getApellidoPersona();
+            filaPersona[3] = unaPersona.getIdentificacionPersona();
+            filaPersona[4] = unaPersona.getCorreoPersona();
+            filaPersona[5] = unaPersona.getTelefonoPersona();
+            filaPersona[6] = unaPersona.getContrasenaPersona();
+            filaPersona[7] = unaPersona.getIdTipoPersona();
+            
+            tabla.addRow(filaPersona);
+        
+        }
+        
+//      
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnInsertar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbbIdTipoPersona;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel labelFarmacit;
+    private javax.swing.JPanel panelPersona;
+    private javax.swing.JRadioButton radioBtn;
+    private javax.swing.JSpinner spinnerId;
+    private javax.swing.JTable tablaDatosPersona;
+    private javax.swing.JLabel tablasRelacionales;
+    private javax.swing.JTextField txtApellidoPersona;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtContrasenaPersona;
+    private javax.swing.JTextField txtCorreoPersona;
+    private javax.swing.JTextField txtIdentificacionPersona;
+    private javax.swing.JTextField txtNombrePersona;
+    private javax.swing.JTextField txtTelefonoPersona;
+    private javax.swing.JLabel vSuperOfertas;
+    // End of variables declaration//GEN-END:variables
+}
